@@ -1,0 +1,261 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/new_pingstart/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<link rel="stylesheet" href="${css.new_pingstart_bootstrap_datetimepicker_min}" />
+<link rel="stylesheet" href="${css.new_pingstart_daterangepicker}" />
+</%block>
+<!--begin:主体内容-->
+<div>
+    <div ms-controller="report">
+    <div class="container report_nav" id="reported">
+        <div id="btn_overview">
+            <h4 class="text-color">Overview</h4>
+        </div>
+        <div id="btn_stats" ms-click="get_report_stats">
+            <h4>Stats</h4>
+        </div>
+    </div>
+    <!--标签页1-->
+    <div id="overview">
+        <div class="container" style="width: 100%;padding: 0px;">
+            <div id="overview_bg1" >
+            <div  class="container">
+              <h3>Total</h3>
+              <!--<p>update:2016-03-03</p>-->
+              <div class="row gray_bg">
+                  <ol class="col-xs-4">
+                      <li ><h2 class="stats_num">$ {{overview.overview_total_data.show_revenue | number(decimals=2)}}</h2></li>
+                      <li class="stats_desc">REVENUE</li>
+                  </ol>
+                  <ol class="col-xs-4 border-center">
+                      <li ><h2 class="stats_num">$ {{overview.overview_total_data.CPC | number(decimals=2)}}</h2></li>
+                      <li class="stats_desc">CPC</li>
+                  </ol>
+                  <ol class="col-xs-4">
+                      <li ><h2 class="stats_num">$ {{overview.overview_total_data.eCPM | number(decimals=2)}}</h2></li>
+                      <li class="stats_desc">eCPM</li>
+                  </ol>
+              </div>
+              <h3>PingStart</h3>
+              <!--<p>update:2016-03-03</p>-->
+              <div class="row gray_bg">
+                  <ol class="col-xs-4">
+                      <li ><h2 class="stats_num">$ {{overview.overview_ps_data.show_revenue | number(decimals=2)}}</h2></li>
+                      <li class="stats_desc">REVENUE</li>
+                  </ol>
+                  <ol class="col-xs-4 border-center">
+                      <li ><h2 class="stats_num">$ {{overview.overview_ps_data.CPC | number(decimals=2)}}</h2></li>
+                      <li class="stats_desc">CPC</li>
+                  </ol>
+                  <ol class="col-xs-4">
+                      <li ><h2 class="stats_num">$ {{overview.overview_ps_data.eCPM | number(decimals=2)}}</h2></li>
+                      <li class="stats_desc">eCPM</li>
+                  </ol>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!--标签页2-->
+    <div id="stats">
+        <div  class="container" style="z-index: 10">
+            <ol class="row" id="row_ol">
+                <li class="col-xs-3">
+                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px; border: 1px solid #ccc; width: 100%">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                        <span></span><b class="caret"></b>
+                    </div>
+                </li>
+                <li class="col-xs-3">
+                    <a id="date" class="data_style btn report_btn" ms-click="get_report_stats">Date</a>
+                    <a id="country" class="btn right_border_none report_btn" ms-click="get_report_stats_country">Country</a>
+                    <a id="slot" class="btn left_border_none report_btn" ms-click="get_report_stats_slot">Slot</a>
+                </li>
+                <li class="col-xs-2 col-xs-push-4 text-center">
+                    <select name="" ms-change="slot_change()" ms-duplex="slot" id="report_stats_select">
+                        <option value="">Overall Slots</option>
+                        <option ms-repeat="slots" ms-attr-value="el._id">{{el.name}}</option>
+                    </select>
+                    <!--<form >-->
+                        <!--<a class="btn-select" id="btn_select"ms-change="slot_change()">-->
+                            <!--<span class="cur-select">Overall Slots</span>-->
+                            <!--<select  ms-duplex="slot" id="report_stats_select">-->
+                                <!--<option ms-repeat="slots" ms-attr-value="el._id">{{el.name}}</option>-->
+                            <!--</select>-->
+                        <!--</a>-->
+                    <!--</form>-->
+                </li>
+            </ol>
+            <div id="stats_list">
+               <dl>
+                   <dd>Revenue($)</dd>
+                   <dd class="font-bg">{{total_datas.show_revenue | number(decimals=2)}}</dd>
+               </dl>
+                <dl>
+                   <dd>Impressions</dd>
+                   <dd class="font-bg">{{total_datas.impression | number(decimals=0)}}</dd>
+               </dl>
+               <dl id="spe_ol">
+                   <dd>eCPM($)</dd>
+                   <dd class="font-bg">{{total_datas.eCPM | number(decimals=2)}}</dd>
+               </dl>
+               <dl>
+                   <dd>Fill Rate(%)</dd>
+                   <dd class="font-bg">{{total_datas.FillRate | number(decimals=2)}}</dd>
+               </dl>
+               <dl>
+                   <dd>CTR(%)</dd>
+                   <dd class="font-bg">{{total_datas.CTR | number(decimals=2)}}</dd>
+               </dl>
+                <dl>
+                   <dd>CPC</dd>
+                   <dd class="font-bg">{{total_datas.CPC}}</dd>
+               </dl>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul id="btn-box">
+                        <li ><span id="show_revenue" class="btn_bg_color">Revenue</span></li>
+                        <li ><span id="request">Request</span></li>
+                        <li ><span id="fill">Fill</span></li>
+                        <li ><span id="impression">Impressions</span></li>
+                        <li ><span id="eCPM">eCPM</span></li>
+                        <li ><span id="CPC">CPC</span></li>
+                        <li ><span id="CTR">CTR</span></li>
+                        <li ><span id="FillRate">Fill Rate</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="container"></div>
+                </div>
+            </div>
+            <div class="row">
+                <!--<div class="col-xs-11">-->
+                    <!--<h3 style="font-size: 22px">Details</h3>-->
+                <!--</div>-->
+                <div class="col-xs-11">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" id="all" ms-click="click_all"><a href="#" style="color:#216fc8">ALL</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-1">
+                    <span id="export">Export</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-striped table-bordered text-center" id="report_table">
+                        <thead>
+                            <tr>
+                                <td ms-click="sort('table', 'createdTime')" ms-if="date_or_country=='date'">Date</td>
+                                <td ms-click="sort('table', 'country')" ms-if="date_or_country=='country'">Country</td>
+                                <td ms-click="sort('table', 'slot_id')" ms-if="date_or_country=='slot'">Slot ID</td>
+                                <td ms-click="sort('table', 'name')" ms-if="date_or_country=='slot'">Slot Name</td>
+                                <td ms-click="sort('table', 'show_revenue')">Revenue</td>
+                                <td ms-click="sort('table', 'request')">Request</td>
+                                <td ms-click="sort('table', 'fill')">Fill</td>
+                                <td ms-click="sort('table', 'impression')">Impressions</td>
+                                <td ms-click="sort('table', 'show_click')">Click</td>
+                                <td ms-click="sort('table', 'CPC')">CPC</td>
+                                <td ms-click="sort('table', 'eCPM')">ECPM</td>
+                                <td ms-click="sort('table', 'CTR')">CTR(%)</td>
+                                <td ms-click="sort('table', 'FillRate')">Fill Rate(%)</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ms-repeat="table">
+                            <td ms-if="date_or_country=='date'">{{el.createdTime}}</td>
+                            <td ms-if="date_or_country=='country'">{{el.country}}{{el.full_country?'('+el.full_country+')':''}}</td>
+                            <td ms-if="date_or_country=='slot'">{{el.slot_id}}</td>
+                            <td ms-if="date_or_country=='slot'">{{el.name}}</td>
+                            <td>{{el.show_revenue | number(decimals=2)}}</td>
+                            <td>{{el.request | number(decimals=0)}}</td>
+                            <td>{{el.fill | number(decimals=0)}}</td>
+                            <td>{{el.impression | number(decimals=0)}}</td>
+                            <td>{{el.show_click | number(decimals=0)}}</td>
+                            <td>{{el.CPC | number(decimals=2)}}</td>
+                            <td>{{el.eCPM | number(decimals=2)}}</td>
+                            <td>{{el.CTR | number(decimals=2)}}</td>
+                            <td>{{el.FillRate | number(decimals=2)}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot class="total_footer">
+                            <tr>
+                                <td>Total</td>
+                                <td ms-if="date_or_country=='slot'">{{foot.name}}</td>
+                                <td>{{foot.show_revenue | number(decimals=2)}}</td>
+                                <td>{{foot.request | number(decimals=0)}}</td>
+                                <td>{{foot.fill | number(decimals=0)}}</td>
+                                <td>{{foot.impression | number(decimals=0)}}</td>
+                                <td>{{foot.show_click | number(decimals=0)}}</td>
+                                <td>{{foot.CPC | number(decimals=2)}}</td>
+                                <td>{{foot.eCPM | number(decimals=2)}}</td>
+                                <td>{{foot.CTR | number(decimals=2)}}</td>
+                                <td>{{foot.FillRate | number(decimals=2)}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.new_pingstart_jquery_blockUI}"></script>
+<script src="${js.new_pingstart_daterangepicker}"></script>
+<script src="${js.new_pingstart_date}"></script>
+<script src="${js.new_pingstart_pingstart_pingstart}"></script>
+<script src="${js.new_pingstart_highcharts}"></script>
+<script src="${js.new_pingstart_exporting}"></script>
+<script src="${js.new_pingstart_Blob}"></script>
+<script src="${js.new_pingstart_FileSaver}"></script>
+<script src="${js.new_pingstart_tableExport}"></script>
+<script src="${js.new_pingstart_pingstart_report}"></script>
+<script>
+    avalon.ready(
+            function(){
+                $("#report_page").addClass('action');
+                avalon.vmodels.report.slots=${json_encode(slots)|n};
+                avalon.vmodels.report.overview.overview_ps_data = ${json_encode(overview_ps_data)|n}
+                avalon.vmodels.report.overview.overview_total_data =${json_encode(overview_total_data)|n};
+                avalon.vmodels.reportcharts.button_change();
+                $('#reportrange').on('apply.daterangepicker', function(ev, picke){
+                    var time_range = $('span', this).text().split('--');
+                    avalon.vmodels.report.start = time_range[0];
+                    avalon.vmodels.report.end = time_range[1];
+                    if(avalon.vmodels.report.date_or_country == 'date'){
+                        avalon.vmodels.report.get_report_stats();
+                    }else if (avalon.vmodels.report.date_or_country == 'country'){
+                        avalon.vmodels.report.get_report_stats_country();
+                    }else {
+                        avalon.vmodels.report.get_report_stats_slot();
+                    }
+
+                })
+            },
+            $("#export").click(function(){
+                tableExport('report_table', 'ReportTable', 'csv');
+            }),
+            click_other = function(network){
+
+                avalon.vmodels.report.network_detail_data.forEach(function(e){
+                    for (k in e){
+
+                        if (network == k){
+                            avalon.vmodels.report.table = e[k][0]
+                            avalon.vmodels.report.foot = e[k][1]
+                        }
+                    }
+                })
+
+            }
+    )
+</script>
+</%block>

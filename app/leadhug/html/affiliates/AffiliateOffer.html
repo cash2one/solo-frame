@@ -1,0 +1,311 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">
+<style>
+	ul li {
+		list-style: none;
+	}
+
+	.post_back_test_div {
+		white-space:normal; word-break:break-all;overflow:hidden;
+	}
+
+</style>
+</%block>
+<div id="page-wrapper" ms-controller="offer_affiliate">
+            <div class="row">
+                <div class="col-lg-12">
+                   <!-- <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right">save</button></h1> -->
+                   <div class="main-header"><!-- <button type="button" class="btn btn-primary pull-right">save</button> --></div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                  <!--       <div class="panel-heading">
+                            form
+                        </div> -->
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <div class="row">
+                                	<div class="col-md-6">
+                                		 <div class="panel panel-default">
+											<div class="panel-heading">
+												Affiliate Detail
+											</div>
+											<!-- /.panel-heading -->
+											<div class="panel-body">
+												<div class="dataTable_wrapper">
+													<table class="table table-bordered table-striped">
+													<tbody>
+														<tr>
+															<td>ID</td>
+															<td>{{affiliate._id}}</td>
+														</tr>
+														<tr>
+															<td>Name</td>
+															<td>{{affiliate.name}}</td>
+														</tr>
+														<tr>
+															<td>Email</td>
+															<td>{{affiliate.email}}</td>
+														</tr>
+														<tr>
+															<td>Company</td>
+															<td>{{affiliate.company}}</td>
+														</tr>
+														<tr>
+															<td>Status</td>
+															<td>{{affiliate.status == '1'?'Active':'Pending'}}</td>
+														</tr>
+														<tr>
+															<td>Country</td>
+															<td>{{affiliate.country}}</td>
+														</tr>
+														<tr>
+															<td>SkypeId</td>
+															<td>{{affiliate.skype_id}}</td>
+														</tr>
+													</tbody>
+											   </table>
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												Test PostBack Url
+											</div>
+											<!-- /.panel-heading -->
+											<div class="panel-body">
+												<div class="dataTable_wrapper">
+													<table class="table table-bordered table-striped">
+														<tbody>
+															<tr>
+																<td><input class="form-control" type="input" ms-duplex="post_back.click_url" /></td>
+																<td>
+																	<button class="btn btn-primary btn-md"  ms-click="test_click">
+																		Test
+																	</button>
+																</td>
+															</tr>
+														</tbody>
+												   </table>
+												</div>
+												<div class="post_back_test_div">
+													<ul ms-repeat="post_back.redirect_url_list">
+														<li>
+															{{el.operate}}
+														</li>
+														<li>
+															<a ms-attr-href="el.url">{{el.url}}</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+                                	</div>
+                                	<div class="col-md-6">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												Offer Detail
+												<button type="button" class="btn btn-primary btn-sm pull-right" id="btn-add" data-toggle="modal" data-target=".bs-example-modal-lg" ms-click="select_plugin_multiple">add</button>
+											</div>
+											<!-- /.panel-heading -->
+											<div class="panel-body">
+												<div class="dataTable_wrapper">
+												 <table class="table table-bordered table-striped">
+													<thead>
+														<tr>
+															<th>id</th>
+															<th>offer name</th>
+															<th>payout</th>
+															<th>day cap</th>
+															<th>monthly cap</th>
+															<th>total cap</th>
+															<th>status</th>
+															<th>operation</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ms-repeat="off_affs">
+															<td>{{el.offer_id}}</td>
+															<td>{{el.offer_title}}</td>
+															<td>{{el.payout}}</td>
+															<td>{{el.day_cap}}</td>
+															<td>{{el.month_cap}}</td>
+															<td>{{el.total_cap}}</td>
+															<td>{{el.application_status}}</td>
+															<td>
+																<a href="#" ms-click="edit_off_aff(el)">
+																	<span data-toggle="modal" data-target=".edit_off_aff" >Edit</span>
+																</a>
+																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																<a href="#" ms-click="delete_off_aff(el)">
+																	Delete
+																</a>
+															</td>
+														</tr>
+													</tbody>
+											   </table>
+										   </div>
+										   </div>
+										</div>
+									</div>
+                                </div>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div class="modal-dialog modal-lg">
+				<div class="modal-content">
+				   <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Add Offer</h4>
+				   </div>
+				  <div class="modal-body">
+					  <form class="form-horizontal user_table">
+								  <div class="form-group">
+									<label class="col-sm-2 control-label">Offers</label>
+									<div class="col-sm-6" id="offer_select">
+										<select class="form-control" id="select" name="select" multiple>
+											<option class="" ms-repeat="offers" ms-attr-value="el._id">{{el.title}}</option>
+										</select>
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">payout</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.payout"  placeholder="payout">
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">day_cap</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.day_cap"  placeholder="day_cap">
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">monthly_cap</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.month_cap"  placeholder="monthly_cap">
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">total_cap</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.total_cap"  placeholder="total_cap">
+									</div>
+								  </div>
+						  		<div class="form-group">
+									<label class="col-sm-2 control-label">ApplicationStatus</label>
+									<div class="col-sm-6">
+										<select class="form-control" ms-duplex="off_aff.status">
+											<option class="" value="1">Approved</option>
+											<option class="" value="2">Pending</option>
+											<option class="" value="0">Rejected</option>
+										</select>
+									</div>
+								  </div>
+					  </form>
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-primary" ms-click="off_aff_save">Save</button>
+					  </div>
+				  </div>
+				</div>
+			</div>
+
+			<div class="modal fade edit_off_aff" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  <div class="modal-dialog modal-lg">
+				<div class="modal-content">
+				   <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="">Edit OfferAffiliate</h4>
+				   </div>
+				  <div class="modal-body">
+					  <form class="form-horizontal user_table">
+								  <div class="form-group">
+									<label class="col-sm-2 control-label">Offer</label>
+									<div class="col-sm-6">
+										<select class="form-control" id="select2" ms-duplex="off_aff.offer_id">
+											<option class="" ms-repeat="offers" ms-attr-value="el._id">{{el.title}}</option>
+										</select>
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">payout</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.payout"  placeholder="payout">
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">day_cap</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.day_cap"  placeholder="day_cap">
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">monthly_cap</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.month_cap"  placeholder="monthly_cap">
+									</div>
+								  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">total_cap</label>
+									<div class="col-sm-6">
+									  <input type="text" class="form-control" ms-duplex="off_aff.total_cap"  placeholder="total_cap">
+									</div>
+								  </div>
+						  		<div class="form-group">
+									<label class="col-sm-2 control-label">ApplicationStatus</label>
+									<div class="col-sm-6">
+										<select class="form-control" ms-duplex="off_aff.status">
+											<option class="" value="1">Approved</option>
+											<option class="" value="2">Pending</option>
+											<option class="" value="0">Rejected</option>
+										</select>
+									</div>
+								  </div>
+					  </form>
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-primary" ms-click="off_aff_update">Save</button>
+					  </div>
+				  </div>
+				</div>
+			</div>
+
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_fm_selectator_jquery}"></script>
+<script src="${js.leadhug_leadhug_offer_affiliate}"></script>
+<script>
+    avalon.ready(
+            function () {
+				avalon.vmodels.offer_affiliate.affiliate = ${json_encode(affiliate)|n};
+				avalon.vmodels.offer_affiliate.off_affs = ${json_encode(offer_affiliates)|n};
+				avalon.vmodels.offer_affiliate.get_offers();
+				$("#select").change(function(){
+					avalon.vmodels.offer_affiliate.off_aff.offer_ids=$(this).val();
+				});
+            }
+    )
+</script>
+</%block>

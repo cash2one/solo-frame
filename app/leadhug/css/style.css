@@ -1,0 +1,246 @@
+[ms-controller],[ms-important]{display:none}
+.nav>li>a {
+    padding: 15px;
+}
+ .form-area {
+    margin-bottom: 25px;
+}
+
+.label-title { font-size: 16px; line-height: 34px;}
+.select-title {margin-left: -100px;}
+
+.indent-left {
+	margin-left: 20px;
+}
+.indent-both {
+	margin-left: -20px;
+	margin-right: 20px;
+}
+
+.main-header {
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;
+        }
+.main-header::after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+}
+
+.select-control {
+    padding-left: 0;
+}
+.select-control:last-child{
+    padding: 0;
+}
+@media (min-width: 1024px){
+.modal-lg {
+    width: 1000px;
+}
+}
+.model-static .control-label{
+	  text-align: left;
+}
+
+#btn-add {
+    margin-top: -5px;
+}
+
+
+.report-import-export {
+    height: 36px;
+    background: #f5f5f5;
+    border: 1px solid #DDD;
+    border-bottom: 0;
+    padding-top: 1px;
+}
+.export-div {
+    padding-top: 3px;
+}
+.file-link {
+    background: none repeat scroll 0 0 #7e7e7e;
+    color: #fefefe;
+    font-weight: 700;
+    height: 26px !important;
+    padding: 0 12px;
+    line-height: 26px;
+    padding-top: 3px !important;
+    margin-left: 10px;
+}
+.green-export-import {
+    background: url("http://static1.fuseclick.com/public/images/iferox-sprite2.png") no-repeat scroll -335px -423px rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 15px;
+    margin-right: 4px;
+    position: relative;
+    top: 4px;
+    width: 14px;
+}
+.black-export-import {
+    display: inline-block;
+    float: left;
+    height: 15px;
+    margin-right: 3px;
+    width: 16px;
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -546px;
+}
+.edit-column .pop-link {
+    font-weight: 400;
+    color: #34495e;
+}
+.edit-column {
+    padding-top: 10px;
+}
+.edit-column-panel {
+    background-color: #f5f5f5;
+    border: 1px solid #34495e;
+    border-radius: 3px;
+    content: "";
+    max-width: 720px;
+    min-width: 360px;
+    padding: 30px 30px 10px;
+    position: absolute;
+}
+.longen-left {
+    position: relative;
+    float: right;
+    left: 30px;
+    top: -7px;
+}
+.longen-left span {
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 8px solid #34495e;
+    position: absolute;
+}
+
+.longen-left em {
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 6px solid #f5f5f5;
+    position: absolute;
+    top: 1px;
+}
+.edit-column-panel .dataItem-div {
+    content: "";
+    display: table;
+}
+.edit-column-panel ul>li {
+    float: left;
+    width: 170px;
+    padding-left: 30px;
+}
+.edit-column-panel ul {
+    border-bottom: 1px solid #34495e;
+    content: "";
+    display: table;
+    margin: 0;
+}
+.edit-column-panel ul>li.first-li {
+    width: 140px;
+    padding-left: 0;
+}
+.edit-column-panel ul>li>label {
+    color: #34495e;
+}
+.edit-column-panel .column-dataItem {
+    border-top: 1px solid #34495e;
+    min-height: 300px;
+    padding-top: 10px;
+}
+.edit-column-panel label.chbox {
+    color: #666;
+    font-weight: 400;
+    display: block;
+}
+label.chbox {
+    position: relative;
+    display: inline-block;
+    line-height: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 4px;
+    margin-right: 20px;
+    min-width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.chbox input {
+    visibility: hidden;
+    width: 20px;
+    overflow: hidden;
+    margin: 0;
+}
+.edit-column-panel label.chbox-lg-green span {
+    width: 13px;
+    height: 13px;
+}
+label.chbox-lg-green span {
+    background: none repeat scroll 0 0 #fff;
+    border-radius: 2px;
+    height: 16px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    width: 16px;
+    border: 0;
+    border: 1px solid #DDD;
+}
+label.chbox input[type=checkbox]:checked+span i {
+    -ms-filter: "alpha(opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+label.chbox-lg-green span i {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 transparent;
+    border-color: #27a15b;
+    border-image: none;
+    border-style: none none solid solid;
+    border-width: medium medium 2px 2px;
+    content: "";
+    height: 50%;
+    left: 10%;
+    opacity: 0;
+    position: absolute;
+    top: 18%;
+    transform: rotate(-45deg);
+    width: 80%;
+}
+.btn-modal-save {
+    background: #516c9a;
+    height: 32px;
+    width: 80px;
+    margin-top: 3px;
+}
+.edit-column-panel {
+    display: none;
+}
+.btn-modal-save:hover,.btn-modal-save:focus {
+    color: #fff !important;
+}
+.pop-link {
+    text-decoration: none;
+}
+.pop-link:hover,.pop-link:focus {
+    text-decoration: none;
+}
+
+.geo-info {
+    background-color: #FFF;
+    min-width: 50px;
+    min-height: 30px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    word-break: break-all;
+}

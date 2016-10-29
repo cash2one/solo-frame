@@ -1,0 +1,192 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">
+</%block>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id="page-wrapper" ms-controller="invoice_new">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right">save</button></h1> -->
+                    <div class="main-header">
+                        <button type="button" class="btn btn-primary pull-right"  ms-click="save">Save</button>
+                    </div>
+                </div><!-- /.col-lg-12 -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            form
+                        </div><!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <div class="row">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Affiliate</label>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" ms-duplex="affiliates_id" id="select" name="select" multiple>
+                                                    % for affiliate in affiliates:
+                                                        <option class="" value="${affiliate._id}">
+                                                            ${affiliate.account}
+                                                        </option>
+                                                    % endfor
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Currency</label>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" ms-duplex="currency">
+                                                    % for cur in currencys:
+                                                        <option class="form-control">
+                                                            ${cur}
+                                                        </option>
+                                                    % endfor
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-sm-2 control-label">Start Date</label>
+                                            <div class='col-sm-3'>
+												<div class="form-group">
+													<div class='input-group date' id='datetimepicker_start'>
+														<input type='text' class="form-control dp_start"/>
+														<span class="input-group-addon">
+															<span class="glyphicon glyphicon-calendar"></span>
+														</span>
+													</div>
+												</div>
+											</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">End Date</label>
+											<div class='col-sm-3'>
+												<div class="form-group">
+													<div class='input-group date' id='datetimepicker_end'>
+														<input type='text' class="form-control dp_end" />
+														<span class="input-group-addon">
+															<span class="glyphicon glyphicon-calendar"></span>
+														</span>
+													</div>
+												</div>
+											</div>
+                                        </div><button type="button" class="btn btn-primary pull-right" ms-click="filter">Filter</button>
+                                    </form>
+                                </div>
+                            </div><!-- /.table-responsive -->
+                        </div><!-- /.panel-body -->
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            table
+                        </div><!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                offer ID
+                                            </th>
+                                            <th>
+                                                offer name
+                                            </th>
+                                            <th>
+                                                payout
+                                            </th>
+                                            <th>
+                                                conversions
+                                            </th>
+                                            <th>
+                                                total payout
+                                            </th>
+                                            <th>
+                                                real payout
+                                            </th>
+                                            <th>
+                                                remark
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ms-repeat="offer_info">
+                                            <td>
+                                                {{el.offer_id}}
+                                            </td>
+                                            <td>
+                                                {{el.offer_name}}
+                                            </td>
+                                            <td>
+                                                {{el.payout}}
+                                            </td>
+                                            <td>
+                                                {{el.actions}}
+                                            </td>
+                                            <td>
+                                                {{el.amount}}
+                                            </td>
+                                            <td>
+                                                <input ms-duplex="el.real_pay"/>
+                                            </td>
+                                            <td>
+                                                <input ms-duplex="el.remark"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!-- /.panel-body -->
+                    </div><!-- /.panel -->
+                </div><!-- /.col-lg-12 -->
+            </div><!-- /.row -->
+        </div><!-- /#wrapper -->
+    </body>
+</html>
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_fm_selectator_jquery}"></script>
+<script src="${js.leadhug_pingstart}"></script>
+<script src="${js.leadhug_leadhug_invoice}"></script>
+<script>
+    $("#select").selectator({
+        showAllOptionsOnFocus: true,
+        keepOpen: true
+    });
+    avalon.ready(
+            function () {
+                invoice_new.filter();
+                $("#select").change(function(val){
+					avalon.vmodels.invoice_new.affiliates_id=$(this).val();
+				});
+                    $('#datetimepicker_start').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: invoice_new.time_range.start,
+                    });
+                    $(".dp_start").val(invoice_new.time_range.start);
+                    $('#datetimepicker_end').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: invoice_new.time_range.end
+                    });
+                    $(".dp_end").val(invoice_new.time_range.end);
+                    $("#datetimepicker_start").on("dp.change", function (e) {
+                        $('#datetimepicker_end').data("DateTimePicker").minDate(e.date);
+                        invoice_new.time_range.start = $(".dp_start").val();
+                    });
+
+                    $("#datetimepicker_end").on("dp.change", function (e) {
+                        $('#datetimepicker_start').data("DateTimePicker").maxDate(e.date);
+                        invoice_new.time_range.end = $(".dp_end").val();
+                    });
+            }
+    )
+</script>
+</%block>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LeadHug</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="${css.leadhug_bootstrap_min}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="${css.leadhug_metisMenu_min}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="${css.leadhug_sb_admin_2}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="${css.leadhug_font_awesome_min}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" ms-controller="login" id="doLogin" class="landing login-form">
+                            <fieldset>
+                                <div class="form-group" id="email">
+                                    <input class="form-control" placeholder="E-mail" ms-duplex="o['email']" name="email" type="email" autofocus>
+                                </div>
+                                <div class="form-group" id="password">
+                                    <input class="form-control" placeholder="Password" ms-duplex="o['password']" name="password" type="password" value="">
+                                </div>
+                                <div class="form-group">
+                                    <p><input class="form-control" type="text" placeholder="Captcha" ms-duplex="o['captcha_code']"/></p>
+                                    <a id="captcha_code" ms-click="get_captcha()" href="javascript:;">
+                                        <img id="code_img" ms-attr-src="captcha_img">
+                                    </a>
+                                </div>
+                                <!--<div class="checkbox">-->
+                                    <!--<label>-->
+                                        <!--<input name="remember" type="checkbox" value="Remember Me">Remember Me-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                                <input  type="hidden"  ms-duplex="o['captcha_key']">
+                                <button type="button" class="dologin btn btn-lg btn-success btn-block" ms-click="login()">Login</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<script src="${js.leadhug_html5shiv}"></script>
+	<script src="${js.leadhug_respond_min}"></script>
+    <!-- jQuery -->
+    <script src="${js.leadhug_jquery_min}"></script>
+    <script src="${js.lib_avalon}"></script>
+    <script src="${js.leadhug_jq_ext}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${js.leadhug_bootstrap_min}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="${js.leadhug_metisMenu_min}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="${js.leadhug_sb_admin_2}"></script>
+    <script src="${js.leadhug_leadhug_verification}"></script>
+</body>
+
+</html>

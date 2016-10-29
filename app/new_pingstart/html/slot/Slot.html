@@ -1,0 +1,120 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/new_pingstart/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<!--begin:主体内容-->
+<div id="slot_body">
+    <div class="container">
+         <div id="solt_box" ms-controller="slot">
+            <div id="add">
+                <div id="add_sub1">
+                    <input type="button" value="+ Add" id="btn-add" data-toggle="modal" data-target=".bs-example-modal-lg"/>
+                    <!--模态框-->
+                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-md">
+                            <div class="modal-content" id="slot_m">
+                                <div class="modal-header">
+                                   <div class="modal-title">
+                                       <h3>Add Solt</h3>
+                                   </div>
+                                </div>
+                                <div class="modal-body" >
+                                    <form action="">
+                                        <div class="form-group ul_inline no-bottom">
+                                            <ul class="row slotType ul_inline">
+                                                <li class="col-xs-2 font-four"><b>*</b>&nbsp; Format:</li>
+                                                <li class="col-xs-8">
+                                                    <select class="font-two" name="" id="solt_option1" ms-duplex="new_slot.slotType">
+                                                        <option ms-attr-value="2">Native</option>
+                                                        <option ms-attr-value="3">Interstitial</option>
+                                                        <option ms-attr-value="4">Banner</option>
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                            <ul class="row name ul_inline">
+                                                <li class="col-xs-2 font-four"><b>*</b>&nbsp; Name:</li>
+                                                <li class="col-xs-8 font-two">
+                                                    <input id="solt_input" type="text" ms-duplex="new_slot.name" placeholder="Slot Name">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer" >
+                                    <button type="button" class="btn pop_s" ms-click="save">Save</button>
+                                    <button type="button" class="btn pop_c" style="color: #216fc8" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <!--try again start-->
+                                <div class="modal-body" style="display: none">
+                                    <p id="remove" class="text-center"><span class="glyphicon glyphicon-remove"></span></p>
+                                    <p class="text-center">The transaction is not completed</p>
+                                </div>
+                                <div class="modal-footer" style="display: none">
+                                    <button type="button" class="btn pop_s" ms-click="save">Try again</button>
+                                    <button type="button" class="btn pop_c" style="color: #216fc8" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <!--try again end-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="add_sub2" class="search">
+                    <div id="look_box">
+                        <input ms-duplex="search_query.name" type="search" placeholder="search..." id="search"/>
+                        <span class="glyphicon glyphicon-search"  ms-click="get_slots"></span>
+                    </div>
+                </div>
+            </div>
+             <table  id="solt_table" class="table table-bordered table-hover table-striped text-center">
+                <tbody>
+                    <tr>
+                        <td>Slot Id</td>
+                        <td>Slot Name</td>
+                        <td>ID Format</td>
+                        <td>Last Operated</td>
+                        <td>Operated</td>
+                    </tr>
+                    <tr ms-repeat="slots">
+                        <td>{{el._id}}</td>
+                        <td>{{el.name}}</td>
+                        <td>{{el.slot_type}}</td>
+                        <td>{{el.last_operated}}</td>
+                        <td>
+                            <a ms-attr-href="/slot/edit/{{el._id}}">Edit</a>
+                            |
+                            <a href="#"><span ms-click="slot_delete(el._id)">Delete</span></a>
+                            |
+                            <a href="#" ms-if="el.status==1"><span ms-click="slot_status(el._id)">Close</span></a>
+                            <a href="#" ms-if="el.status==0"><span ms-click="slot_status(el._id)">Open</span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row" id="page_mar_top">
+                <div class="col-xs-12">
+                    <div style="text-align: center">
+                        <div id="pages"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<!--end:主体内容-->
+<%block name="script">
+${parent.script()}
+<script src="${js.new_pingstart_extendPagination}"></script>
+<script src="${js.new_pingstart_pingstart_slot}"></script>
+<script>
+    avalon.ready(
+            function(){
+                $("#slot_page").addClass('action');
+                avalon.vmodels.slot.get_slots();
+            }
+    )
+</script>
+</%block>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title></title>
+    <!--<link rel="icon" href=""/>-->
+    <link href="${css.new_pingstart_bootstrap_min}" rel="stylesheet">
+    <link href="${css.new_pingstart_pingstart}" rel="stylesheet">
+    <!--<![endif]&ndash;&gt;-->
+</head>
+<body id="body_reg">
+<!--begin:导航条-->
+<div id="nav-top" style="height: 60px">
+    <div class="container" style="background: #1c5ea9;height:60px">
+        <img src="https://s3-us-west-2.amazonaws.com/adplatformstatis/pingstart/img/pingstart.com/_img/pingstart_logo.png" alt="">
+        <span data-toggle="modal" data-target="#exampleModal" id="sign_up" style="margin-top: 6px;cursor: pointer">Welcome</span>
+
+        <div class="modal" id="exampleModal"  ms-controller="register" data-keyboard="false" data-backdrop="false">
+            <div class="modal-dialog register">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: none;background:#4a5056">
+                        <h2 class="modal-title text-center" id="exampleModalLabel">sign up</h2>
+                    </div>
+                    <div class="register_body">
+                        <form>
+                            <div class="email" id="email">
+                                    <input type="text" ms-duplex="o['email']" placeholder="Email" class="form-control">
+                            </div>
+                            <div class="password" id="password">
+                                    <input type="password" ms-duplex="o['password']" placeholder="Password" class="form-control">
+                            </div>
+                            <div class="password" id="password2">
+                                    <input type="password" ms-duplex="o['password2']" placeholder="Repassword" class="form-control">
+                            </div>
+                            <div class="captcha_code" id="captcha_code">
+                                      <input id="red_border" type="text" ms-duplex="o['captcha_code']" placeholder="Captcha" class="form-control">
+                                <div class="get_captcha_code" ms-click="get_captcha()" id="img_parent">
+                                      <img id="code_img" ms-attr-src="captcha_img">
+                                </div>
+                            </div>
+                            <input id="captcha_key" type="hidden"  ms-duplex="o['captcha_key']">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button type="button" id="btn_login" class="btn btn-block" ms-click="signup">sign up</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer text-center register_footer" id="sign-text1">
+                        <a href="/login" id="btn_reg" class="text-center" >Sign in now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--begin:主体内容-->
+<div class="content"></div>
+<!--begin:页脚-->
+<div class="lg_ft" id="copy">
+   <div class="container">
+        <p>
+        &copy;2016.PingStart.All rights reserved Contact Us;support @ pingstart.com
+        </p>
+   </div>
+</div>
+<!--end:页脚-->
+<script src="${js.new_pingstart_jquery_min}"></script>
+<script src="${js.new_pingstart_bootstrap_min}"></script>
+<script src="${js.new_pingstart_avalon}"></script>
+<script src="${js.new_pingstart_html5shiv_min}"></script>
+<script src="${js.new_pingstart_respond_min}"></script>
+<script src="${js.new_pingstart_jq_ext}"></script>
+<script src="${js.new_pingstart_pingstart_signup}"></script>
+<script>
+    $("#sign_up").click();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+envoy
+hmako
+intstr
+Mako==1.0.3
+mongokit==0.9.1.1
+pyinotify
+pymongo==2.8
+redis==2.10.3
+requests
+single_process
+tornado
+yajl
+Pillow==3.1.0
+captchaimage==1.4
+enum34==1.1.2
+boto==2.39.0
+https://pypi.python.org/packages/55/db/97c1ca37edab586a1ae03d6892b6633d8eaa23b23ac40c7e5bbc55423c78/futures-3.0.5.tar.gz#md5=ced2c365e518242512d7a398b515ff95

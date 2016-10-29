@@ -1,0 +1,187 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+
+  <!-- /#page-wrapper -->
+     <div id="page-wrapper" ms-controller="affiliates">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h1 class="page-header">&nbsp;<div class="col-lg-2">
+                      <select class="form-control" ms-click="status_change">
+                          <option class="form-control" value="0">ALL</option>
+                          <option class="form-control" value="1">Active</option>
+                          <option class="form-control" value="2">Pending</option>
+                      </select>
+                    </div><button type="button" class="btn btn-primary pull-right" ms-click="filter">Filter</button></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            table
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                               <table class="table table-bordered table-striped">
+                                    <thead>
+                                    	<tr>
+                                    		<th>id</th>
+                                            <th>name</th>
+                                            <th>email</th>
+                                    		<th>country</th>
+                                    		<th>Account Manager</th>
+                                    		<th>skype id</th>
+											<th>company</th>
+                                    		<th>last traffic</th>
+                                    		<th>status</th>
+                                    		<th>offers</th>
+                                            <th>payment</th>
+                                            <th>operation</th>
+                                    	</tr>
+                                    </thead>
+                                    <tbody>
+                                    	<tr ms-repeat="affs">
+                                    		<td>{{el._id}}</td>
+                                            <td><a ms-attr-href="/affiliate_offer?affiliate_id={{el._id}}" title="AffiliateOffer">{{el.name}}</a></td>
+                                    		<td>{{el.email}}</td>
+                                    		<td>{{el.country}}</td>
+                                    		<td>{{el.account_manager}}</td>
+											<td>{{el.skype_id}}</td>
+											<td>{{el.company}}</td>
+											<td>{{el.traffic_time}}</td>
+											<td>{{el.status}}</td>
+											<td>{{el.offer_count}}</td>
+                                            <td><a href="#" title="PaymentInfo" data-toggle="modal" data-target=".paymentInfo" ms-click="get_payment(el)">detial</a></td>
+                                            <td>
+                                                <a ms-attr-href="/affiliates/modify/{{el._id}}">edit</a>
+                                                <form action="http://aff.leadhug.com/login" method="POST" target="_blank">
+                                                    <input name="email" ms-attr-value="el.email[0]" hidden="hidden"/>
+                                                    <input name="password" ms-attr-value="el.password" hidden="hidden"/>
+                                                    <input type="submit" id="submit" value="login" />
+                                                </form>
+
+                                            </td>
+
+                                    	</tr>
+                                        <tr ms-if="affs_count == 0">
+                                            <td colspan="12" align="center" style="height:68px;padding-bottom:0px;padding-top:25px;">No Data</td>
+                                        </tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+
+            <div ms-controller="affiliates" style="text-align:center;"  class="page_select hidden">
+                <div id="pages" style="display:inline-block"></div>
+              
+                <div>
+                    <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                        <li style="display:inline-block">
+                            <div id="total">
+                                <a href="#" class="btn btn-default btn-sm disabled" role="button" style="width:98px;">{{totalPage}} Total</a>
+                            </div>
+                        </li>
+                        <li style="display:inline-block">
+                            <div>
+                                <select  id="display" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm" style="width:98px" > 
+                                    <option value="100">100 Items</option>
+                                    <option value="50">50 Items</option>
+                                    <option value="30">30 Items</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li style="display:inline-block;height:19px">
+                            <div class="col-lg-6" style="width:154px;padding:0px">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" id="go-page" class="form-control" placeholder="Jump to">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ms-on-click="goPage()">Go!</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </li>
+                    </ul>
+                </div>
+           </div>
+
+
+
+            <div class="modal fade paymentInfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">PaymentInfo</h4>
+                    </div>
+                    <div class="modal-body">
+                      <form class="form-horizontal user_table">
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Invoice Frequency</label>
+                                <span class="col-sm-3 control-label" ms-duplex="payment.invoice_frequency">{{payment.invoice_frequency}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Threshold</label>
+                                <span class="col-sm-3 control-label">{{payment.threshold}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Payment Method</label>
+                                <span class="col-sm-3 control-label">{{payment.payment_method}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Beneficiary</label>
+                                <span class="col-sm-3 control-label">{{payment.beneficiary}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Account Number</label>
+                                <span class="col-sm-3 control-label">{{payment.account_number}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Bank</label>
+                                <span class="col-sm-3 control-label">{{payment.bank}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-5 control-label">Routing/ABA/Swift</label>
+                                <span class="col-sm-3 control-label">{{payment.route}}</span>
+                            </div>
+                      </form>
+                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    <!-- /#wrapper -->
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_metisMenu_min}"></script>
+<script src="${js.leadhug_sb_admin_2}"></script>
+<script src="${js.leadhug_leadhug_affiliate}"></script>
+<script src="${js.leadhug_jquery_blockUI}" ></script>
+
+<script type="text/javascript">
+    avalon.ready(function(){
+        avalon.vmodels.affiliates.filter();
+    })
+</script>
+
+</%block>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="${css.affiliateleadhug_bootstrap_min}">
+    <link rel="stylesheet" href="${css.affiliateleadhug_style}">
+</head>
+<body>
+<div id="loginWrapper" ms-controller="login">
+    <div class="login-panel">
+        <div class="loginLogo">
+				<img src="https://s3-us-west-2.amazonaws.com/adplatformstatis/leadhug/img/affiliateleadhug.com/_img/logo_title_280*140.png" alt="Leadhug">			</div>
+        <form action="/index/login" method="post" id="loginForm">
+            <div class="" style="margin: 0 auto;">
+                <div class="field" id="email">
+                    <input type="text" value="" name="email" placeholder="Email" ms-duplex="o['email']">
+                </div>
+                <div class="field" id="password">
+                    <input type="password" class="" value="" name="password" placeholder="Password"
+                           ms-duplex="o['password']">
+                </div>
+                <div class="field" id="captcha_code">
+                    <input type="text" class="" value="" name="captcha" ms-duplex="o['captcha_code']"
+                           placeholder="captcha" style="width: 126px">
+                    <img ms-attr-src="captcha_img" ms-click="get_captcha()" href="javascript:;">
+                    <span class="f5-captcha">Click the image to recaptcha</span>
+                </div>
+                <input type="hidden" ms-duplex="o['captcha_key']">
+                <button type="button" class="dologin btn btn-lg btn-success btn-block" ms-click="login()">LOGIN</button>
+                <div class="clear"></div>
+
+                <div class="signUpDiv" id="application">
+                    <a href="/account/signup" title="" class="float-left">Affiliate Sign Up</a>
+                    <!--<a href="javascript:;" class="forgot-password float-right">Forgot Password?</a>-->
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="find-password" style="display: none;">
+        <form id="findPasswordForm" novalidate="novalidate">
+            <div class="loginLogo"></div>
+            <label class="get-password-label">Need help with your password?</label>
+            <span class="get-password-span">Enter the email address you signed up with, the new password will be sent to you.</span>
+
+            <div class="" style="margin: 0 auto;">
+                <div class="field">
+                    <input type="text" value="" name="email" class="float-left required email" placeholder="Email"
+                           id="emailUsable">
+                    <button type="button" class="btn btn-reset-password">Reset Password</button>
+                </div>
+                <label class="prep-label">Or</label><a href="#" class="back-login">back to login</a>
+
+                <div class="clear"></div>
+            </div>
+
+        </form>
+    </div>
+    <div class="find-result-panel" style="display: none;">
+        <div class="loginLogo"></div>
+        <label class="get-password-result-label">Successful!</label>
+        <span class="get-password-result-span">We have already sent you a new Password.</span>
+
+        <div class="" style="margin: 0 auto;">
+            <button type="button" class="btn btn-back-login float-right">Back to login</button>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<script src="${js.affiliateleadhug_jquery_min}"></script>
+<script src="${js.affiliateleadhug_avalon}"></script>
+<script src="${js.affiliateleadhug_jq_ext}"></script>
+<script src="${js.affiliateleadhug_affliate_leadhug_verification}"></script>
+</body>
+</html>

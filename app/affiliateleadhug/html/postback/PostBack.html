@@ -1,0 +1,213 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/affiliateleadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<div class="content-full aff-dashboard">
+    <ul class="nav-tabs">
+        <li>
+            <a class="active" href="javascript:;" data-target="#">
+                Global Postback
+            </a>
+        </li>
+    </ul>
+    <div class="tabs-content">
+        <div class="tab-pane row active" id="Pixel">
+            <div class="tab-pane-center">
+                <div class="affToolVariable">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                Variables
+                            </th>
+                            <th>
+                                Notes
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="variableParam">
+                                click_id
+                            </td>
+                            <td class="variableValue">
+                                <label>
+                                   Pass your ckickid here
+                                </label>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="variableParam">
+                                aff_sub1
+                            </td>
+                            <td class="variableValue">
+                                <label>
+                                    Placeholder 1
+                                </label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="variableParam">
+                                aff_sub2
+                            </td>
+                            <td class="variableValue">
+                                <label>
+                                    Placeholder 2,pass your affiliate id,media buyer id or your app name here
+                                </label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="variableParam">
+                                aff_sub3
+                            </td>
+                            <td class="variableValue">
+                                <label>
+                                    Placeholder 3
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="variableParam">
+                                aff_sub4
+                            </td>
+                            <td class="variableValue">
+                                <label>
+                                    Placeholder 4
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="variableParam">
+                                aff_sub5
+                            </td>
+                            <td class="variableValue">
+                                <label>
+                                    Placeholder 5
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="affToolPixel" ms-controller="post_back">
+                    <div class="affToolPixePanel affToolPixePanel-two">
+                        <label class="affToolPixeTitle">
+                            Global Postback URL
+                        </label>
+                        <span class="affToolPixeIntro">
+                        </span>
+
+                        <div class="rule-table">
+                            <input type="hidden" value="4" id="tracking_method">
+                            <input type="button" class="btn aff-btn btn-rule-add float-right" id="add-global-postback"
+                                   value="Add" ms-click="Add">
+
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <div class="list-offer-table">
+                            <table class="table table-bordered" style="margin: 10px auto;" id="global-postback-table">
+                                <tr>
+                                    <th class="pixel-code">
+                                        Code
+                                    </th>
+                                    <th class="table-handle">
+                                        Operate
+                                    </th>
+                                </tr>
+                                <tr id="add" data-tracking='1' ms-if="add">
+                                    <td class="show-offer-tpcp">
+                                        <input type="text" value="" ms-duplex="add_url">
+                                    </td>
+                                    <td class="table-handle">
+                                        <input type="button" value="Save" class="btn aff-btn btn-rule-add"
+                                               ms-click="Save" style="width: 60px;">
+                                        <a class="btn cancel" type="button" ms-click="Cancel">Cancel</a>
+                                    </td>
+                                </tr>
+                                <tr id="162" data-tracking='1' ms-repeat="post_backs">
+                                    <input type="hidden" value="1" class="pixelType"/>
+                                    <td class="show-offer-tpcp" ms-attr-id="el._id">
+                                        <input type="text" value="" style="display: none" ms-duplex="el.url">
+                                        <span>
+                                            {{el.url}}
+                                        </span>
+                                    </td>
+                                    <td class="table-handle" ms-attr-id="edit_{{el._id}}">
+                                        <a href="javascript:;" class="edit" ms-click="Edit(el._id)">
+                                            <i class="glyphicon glyphicon-pencil">
+                                            </i>
+                                        </a>
+                                        <a href="javascript:;" class="delete" ms-click="Delete(el)">
+                                            <i class="glyphicon glyphicon-trash">
+                                            </i>
+                                        </a>
+                                    </td>
+                                    <td class="table-handle" style="display: none" ms-attr-id="update_{{el._id}}">
+                                        <input type="button" value="Save" class="btn aff-btn btn-rule-add float-right"
+                                               ms-click="Update(el)" style="width: 60px;">
+                                        <a class="btn btn-td-save cancel" type="button" ms-click="CancelEdit(el._id)">Cancel</a>
+                                    </td>
+                                </tr>
+                                <tr ms-if="totalPage == 0">
+                                    <td colspan="7" align="center" style="height:68px;padding-bottom:0px;padding-top:5px;">No Data</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+         <div ms-controller="post_back" style="text-align:center;"  class="page_select hidden">
+             <div id="pages" style="display:inline-block;height:43px;"></div>
+             <div>
+                 <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                     <li style="display:inline-block">
+                         <div id="total" class="page_num">
+                             <a href="#" class="btn btn-sm disabled" role="button">{{totalPage}} Total</a>
+                         </div>
+                     </li>
+                     <li style="display:inline-block">
+                         <div>
+                             <select  id="display" ms-on-change="changeLimit()" ms-duplex="selected" class="form-control input-sm page_limit">
+                                 <option value="10">10 Items</option>
+                                 <option value="5">5 Items</option>
+                             </select>
+                         </div>
+                     </li>
+                     <li style="display:inline-block;height:19px">
+                         <div class="col-lg-6" style="width:154px;padding:0px">
+                             <div class="input-group input-group-sm">
+                                 <input type="text" id="go-page" class="form-control" placeholder="Jump to">
+                                 <span class="input-group-btn">
+                                     <button class="btn btn_go" type="button" ms-on-click="goPage()">Go!</button>
+                                 </span>
+                             </div><!-- /input-group -->
+                         </div><!-- /.col-lg-6 -->
+                     </li>
+                 </ul>
+             </div>
+        </div><!-- /pager -->
+
+
+
+
+<%block name="script">
+${parent.script()}
+<script src="${js.affiliateleadhug_affliate_leadhug_postback}"></script>
+<script src="${js.affiliateleadhug_extendPagination}"></script>
+
+<script>
+	$("#postback").addClass('active');
+
+</script>
+</%block>

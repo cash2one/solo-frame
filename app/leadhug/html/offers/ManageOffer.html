@@ -1,0 +1,288 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<!--<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">-->
+<link href="${css.leadhug_token_input}" rel="stylesheet">
+</%block>
+<div id="page-wrapper" ms-controller="offer">
+            <div class="row">
+                <div class="col-lg-12">
+                   <!-- <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right">save</button></h1> -->
+                   <div class="main-header">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">Offer Id</label>
+                                    <div class="col-sm-10">
+                                        <!--<select class="form-control" id="select" name="id" multiple ms-duplex="filter.offer_ids">-->
+
+										<!--</select>-->
+                                        <input type="text" id="demo-input-local-custom-formatters" name="blah" />
+                                    </div>
+                              </div>
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">Is Api</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" ms-duplex="filter.is_api" name="is_api">
+                                            <option class="form-control" value="0" selected="selected">No</option>
+                                            <option class="form-control" value="1">Yes</option>
+										</select>
+                                    </div>
+                              </div>
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">Status</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="status" ms-duplex="filter.status">
+                                           <option class="form-control" value=""  selected="selected">All</option>
+                                           <option class="form-control" value="0">Stop</option>
+                                           <option class="form-control" value="1">Active</option>
+                                           <option class="form-control" value="2">Pending</option>
+                                        </select>
+                                    </div>
+                              </div>
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">Category</label>
+                                    <div class="col-sm-10" ms-controller="category">
+                                        <select class="form-control" name="category" ms-duplex="filter.category">
+                                                <option class="form-control" value="">All</option>
+                                                <option class="form-control" ms-repeat="categories" ms-attr-value=el._id>{{el.name}}</option>
+                                        </select>
+                                    </div>
+                              </div>
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">Payout Model</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" name="price_model" ms-duplex="filter.price_model">
+                                                <option class="form-control" value="">All</option>
+                                                <option class="form-control">CPI</option>
+                                                <option class="form-control">CPC</option>
+                                        </select>
+                                    </div>
+                              </div>
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">Advertiser</label>
+                                    <div class="col-sm-10" ms-controller="advertiser">
+                                        <select class="form-control" name="advertiser" ms-duplex="filter.advertiser">
+                                            <option class="form-control" value="">All</option>
+                                            <option class="form-control" ms-repeat="advertisers" ms-attr-value="el._id">{{el.account}}</option>
+                                        </select>
+                                    </div>
+                              </div>
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">GEO</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="country" placeholder="Please input shot name, split by ','" ms-duplex="filter.geo">
+                                    </div>
+                              </div>
+                            <div class="form-group">
+                               <label class="col-sm-1 control-label">Payout</label>
+                                    <div class="col-sm-10" style="display: inline-flex; width:auto">
+                                        <input type="text" class="form-control" name="payment_min" placeholder="Min" ms-duplex="filter.payout_min">
+                                        <input type="text" class="form-control" name="payment_max" placeholder="Max" ms-duplex="filter.payout_mix">
+                                    </div>
+                              </div>
+                              <button type="button" class="btn btn-default" style="float:right" ms-click="get_report">Submit</button>
+
+                       </form>
+                  <!--  <button type="button" class="btn btn-primary pull-right">save</button></div> -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            form
+                            <a href="javascript:" ms-click="report_export"><span style="float: right;">Export</span></a>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" ms-controller="offer">
+                            <div class="dataTable_wrapper" style="overflow-x: scroll">
+                                 <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>name</th>
+                                            <th>status</th>
+                                            <th>category</th>
+                                            <th>payment</th>
+                                            <th>revenue</th>
+                                            <th>advertiser</th>
+                                            <th>preview url</th>
+                                            <th>Include GEO</th>
+                                            <th>Exclude GEO</th>
+                                            <th>clicks</th>
+                                            <th>conversions</th>
+                                            <th>Daily Cap</th>
+                                            <th>Total Cap</th>
+                                            <th>operation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ms-repeat="offers">
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ms-repeat="offers">
+                                            <td>{{el._id}}</td>
+                                            <td><a ms-attr-href="/offer_affiliate?offer_id={{el._id}}">{{el.title}}</a></td>
+                                            <td>{{el.status}}</td>
+                                            <td>{{el.category}}</td>
+                                            <td>{{el.payment}}</td>
+                                            <td>{{el.revenue}}</td>
+                                            <td>{{el.advertiser}}</td>
+                                            <td><a ms-attr-href="el.preview_url" target="_blank">Preview Link</a></td>
+                                            <td ms-attr-title="el.geo_targeting" ms-click="mouseover(el.geo_targeting)" ms-mouseleave="mouseout"><span class="geo">{{el.geo_targeting.slice(0, 2)}}...</span>
+                                            <div class="geo-info" hidden="hidden" ><div class="sreenshot-info-apply">{{el.geo_targeting}}</div></div>
+                                            </td>
+                                            <td ms-attr-title="el.exclude_geo_targeting" ms-click="mouseover(el.exclude_geo_targeting)" ms-mouseleave="mouseout"><span class="geo">{{el.exclude_geo_targeting?el.exclude_geo_targeting.slice(0, 2): ''}}...</span>
+                                            <div class="geo-info" hidden="hidden" ><div class="sreenshot-info-apply">{{el.exclude_geo_targeting}}</div></div>
+                                            </td>
+                                            <td>{{el.clicks?el.clicks:0}}</td>
+                                            <td>{{el.conversions}}</td>
+                                            <td>{{el.day_cap}}</td>
+                                            <td>{{el.total_cap}}</td>
+                                            <td>
+                                                <a ms-attr-href="/offers/modify/{{el._id}}">Edit</a>
+
+                                                <span ms-if="el.status == 'Active' && !el.pause_job_set" ms-attr-id="offer_{{el._id}}">
+                                                    | <a href="javascript:" data-toggle="modal" data-target=".pause_task" ms-click="pause_offer_select(el)">Pause Task</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr ms-if="offers_count == 0">
+                                            <td colspan="15" align="center" style="height:68px;padding-bottom:0px;padding-top:25px;">No Data</td>
+                                        </tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+            <div ms-controller="offer" style="text-align:center;"  class="page_select hidden">
+                <div id="pages" style="display:inline-block"></div>
+              
+                <div>
+                    <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                        <li style="display:inline-block">
+                            <div id="total">
+                                <a href="#" class="btn btn-default btn-sm disabled" role="button" style="width:98px;">{{totalPage}} Total</a>
+                            </div>
+                        </li>
+                        <li style="display:inline-block">
+                            <div>
+                                <select  id="display" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm" style="width:98px" > 
+                                    <option value="100">100 Items</option>
+                                    <option value="50">50 Items</option>
+                                    <option value="30">30 Items</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li style="display:inline-block;height:19px">
+                            <div class="col-lg-6" style="width:154px;padding:0px">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" id="go-page" class="form-control" placeholder="Jump to">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ms-on-click="goPage()">Go!</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </li>
+                    </ul>
+                </div>
+           </div>
+
+
+
+
+
+
+
+
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+            <div class="modal fade pause_task" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                   <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="">Offer Pause Task</h4>
+                  </div>
+                  <div class="modal-body update">
+                      <form class="form-horizontal user_table">
+                          <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Offer Name</label>
+                            <div class="col-sm-6 account">
+                                <input type="text" class="form-control" ms-attr-value="pause_offer.offer_name" disabled="disabled">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">Pause Time</label>
+                            <div class="col-sm-6 account">
+                                <div class="form-group pause_date">
+                                    <div class='input-group date' id='datetimepicker_start'>
+                                        <input type='text' class="form-control dp_start" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default offer_pause_close" data-dismiss="modal" ms-click="pause_task_close">Close</button>
+                    <button type="button" class="btn btn-primary" ms-click="pause_task">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    <!-- /#wrapper -->
+<%block name="script">
+${parent.script()}
+    <script src="${js.leadhug_jquery_blockUI}"></script>
+    <script src="${js.leadhug_jquery_tokeninput}"></script>
+
+<script src="${js.leadhug_leadhug_offers}"></script>
+<script>
+    avalon.ready(
+    function(){
+        $('#datetimepicker_start > input').val('');
+        $('#datetimepicker_start').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+        });
+        $("#datetimepicker_start").on("dp.change", function (e) {
+            avalon.vmodels.offer.pause_offer.pause_date = $(".dp_start").val();
+        });
+        $("#demo-input-local-custom-formatters").tokenInput("/j/offers_title", {
+              propertyToSearch: "first_name",
+              resultsFormatter: function(item){
+                  return "<li>" +"<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.first_name + " " + item.last_name + "</div></div></li>"
+              },
+              tokenFormatter: function(item) {
+                  return "<li><p>" + item.first_name + " <b style='color: red'>" + item.last_name + "</b></p></li>"
+              }
+          });
+
+        avalon.vmodels.offer.get_report();
+        $("#select").change(function(val){
+            avalon.vmodels.offer.filter.offer_ids=$(this).val();
+        });
+    }
+)
+</script>
+    <script src="${js.leadhug_fm_selectator_jquery}"></script>
+</%block>

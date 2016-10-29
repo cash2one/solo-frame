@@ -1,0 +1,1851 @@
+@charset "utf-8";
+/* 防止出现avalon的大括号 */
+[ms-controller]{
+    visibility: hidden;
+}
+
+body,div,p,dl,dd,h1,h2,h3,h4,h5,h6,a,em,input,textarea,button,select,form,table,tr,th,td,section,label,span,td,li,nav,footer,ul,i {
+    padding: 0;
+    margin: 0
+}
+
+ul,ol,li {
+    list-style: none
+}
+
+a {
+    text-decoration: none
+}
+
+i,em {
+    font-style: normal
+}
+
+body {
+    font-family: "Microsoft YaHei",helvetica,arial
+}
+
+input,select,textarea,button {
+    font-family: "Microsoft YaHei";
+    border: 0;
+    background: transparent;
+    outline: 0;
+    resize: none;
+    border-radius: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+img {
+    border: 0
+}
+
+embed {
+    vertical-align: baseline
+}/*! jQuery UI * Includes: core.css, datepicker.css */.ui-helper-hidden {
+                                                          display: none
+                                                      }
+
+.ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px
+}
+
+.ui-helper-reset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    line-height: 1.3;
+    text-decoration: none;
+    font-size: 100%;
+    list-style: none
+}
+
+.ui-helper-clearfix:before,.ui-helper-clearfix:after {
+    content: "";
+    display: table;
+    border-collapse: collapse
+}
+
+.ui-helper-clearfix:after {
+    clear: both
+}
+
+.ui-helper-clearfix {
+    min-height: 0
+}
+
+.ui-helper-zfix {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0;
+    filter: Alpha(Opacity=0)
+}
+
+.ui-front {
+    z-index: 100
+}
+
+.ui-state-disabled {
+    cursor: default!important
+}
+
+.ui-icon {
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat
+}
+
+.ui-widget-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.ui-datepicker {
+    width: 17em;
+    padding: .2em .2em 0;
+    display: none
+}
+
+.ui-datepicker .ui-datepicker-header {
+    position: relative;
+    padding: .2em 0
+}
+
+.ui-datepicker .ui-datepicker-prev,.ui-datepicker .ui-datepicker-next {
+    position: absolute;
+    top: 2px;
+    width: 1.8em;
+    height: 1.8em
+}
+
+.ui-datepicker .ui-datepicker-prev-hover,.ui-datepicker .ui-datepicker-next-hover {
+    top: 1px
+}
+
+.ui-datepicker .ui-datepicker-prev {
+    left: 2px
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 2px
+}
+
+.ui-datepicker .ui-datepicker-prev-hover {
+    left: 1px
+}
+
+.ui-datepicker .ui-datepicker-next-hover {
+    right: 1px
+}
+
+.ui-datepicker .ui-datepicker-prev span,.ui-datepicker .ui-datepicker-next span {
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -8px;
+    top: 50%;
+    margin-top: -8px
+}
+
+.ui-datepicker .ui-datepicker-title {
+    margin: 0 2.3em;
+    line-height: 1.8em;
+    text-align: center
+}
+
+.ui-datepicker .ui-datepicker-title select {
+    font-size: 1em;
+    margin: 1px 0
+}
+
+.ui-datepicker select.ui-datepicker-month,.ui-datepicker select.ui-datepicker-year {
+    width: 45%
+}
+
+.ui-datepicker table {
+    width: 100%;
+    font-size: .9em;
+    border-collapse: collapse;
+    margin: 0 0 .4em
+}
+
+.ui-datepicker th {
+    padding: .7em .3em;
+    text-align: center;
+    font-weight: 700;
+    border: 0
+}
+
+.ui-datepicker td {
+    border: 0;
+    padding: 1px
+}
+
+.ui-datepicker td span,.ui-datepicker td a {
+    display: block;
+    padding: .2em;
+    text-align: right;
+    text-decoration: none
+}
+
+.ui-datepicker .ui-datepicker-buttonpane {
+    background-image: none;
+    margin: .7em 0 0;
+    padding: 0 .2em;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button {
+    float: right;
+    margin: .5em .2em .4em;
+    cursor: pointer;
+    padding: .2em .6em .3em;
+    width: auto;
+    overflow: visible
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+    float: left
+}
+
+.ui-datepicker.ui-datepicker-multi {
+    width: auto
+}
+
+.ui-datepicker-multi .ui-datepicker-group {
+    float: left
+}
+
+.ui-datepicker-multi .ui-datepicker-group table {
+    width: 95%;
+    margin: 0 auto .4em
+}
+
+.ui-datepicker-multi-2 .ui-datepicker-group {
+    width: 50%
+}
+
+.ui-datepicker-multi-3 .ui-datepicker-group {
+    width: 33.3%
+}
+
+.ui-datepicker-multi-4 .ui-datepicker-group {
+    width: 25%
+}
+
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+    border-left-width: 0
+}
+
+.ui-datepicker-multi .ui-datepicker-buttonpane {
+    clear: left
+}
+
+.ui-datepicker-row-break {
+    clear: both;
+    width: 100%;
+    font-size: 0
+}
+
+.ui-datepicker-rtl {
+    direction: rtl
+}
+
+.ui-datepicker-rtl .ui-datepicker-prev {
+    right: 2px;
+    left: auto
+}
+
+.ui-datepicker-rtl .ui-datepicker-next {
+    left: 2px;
+    right: auto
+}
+
+.ui-datepicker-rtl .ui-datepicker-prev:hover {
+    right: 1px;
+    left: auto
+}
+
+.ui-datepicker-rtl .ui-datepicker-next:hover {
+    left: 1px;
+    right: auto
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane {
+    clear: right
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane button {
+    float: left
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,.ui-datepicker-rtl .ui-datepicker-group {
+    float: right
+}
+
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+    border-right-width: 0;
+    border-left-width: 1px
+}
+
+html,body {
+    height: 100%
+}
+
+.clearfix:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+
+.clearfix {
+    zoom: 1
+}
+
+.icons,.ui-datepicker-header a {
+    background: url(https://s3-us-west-2.amazonaws.com/adplatformstatis/leadhug/img/leadhug.com/_img/icons.png) no-repeat transparent -1000px -1000px;
+    vertical-align: middle
+}
+
+.wrap {
+    position: relative;
+    min-height: 100%;
+    min-width: 1000px;
+    background: #e0e0e0
+}
+
+.main {
+    width: 1000px;
+    margin: 0 auto
+}
+
+.container {
+    padding-bottom: 50px
+}
+
+.container h2 {
+    font-size: 20px;
+    color: #666
+}
+
+.footer {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: .75em;
+    color: #fff;
+    background: #484848;
+    position: absolute;
+    left: 0;
+    bottom: 0
+}
+
+.arrow-up {
+    position: absolute;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-top: 0
+}
+
+.container ::-webkit-input-placeholder {
+    color: #ccc
+}
+
+.container ::-moz-placeholder {
+    color: #666
+}
+
+.container :-ms-input-placeholder {
+    color: #ccc
+}
+
+.container input:-moz-placeholder {
+    color: #666
+}
+
+.show {
+    display: block!important
+}
+
+.nav {
+    width: 100%;
+    height: 60px;
+    background: #3073ce
+}
+
+.nav-main {
+    height: 100%;
+    position: relative;
+    *z-index: 1
+}
+
+.nav-main .logo {
+    width: 190px;
+    height: 47px;
+    background-position: 0 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-indent: -9999px;
+    margin-top: 6px
+}
+
+.nav-main .nav-info {
+    position: absolute;
+    right: 18px;
+    top: 0
+}
+
+.nav-tab {
+    padding: 0 200px
+}
+
+.nav-tab li {
+    /*width: 25%;*/
+    width: 20%;
+    float: left;
+    font-size: 1em;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 60px;
+    position: relative
+}
+
+.nav-tab .navitem {
+    display: block;
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+    color: #fff;
+    cursor: pointer
+}
+
+.nav-tab li.cur .navitem {
+    background: #2063be;
+}
+
+.nav-tab li.cur .nav-second {
+    display: block
+}
+
+.nav-info {
+    color: #fff;
+    font-size: .75em
+}
+
+.nav-info .login {
+    line-height: 60px;
+    display: none
+}
+
+.nav-info a {
+    color: #fff
+}
+
+.nav-info .loginline {
+    margin: 0 8px;
+    font-family: Simsun
+}
+
+.nav-info .logged {
+    position: relative;
+    display: none
+}
+
+.logged .user {
+    float: right;
+    position: relative;
+    line-height: 60px
+}
+
+.logged .user .icons {
+    width: 8px;
+    height: 5px;
+    background-position: -192px 0;
+    position: absolute;
+    top: 50%;
+    right: -16px;
+    margin-top: -2px
+}
+
+.logged .msg {
+    float: right;
+    width: 19px;
+    height: 20px;
+    background-position: -192px -16px;
+    position: relative;
+    margin: 20px 0 20px 36px
+}
+
+.logged .msg .icons {
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    background-position: -208px 0;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    font-size: 11px;
+    color: #fb7c00
+}
+
+.logged .setting {
+    width: 160px;
+    padding: 10px 15px;
+    position: absolute;
+    top: 50px;
+    right: -60px;
+    background: #fff;
+    z-index: 9;
+    display: none
+}
+
+.logged .headwrap {
+    width: 55px;
+    height: 55px;
+    float: left;
+    position: relative;
+    margin-right: 15px;
+    background-position: -296px 12px;
+    background-color: #dbdbdb
+}
+
+.logged .headwrap img {
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+.logged .headcover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: -224px 0
+}
+
+.logged .option p {
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 8px 0 4px
+}
+
+.logged .option a {
+    color: #008cd1
+}
+
+.logged .option .loginline {
+    color: #cfcfcf;
+    margin: 0 6px
+}
+
+.logged .arrow-up {
+    right: 80px;
+    border-width: 5px;
+    border-bottom-color: #fff
+}
+
+.section1,.section2,.section3,.section4 {
+    display: none
+}
+
+.container .section_show {
+    display: block
+}
+
+.focus {
+    padding-top: 28%;
+    position: relative
+}
+
+.focus img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block
+}
+
+.focuscover {
+    padding-top: 28%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(43,26,12,.06)
+}
+
+.focusbar {
+    width: 54%;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    margin-left: -27%;
+    display: none
+}
+
+.focusinfo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: none
+}
+
+.focusbar p {
+    font-size: 1.5em;
+    color: #fff
+}
+
+.focusbar p .icons {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-position: -320px -64px;
+    margin-right: 5px
+}
+
+.focusinput {
+    background: #fff;
+    border-radius: 2px;
+    padding: 6px;
+    position: relative;
+    margin-top: 10px
+}
+
+.focusinput input {
+    height: 38px;
+    width: 100%;
+    line-height: 38px;
+    font-size: 16px;
+    text-indent: 10px
+}
+
+.focusinput a {
+
+    /* width: 168px; */
+    padding:0 5px;
+    height: 38px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 6px;
+    background: #3073ce;
+    color: #fff;
+    font-size: 16px
+}
+
+.focusinfo ul {
+    overflow: hidden
+}
+
+.focusinfo li {
+    width: 33.333%;
+    float: left
+}
+
+.focusinfo .focusitems {
+    background: #fff;
+    border-top: 6px solid #909090;
+    padding: 5px 16px 10px 22px;
+    overflow: hidden
+}
+
+.focusitems span {
+    font-size: 16px;
+    color: #666
+}
+
+.focusitems p {
+    font-size: 30px;
+    color: #3073ce;
+    white-space: nowrap;
+    font-family: arial
+}
+
+.focusitems strong {
+    font-size: 50px;
+    font-weight: 400;
+    vertical-align: -3px
+}
+
+.focusinfo .item1 .focusitems {
+    margin: 8px 21px 8px 0
+}
+
+.focusinfo .item2 .focusitems {
+    margin: 8px 11px
+}
+
+.focusinfo .item3 .focusitems {
+    margin: 8px 0 8px 21px
+}
+
+.section1 h2 {
+    margin: 60px 0 30px
+}
+
+.section1 .main ul {
+    overflow: hidden
+}
+
+.section1 .entry li {
+    width: 33.333%;
+    float: left;
+    padding-bottom: 40px
+}
+
+.section1 .main .icons {
+    width: 55px;
+    height: 55px;
+    background-position: 0 0;
+    float: left;
+    margin-right: 20px
+}
+
+.section1 .item1 .icons {
+    background-position: 0 -64px
+}
+
+.section1 .item2 .icons {
+    background-position: -64px -64px
+}
+
+.section1 .item3 .icons {
+    background-position: -128px -64px
+}
+
+.section1 .item4 .icons {
+    background-position: -192px -64px
+}
+
+.section1 .item5 .icons {
+    background-position: -256px -64px
+}
+
+.section1 .desc p {
+    font-size: 20px;
+    color: #444;
+    padding-top: 5px
+}
+
+.section1 .desc span {
+    font-size: 14px;
+    color: #666
+}
+
+.section1 .main li:hover .desc p,.section1 .main li:hover .desc span {
+    /*color: #e27000*/
+    color: #3073ce;
+}
+
+.section1 .item1:hover .icons {
+    background-position: 0 -128px
+}
+
+.section1 .item2:hover .icons {
+    background-position: -64px -128px
+}
+
+.section1 .item3:hover .icons {
+    background-position: -128px -128px
+}
+
+.section1 .item4:hover .icons {
+    background-position: -192px -128px
+}
+
+.section1 .item5:hover .icons {
+    background-position: -256px -128px
+}
+
+.container .tab-bg {
+    height: 20px;
+    padding: 5px 0;
+    background: #322212
+}
+
+.section2 .main,.section3 .main,.section4 .main, .section5 .main {
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    margin: 12px auto 22px;
+    min-height: 600px
+}
+
+.section2 .row,.section3 .row, .section5 .row {
+    padding: 28px 50px 40px;
+    border-bottom: 1px solid #d9dadc
+}
+
+.section2 h2 {
+    padding-bottom: 12px
+}
+
+.section2 h2 span {
+    font-size: 14px;
+    color: #666
+}
+
+.container .content-l,.container .content-r {
+    width: 50%;
+    float: left
+}
+
+.nav-second {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    line-height: 30px;
+    font-size: 14px;
+    display: none
+}
+
+.nav-tab .magapp {
+    margin-left: -147px
+}
+
+.nav-tab .magad {
+    margin-left: -114px
+}
+
+.nav-tab .maginfo {
+    margin-left: -98px;
+}
+
+.nav-second .arrow-up {
+    left: 50%;
+    border-width: 5px;
+    border-bottom-color: #322212;
+    margin-left: 28px;
+}
+
+.nav-second a {
+    color: #8d8d8d;
+    padding: 2px 10px;
+    border-radius: 2px;
+    margin: 0 10px
+}
+
+.nav-second a.active {
+    color: #fff;
+    background: #54391b
+}
+
+.appinfo .content-l p,.container .appselect {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin: 10px 0;
+    color: #a1a1a1;
+    background: #feffff;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.container .section2 .appselect {
+    width: 40%;
+    background: #fcfcfc
+}
+
+.appinfo .content-l input,.appselect select {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 10px
+}
+
+.sel-wrap {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin: 10px 0;
+    color: #a1a1a1;
+    background: #feffff;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.sel, .ipt {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 10px
+}
+
+.per75 .tit, .per75 .cont {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.per75 .tit {
+    width: 25%;
+    font-size: 16px;
+    color: #666;
+}
+
+.per75 .cont {
+    width: 75%;
+}
+
+.per75 .cont i {
+    color: #fb7c00;
+    font-size: 16px;
+}
+
+.per75 .cont label {
+    padding-right: 20px;
+}
+
+.ipt-tip {
+    font-size: 12px;
+    color: #999;
+    padding: 10px 0 0 20px;
+    line-height: 1.5
+}
+
+.ipt-tip a {
+    color: #fb7c00;
+}
+
+.section2 .content-l .appselect select {
+    *margin-top: 3px
+}
+
+.appinfo .content-l .appid {
+    color: #666;
+    font-size: 14px
+}
+
+.appinfo .content-r p,.container .option .content-r p {
+    font-size: 12px;
+    color: #999;
+    padding: 10px 0 0 20px;
+    line-height: 1.5
+}
+
+.styleview {
+    text-align: center;
+    margin-top: 12px
+}
+
+.styleview img {
+    margin-bottom: 10px
+}
+
+.styleview span {
+    display: inline-block;
+    font-size: 14px;
+    color: #666
+}
+
+.styleview input {
+    margin-right: 5px
+}
+
+.content1 .optiontab {
+    overflow: hidden;
+    margin-bottom: 10px
+}
+
+.content1 .optiontab a {
+    float: left;
+    width: 80px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    color: #666;
+    background: #feffff
+}
+
+.content1 .optiontab a.active {
+    color: #e27000;
+    border-color: #e27000;
+    background: #fffced
+}
+
+.content1 .optiontab .option-l {
+    border-radius: 4px 0 0 4px
+}
+
+.content1 .optiontab .option-r {
+    margin-left: -1px;
+    border-radius: 0 4px 4px 0;
+    border-left-color: #e27000
+}
+
+.content1 .option {
+    border-bottom: 0
+}
+
+.textarea {
+    border: 1px solid #ccc;
+    background: #feffff;
+    display: none
+}
+
+.textarea textarea {
+    width: 96%;
+    height: 160px;
+    padding: 2%;
+    font-size: 16px;
+    color: #666
+}
+
+.container .btns {
+    text-align: center;
+    margin-top: 35px
+}
+
+.container .btns a {
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px
+}
+
+.container .btns .save {
+    color: #fff;
+    background: #3073ce;
+    padding: 5px 30px
+}
+
+.container .btns .cancel {
+    color: #666;
+    background: #feffff;
+    border: 1px solid #ccc;
+    padding: 4px 30px
+}
+
+.section2 .content2 {
+    padding-bottom: 100px
+}
+
+.section2 .content2 .row {
+    padding: 28px 50px 0
+}
+
+.container .content2 .appselect {
+    width: 170px;
+    float: left;
+    margin: 0
+}
+
+.content2 .appsearch {
+    float: right;
+    width: 220px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background: #fff;
+    position: relative
+}
+
+.content2 .appsearch input {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 10px
+}
+
+.content2 .appsearch a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 34px;
+    border-left: 1px solid #ccc;
+    background-position: -326px -104px
+}
+
+.content2 table,.section4 table {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #666
+}
+
+.content2 table a {
+    color: #666
+}
+
+.content2 table tr,.section4 table tr {
+    border: 1px solid #ccc;
+    border-top: 0;
+    height: 40px
+}
+
+.content2 table td,.section4 table td {
+    border: solid #ccc;
+    border-width: 0 0 1px 1px;
+}
+
+.content2 .trow1,.section4 .trow1 {
+    border: 1px solid #f8c695;
+    background: #d2e0f4
+}
+
+.content2 .trow1 th,.section4 .trow1 th {
+    color: #3174cf;
+    border : 1px solid #89bbff;
+    *border: solid #89bbff;
+    *border-width: 1px 0
+}
+
+.content2 .trow1 th.tcol1,.section4 .trow1 th.tcol1 {
+    *border-width: 1px 0 1px 1px
+}
+
+.content2 .trow1 th.tcol7,.section3 .trow1 th.tcol6,.section4 .trow1 th.tcol5 {
+    *border-width: 1px 1px 1px 0
+}
+
+.content2 .trow2 {
+    background: #fff
+}
+
+.content2 .trow3 {
+    background: #f4f4f4
+}
+
+.content2 .trow4 {
+    background: #fff
+}
+
+.content2 .trow5 {
+    background: #f4f4f4
+}
+
+.content2 .trow6 {
+    background: #fff
+}
+
+.section2 .tcol1 {
+    width: 27%;
+    font-weight: 900;
+    *border-width: 0 0 1px 1px
+}
+
+.section2 .tcol2 {
+    width: 7%
+}
+
+.section2 .tcol3 {
+    width: 19%
+}
+
+.section2 .tcol4 {
+    width: 13%;
+    color: #fb7c00
+}
+
+.section2 .tcol5 {
+    width: 11%
+}
+
+.section2 .tcol6 {
+    width: 8%
+}
+
+.section2 .tcol7 {
+    width: 15%;
+    *border-width: 0 1px 1px 0
+}
+
+.section3 .tcol1 {
+    width: 8%;
+    font-weight: 900;
+    *border-width: 0 0 1px 1px
+}
+
+.section3 .tcol2 {
+    width: 28%
+}
+
+.section3 .tcol3 {
+    width: 7%
+}
+
+.section3 .tcol4 {
+    width: 27%;
+    color: #3174cf
+}
+
+.section3 .tcol5 {
+    width: 15%
+}
+
+.section3 .tcol6 {
+    width: 15%;
+    *border-width: 0 1px 1px 0
+}
+
+.section2 .tcol2 a,.section3 .tcol3 a, .section5 .tcol4 a {
+    display: inline-block;
+    width: 32px;
+    height: 24px;
+    background-position: -318px -172px
+}
+
+.section2 .tcol2 a.on,.section3 .tcol3 a.on, .section5 .tcol4 a.on {
+    background-position: -318px -140px
+}
+
+.section5 .tcol7 a:first-child {
+    padding-right: 6px;
+}
+
+.section4 div.table1 {
+    padding: 0
+}
+
+.table1 th.tcol2,.table1 th.tcol4,.table1 th.tcol6 {
+    border: solid #89bbff;
+    border-width: 1px
+}
+
+.table1 table td {
+    border-width: 0 1px 1px
+}
+
+.table1 .trow3,.table1 .trow4,.table1 .trow5,.table1 .trow6 {
+    background: #fff
+}
+
+.table1 .tcol1 {
+    width: 15%
+}
+
+.table1 .tcol2 {
+    width: 18%
+}
+
+.table1 .tcol3 {
+    width: 15%
+}
+
+.table1 .tcol4 {
+    width: 10%
+}
+
+.table1 .tcol5 {
+    width: 10%
+}
+
+.table1 .tcol6 {
+    width: 15%
+}
+
+.table1 .tcol7 {
+    width: 17%
+}
+
+.table1 th.tcol7 {
+    *border-width: 1px 1px 1px 0
+}
+.row.row-b::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.container .pages {
+    float: right;
+    height: 24px;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.container .pages a {
+    color: #a4a9ae;
+    padding: 0 4px;
+    margin: 0 2px
+}
+
+.container .pages .a1 {
+    display: inline-block;
+    width: 70px;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 24px;
+    color: #666;
+    background: #feffff;
+    padding: 0
+}
+
+.container .pages span {
+    color: #3174cf;
+    padding: 0 4px;
+    margin: 0 2px
+}
+
+.content3 {
+    color: #666
+}
+
+.container .copyid {
+    font-size: 16px
+}
+
+.container .copyid a {
+    display: inline-block;
+    width: 60px;
+    height: 24px;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    color: #666;
+    margin-left: 20px;
+    border-radius: 2px
+}
+
+.container .copyid em {
+    color: #fb7c00
+}
+
+.container .copyid p {
+    font-size: 12px;
+    color: #949494;
+    margin-top: 10px
+}
+
+.content3 .androidsdk {
+    font-size: 14px
+}
+
+.content3 .sdkdown {
+    float: right;
+    padding: 5px 15px;
+    color: #fff;
+    background: #f87a00;
+    border-radius: 4px
+}
+
+.content3 .sdkupdate {
+    margin-top: 15px
+}
+
+.content3 .sdkupdate li {
+    text-indent: 15px;
+    margin: 5px 0
+}
+
+.container .row-b {
+    border-bottom: 0;
+    padding: 28px 50px 0
+}
+
+.section3 .addpostid {
+    display: inline-block;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    color: #666;
+    background: #feffff;
+    padding: 5px 15px;
+    border-radius: 4px
+}
+
+.section3 .option .clearfix {
+    padding: 20px 0 40px
+}
+
+.section3 .copyid {
+    color: #666;
+    margin-top: 20px
+}
+
+.container .content1,.container .content2,.container .content3 {
+    display: none
+}
+
+.container .content_show {
+    display: block
+}
+
+.section4 .row {
+    padding: 28px 40px 55px 40px;
+    overflow: hidden;
+    color: #666
+}
+.section4 .chart4 .table {
+    padding: 0 0 55px 0;
+}
+
+.bitem ul {
+    overflow: hidden;
+    margin-top: 24px
+}
+
+.bitem li {
+    float: left;
+    width: 33.333%;
+    *width: 33%;
+    cursor: pointer
+}
+
+.bitem li a {
+    color: #666
+}
+
+.bitem .lwrap {
+    margin: 0 16px 16px 0;
+    border: 1px solid #ccc;
+    padding: 16px 0 16px 16px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 2px
+}
+
+.bitem .licon,.bcontent .licon {
+    float: left;
+    margin-right: 16px;
+    font-size: 0
+}
+
+.bitem .licon img,.bcontent .licon img {
+    display: block;
+    width: 72px;
+    height: 72px
+}
+
+.bitem .ltitle {
+    font-size: 16px;
+    padding: 12px 0 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.bitem .lstatus {
+    font-size: 14px
+}
+
+.section4 .bcontent select {
+    color: #666
+}
+
+.bcontent .ldesc {
+    float: left
+}
+
+.bcontent .ltitle {
+    margin: 5px 0;
+    width: 267px
+}
+
+.bcontent .ltitle select {
+    font-size: 16px;
+    width: 100%;
+    font-size: 16px
+}
+
+.bcontent .lstatus {
+    overflow: hidden
+}
+
+.bcontent .lstatus p {
+    float: left;
+    margin: 0 10px 0 0;
+    position: relative
+}
+
+.bcontent .lstatus .appselect {
+    width: 160px
+}
+
+.bcontent .lstatus .appcalendar {
+    width: 120px
+}
+
+.bcontent .lstatus input {
+    height: 26px;
+    text-indent: 10px
+}
+
+.bcontent .appcalendar .icons {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background-position: -32px -192px;
+    position: absolute;
+    top: 5px;
+    right: 5px
+}
+
+/*statshome*/
+.statstime {
+    padding-left: 40px;
+}
+
+.stats_home_chart {
+    border: 1px solid #ccc;
+    background: #fff;
+    margin-top: 20px;
+    padding: 25px;
+}
+/*statshome*/
+.bcontent .chart {
+    border: 1px solid #ccc;
+    background: #fff;
+    margin-top: 20px
+}
+
+.bcontent .chartab {
+    overflow: hidden
+}
+
+.bcontent .chartab li {
+    width: 114px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    float: left;
+    margin-left: -1px;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background: #f7f4f0;
+    font-size: 16px;
+    cursor: pointer
+}
+
+.bcontent .chartab li.cur {
+    background: #fff;
+    border-bottom: 0;
+    border-right: 0
+}
+
+.bcontent .chartbox {
+    width: 90%;
+    margin: 30px auto 40px
+}
+
+.chartbox .chartlist {
+    display: none
+}
+
+.chartbox .chart_show {
+    display: block
+}
+
+.pop {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.2);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 14px;
+    display: none
+}
+
+.wrap .pop_show {
+    display: block
+}
+
+.pop .info {
+    width: 370px;
+    height: 204px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -185px;
+    margin-top: -102px;
+    background: #fff
+}
+
+.pop .title {
+    padding: 10px;
+    color: #fb7c00;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc
+}
+
+.pop .title span {
+    float: left
+}
+
+.pop .title a {
+    float: right;
+    width: 30px;
+    height: 20px;
+    background-position: 10px -188px
+}
+
+.pop .msg {
+    color: #666;
+    padding: 20px 30px 0;
+    text-align: center
+}
+
+.pop .msg p {
+    line-height: 2;
+    text-align: left
+}
+
+.pop .msg a {
+    display: inline-block;
+    padding: 5px 15px;
+    background: #f87a00;
+    color: #fff;
+    margin-top: 20px;
+    border-radius: 4px
+}
+
+.landing {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -185px;
+    margin-top: -155px;
+    background: #fff;
+    border-radius: 6px
+}
+
+.login-form{
+    width: 370px;
+    height: 360px;
+}
+
+.regist {
+    width: 370px;
+    height: 470px;
+}
+
+.landing .title {
+    padding: 10px;
+    color: #3073ce;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc
+}
+
+.landing .title span {
+    float: left
+}
+
+.landing .title a {
+    float: right;
+    width: 30px;
+    height: 20px;
+    background-position: 10px -188px
+}
+
+.landing .loginbox {
+    padding: 20px 30px 0
+}
+
+.landing .loginbox a {
+    font-size: 12px;
+    color: #008cd1
+}
+
+.landing p {
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    margin-bottom: 16px
+}
+
+.landing input {
+    display: inline-block;
+    width: 100%;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 16px;
+    color: #666
+}
+
+.landing .vertical {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 16px
+}
+
+.landing .vertical p {
+    width: 50%;
+    float: left;
+    margin-right: 16px
+}
+
+.landing .vertical input {
+    margin-bottom: 0
+}
+
+.landing .vertical a {
+    float: left;
+    background: #c6c6c6;
+    font-size: 0;
+    height: 42px
+}
+
+.landing .vertical img {
+    height: 100%;
+    width: 136px;
+}
+
+.landing .loginbox .dologin {
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    width: 104px;
+    height: 36px;
+    margin-left: -52px;
+    text-align: center;
+    line-height: 36px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 6px;
+    background: #3073ce;
+    cursor: pointer
+}
+
+.landing .reglink {
+    position: absolute;
+    right: 30px;
+    bottom: 15px
+}
+
+.ui-datepicker {
+    background: #fff;
+    border: 1px solid #ccc
+}
+
+.ui-datepicker .ui-datepicker-header a {
+    background-color: #fc9b3c;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    margin-top: 4px
+}
+
+.ui-datepicker-header .ui-datepicker-prev {
+    background-position: -58px -189px
+}
+
+.ui-datepicker-header .ui-datepicker-next {
+    background-position: -89px -188px
+}
+
+.ui-datepicker .ui-datepicker-title select {
+    border: 1px solid #ccc;
+    border-radius: 2px
+}
+
+.ui-datepicker .ui-datepicker-title .ui-datepicker-year {
+    margin-left: 12px
+}
+
+.ui-datepicker td a {
+    text-align: center;
+    color: #000
+}
+
+.ui-datepicker-current-day {
+    background: #fc9b3c
+}
+
+@media only screen and (max-width:1000px) {
+    .focusinfo {
+        margin: 0 auto
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    .focusinfo .focusitems {
+        padding: 10px 16px 20px 22px
+    }
+
+    .focusinfo {
+        margin: 10px auto 0
+    }
+}
+
+@media only screen and (min-width:1400px) {
+    .focusinfo .focusitems {
+        padding: 20px 16px 30px 22px
+    }
+
+    .focusinfo {
+        margin: 15px auto 0
+    }
+}
+
+@media only screen and (min-width:1600px) {
+    .focusinfo {
+        margin: 50px auto 0
+    }
+}
+
+.btn, .appinfo .content-l .btn {
+    background: #f87a00;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 30px;
+    width: auto;
+    height: auto;
+    line-height: 2;
+    display: inline-block;
+}
+.btn:hover {
+    opacity: .8;
+    cursor: pointer;
+
+}
+
+.adspot_style_item {
+    padding-right:15px;
+}
+.err {
+    color: #a94442;
+    clear: both;
+    margin: -10px 0px 10px 0px;
+    font-size: 1px;
+}
+
+.export {
+    cursor: pointer;
+}

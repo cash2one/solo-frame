@@ -1,0 +1,408 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/affiliateleadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<div id="content" ms-controller="dashboard">
+    <div class="content-full aff-dashboard">
+        <div class="dashboard-left float-left">
+            <!--<div class="affdash-budget">-->
+            <!--<div class="float-left today-budget">-->
+            <!--<div>-->
+            <!--<span class="affdash-budget-first">$0.000</span>-->
+            <!--<span>Today</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="float-left balance-budget">-->
+            <!--<div>-->
+            <!--<span class="affdash-budget-first">$0</span>-->
+            <!--<span>Balance</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="float-left last-div total-budget">-->
+            <!--<div>-->
+            <!--<span class="affdash-budget-first">$0.00</span>-->
+            <!--<span>	Total Paid</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="affdash-caption">
+                <!-- <div class="caption-title"></div> -->
+                <div id="container"></div>
+            </div>
+            <div class="affdash-top-offer">
+                <!--<ul class="nav-tabs">-->
+                <!--<li> <a class="active" href="javascript:;"  data-target="HighConverOffers">Highest Converting Offers</a> </li>-->
+                <!--<li> <a class="" href="javascript:;"   data-target="topMobileOffers">Top Mobile Offers</a> </li>-->
+                <!--<li> <a class="" href="javascript:;"  data-target="topPCOffers">Top PC Offers</a> </li>-->
+                <!--</ul>-->
+                <div class="tabs-content">
+                    <!--<div class="tab-pane row active"  id="HighConverOffers">-->
+                    <!--<div class="tab-pane-center">-->
+                    <!--<div class="">-->
+                    <!--<div class="clear"></div>-->
+                    <!--<div>-->
+                    <!--<table class="table table-bordered table-hover" id="postback-pixel-table">-->
+                    <!--<thead>-->
+                    <!--<th>Offer Name</th>-->
+                    <!--<th>Payout</th>-->
+                    <!--</thead>-->
+                    <!--<tbody class='highest'>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/156">(156)Apus Launcher-Android DDL-Nonincent-RU</a></td><td>$0.130</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/308">(308)Goibibo-Android-Incent- IN </a></td><td>$0.100</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/98">(98)AliExpress-Android-Nonincent-ES,RU</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/268">(268)Clean My Ram-Android DDL-Incent-US</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/99">(99)AliExpress-iOS-Nonincent-ES,RU</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/157">(157)Apus Launcher-Android DDL-Nonincent-Global except CN</a></td><td>$0.080</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/218">(218)Heaven God-iOS-Incent- KR, JP, HK, TW and MO</a></td><td>$0.580</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/306">(306)MY - Content DL_M - WAP - Non Incentive</a></td><td>$0.180</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/114">(114)Flashlight-Android-Nonincent-US</a></td><td>$0.400</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/30">(30)Reign 君临天下-Android-Nonincent-TH</a></td><td>$0.670</td></tr>-->
+                    <!--</tbody>-->
+                    <!--</table>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!---->
+                    <!--</div>-->
+                    <!--<div class="tab-pane row"  id="topMobileOffers">-->
+                    <!--<div class="tab-pane-center">-->
+                    <!--<div class="">-->
+                    <!--<div class="clear"></div>-->
+                    <!--<div>-->
+                    <!--<table class="table table-bordered table-hover" id="postback-pixel-table">-->
+                    <!--<thead>-->
+                    <!--<th>Offer Name</th>-->
+                    <!--<th>Payout</th>-->
+                    <!--</thead>-->
+                    <!--<tbody class='mobile'>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/98">(98)AliExpress-Android-Nonincent-ES,RU</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/218">(218)Heaven God-iOS-Incent- KR, JP, HK, TW and MO</a></td><td>$0.580</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/325">(325)AR - Personal/Movistar- one click</a></td><td>$1.250</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/30">(30)Reign 君临天下-Android-Nonincent-TH</a></td><td>$0.670</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/268">(268)Clean My Ram-Android DDL-Incent-US</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/99">(99)AliExpress-iOS-Nonincent-ES,RU</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/156">(156)Apus Launcher-Android DDL-Nonincent-RU</a></td><td>$0.130</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/114">(114)Flashlight-Android-Nonincent-US</a></td><td>$0.400</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/207">(207)Flash Keyboard-Android-Nonincent-US</a></td><td>$0.540</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/318">(318)Purify-Android phone-Nonincent-US</a></td><td>$0.640</td></tr>-->
+                    <!--</tbody>-->
+                    <!--</table>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="tab-pane row"  id="topPCOffers">-->
+                    <!--<div class="tab-pane-center">-->
+                    <!--<div class="">-->
+                    <!--<div class="clear"></div>-->
+                    <!--<div>-->
+                    <!--<table class="table table-bordered table-hover" id="postback-pixel-table">-->
+                    <!--<thead>-->
+                    <!--<th>Offer Name</th>-->
+                    <!--<th>Payout</th>-->
+                    <!--</thead>-->
+                    <!--<tbody class='highest'>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/156">(156)Apus Launcher-Android DDL-Nonincent-RU</a></td><td>$0.130</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/308">(308)Goibibo-Android-Incent- IN </a></td><td>$0.100</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/98">(98)AliExpress-Android-Nonincent-ES,RU</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/268">(268)Clean My Ram-Android DDL-Incent-US</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/99">(99)AliExpress-iOS-Nonincent-ES,RU</a></td><td>$0.240</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/157">(157)Apus Launcher-Android DDL-Nonincent-Global except CN</a></td><td>$0.080</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/218">(218)Heaven God-iOS-Incent- KR, JP, HK, TW and MO</a></td><td>$0.580</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/306">(306)MY - Content DL_M - WAP - Non Incentive</a></td><td>$0.180</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/114">(114)Flashlight-Android-Nonincent-US</a></td><td>$0.400</td></tr>-->
+                    <!--<tr id=""><td class="breakall"><a href="/affoffer/details/30">(30)Reign 君临天下-Android-Nonincent-TH</a></td><td>$0.670</td></tr>-->
+                    <!--</tbody>-->
+                    <!--</table>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="affdash-featured-offer affoffer-grid-data">
+                <!--<div>-->
+                <!--<label class="featured-offer">Featured Offers</label>-->
+                <!--</div>-->
+                <!--<ul>-->
+                <!--<li class="featured-offer-li">-->
+                <!--&lt;!&ndash; affdash-offer-logo &ndash;&gt;-->
+                <!--<div class="featured-offer-div">-->
+                <!--<div class="affoffer-logo float-left">-->
+                <!--<span class="no-image">No Image</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-offer-detail">-->
+                <!--<label class="affoffer-name"><a href="#" class="search-off-link">(267)Slotomania-iOS-Nonincent-US, CA, AU-Direct traffic</a></label>-->
+                <!--<label class="dash-offer-payout">$3.250</label>-->
+                <!--<div class="clear"></div>-->
+                <!--<span class="float-left affoffer-date">Feb 26, 2016</span>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="affoffer-grid-more-info affoffer-detail-info">-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label><em class="bg-sm"></em>Description</label>-->
+
+                <!--<span class="affoffer-description-short">-->
+                <!--Conversion User Flow:<br/>1. User is redirected on iOS APP Store to download the application<br/><br/>-->
+                <!--</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="affoffer-restriction"><em class="bg-sm"></em>Restrictions</label>-->
+                <!--<span class="span-point htmlFormat" data-linenum="line-3">Incentivized Traffic is not allowed. No rebrokering.<br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="float-left affoffer-detail-category"><em class="bg-sm"></em>Category</label>-->
+                <!--<span class="category-right" > Game Download IOS</span>-->
+                <!--<div class="clear"></div>-->
+                <!--<label class="affoffer-allowe-country float-left"><em class="bg-sm"></em>Include</label>-->
+                <!--<span  class="affoffer-detail-countries category-right">-->
+                <!--CA(Include:ALL)         </span>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<li class="featured-offer-li">-->
+                <!--&lt;!&ndash; affdash-offer-logo &ndash;&gt;-->
+                <!--<div class="featured-offer-div">-->
+                <!--<div class="affoffer-logo float-left">-->
+                <!--<span class="no-image">No Image</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-offer-detail">-->
+                <!--<label class="affoffer-name"><a href="/affoffer/details/330" class="search-off-link">(330)MX- Hot Eyes- Telcel/Iusacell/Wifi</a></label>-->
+                <!--<label class="dash-offer-payout">$3.250</label>-->
+                <!--<div class="clear"></div>-->
+                <!--<span class="float-left affoffer-date">Mar 11, 2016</span>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="affoffer-grid-more-info affoffer-detail-info">-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label><em class="bg-sm"></em>Description</label>-->
+
+                <!--<span class="affoffer-description-short">-->
+                <!--Conversion User Flow:<br/>1. User is redirected on iOS APP Store to download the application<br/><br/>-->
+                <!--</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="affoffer-restriction"><em class="bg-sm"></em>Restrictions</label>-->
+                <!--<span class="span-point htmlFormat" data-linenum="line-3">Incentivized Traffic is not allowed. No rebrokering.<br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="float-left affoffer-detail-category"><em class="bg-sm"></em>Category</label>-->
+                <!--<span class="category-right" > Game Download IOS</span>-->
+                <!--<div class="clear"></div>-->
+                <!--<label class="affoffer-allowe-country float-left"><em class="bg-sm"></em>Include</label>-->
+                <!--<span  class="affoffer-detail-countries category-right">-->
+                <!--CA(Include:ALL)         </span>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; 					<div class="affoffer-grid-more-info affoffer-detail-info none">-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label><em class="bg-sm"></em>Description</label>-->
+                <!--<span class="affoffer-description-short htmlFormat" data-linenum="line-3">All&nbsp;banners&nbsp;,&nbsp;Text,&nbsp;bridge&nbsp;pages&nbsp;must&nbsp;be&nbsp;approved&nbsp;in&nbsp;advance.&nbsp;No&nbsp;words&nbsp;like&nbsp;&quot;free&quot;&nbsp;or&nbsp;&quot;you&nbsp;have&nbsp;won&quot;.<br/><br/>User&nbsp;Conversion&nbsp;Flow:&nbsp;One&nbsp;click&nbsp;flow<br/><br/>GEO:Argentina<br/><br/>Device:All&nbsp;Device<br/><br/>Carriers:All&nbsp;carrier<br/><br/>Caps:NO<br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="affoffer-restriction"><em class="bg-sm"></em>Restrictions</label>-->
+                <!--<span class="span-point htmlFormat" data-linenum="line-3">Push&nbsp;Notification&nbsp;traffic&nbsp;allowed:Yes<br/><br/>Incentivized&nbsp;Traffic&nbsp;allowed:NO<br/><br/>Email&nbsp;Traffic&nbsp;allowed:Yes<br/><br/>Adult&nbsp;traffic&nbsp;allowed:&nbsp;Yes<br/><br/>Search&nbsp;traffic&nbsp;allowed:Yes<br/><br/>SMS&nbsp;Traffic&nbsp;allowed:NO<br/><br/>Wifi&nbsp;traffic&nbsp;allowed:Yes<br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="float-left affoffer-detail-category"><em class="bg-sm"></em>Category</label>-->
+                <!--<span>Adult</span>-->
+                <!--<div class="clear"></div>-->
+                <!--<label class="affoffer-allowe-country float-left"><em class="bg-sm"></em>Include</label>-->
+                <!--<span class="affoffer-detail-countries">-->
+                <!--MX(Include:ALL)                            </span>-->
+                <!--</div>-->
+                <!--</div> &ndash;&gt;-->
+                <!--</li>-->
+                <!--<li class="featured-offer-li">-->
+                <!--&lt;!&ndash; affdash-offer-logo &ndash;&gt;-->
+                <!--<div class="featured-offer-div">-->
+                <!--<div class="affoffer-logo float-left">-->
+                <!--<span class="no-image">No Image</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-offer-detail">-->
+                <!--<label class="affoffer-name"><a href="/affoffer/details/98" class="search-off-link">(98)AliExpress-Android-Nonincent-ES,RU</a></label>-->
+                <!--<label class="dash-offer-payout">$0.240</label>-->
+                <!--<div class="clear"></div>-->
+                <!--<span class="float-left affoffer-date">Jan 15, 2016</span>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; 					<div class="affoffer-grid-more-info affoffer-detail-info none">-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label><em class="bg-sm"></em>Description</label>-->
+                <!--<span class="affoffer-description-short htmlFormat" data-linenum="line-3">Conversion&nbsp;User&nbsp;Flow:<br/>1.&nbsp;User&nbsp;is&nbsp;redirected&nbsp;on&nbsp;Google&nbsp;Play&nbsp;to&nbsp;download&nbsp;the&nbsp;application<br/>2.&nbsp;User&nbsp;install&nbsp;the&nbsp;application&nbsp;and&nbsp;open&nbsp;<br/><br/>Device:Android<br/>Carriers:All<br/><br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="affoffer-restriction"><em class="bg-sm"></em>Restrictions</label>-->
+                <!--<span class="span-point htmlFormat" data-linenum="line-3">Incentivized&nbsp;Traffic&nbsp;is&nbsp;not&nbsp;allowed.&nbsp;No&nbsp;rebrokering.<br/>For&nbsp;any&nbsp;cheating&nbsp;traffic,&nbsp;the&nbsp;Adv&nbsp;has&nbsp;the&nbsp;right&nbsp;to&nbsp;demand&nbsp;or&nbsp;directly&nbsp;deduct&nbsp;a&nbsp;penalty&nbsp;fee&nbsp;in&nbsp;payment&nbsp;of&nbsp;the&nbsp;invoice&nbsp;period,&nbsp;and&nbsp;the&nbsp;penalty&nbsp;fee&nbsp;is&nbsp;2&nbsp;times&nbsp;of&nbsp;the&nbsp;promotion&nbsp;fee&nbsp;created&nbsp;by&nbsp;the&nbsp;Partner&nbsp;during&nbsp;the&nbsp;day(s)&nbsp;of&nbsp;cheating.</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="float-left affoffer-detail-category"><em class="bg-sm"></em>Category</label>-->
+                <!--<span>APP Download Android</span>-->
+                <!--<div class="clear"></div>-->
+                <!--<label class="affoffer-allowe-country float-left"><em class="bg-sm"></em>Include</label>-->
+                <!--<span class="affoffer-detail-countries">-->
+                <!--ES(Include:ALL),RU(Include:ALL)                            </span>-->
+                <!--</div>-->
+                <!--</div> &ndash;&gt;-->
+                <!--</li>-->
+                <!--<li class="featured-offer-li">-->
+                <!--&lt;!&ndash; affdash-offer-logo &ndash;&gt;-->
+                <!--<div class="featured-offer-div">-->
+                <!--<div class="affoffer-logo float-left">-->
+                <!--<span class="no-image">No Image</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-offer-detail">-->
+                <!--<label class="affoffer-name"><a href="/affoffer/details/218" class="search-off-link">(218)Heaven God-iOS-Incent- KR, JP, HK, TW and MO</a></label>-->
+                <!--<label class="dash-offer-payout">$0.580</label>-->
+                <!--<div class="clear"></div>-->
+                <!--<span class="float-left affoffer-date">Jan 29, 2016</span>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; 				<div class="affoffer-grid-more-info affoffer-detail-info none">-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label><em class="bg-sm"></em>Description</label>-->
+                <!--<span class="affoffer-description-short htmlFormat" data-linenum="line-3">Conversion&nbsp;User&nbsp;Flow:<br/>1.&nbsp;User&nbsp;is&nbsp;redirected&nbsp;on&nbsp;iOS&nbsp;APP&nbsp;Store&nbsp;to&nbsp;download&nbsp;the&nbsp;application<br/>2.&nbsp;User&nbsp;install&nbsp;the&nbsp;application&nbsp;and&nbsp;open&nbsp;<br/><br/>Device:&nbsp;iOS<br/>Carriers:All<br/><br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="affoffer-restriction"><em class="bg-sm"></em>Restrictions</label>-->
+                <!--<span class="span-point htmlFormat" data-linenum="line-3">Incentivized&nbsp;Traffic&nbsp;is&nbsp;allowed.&nbsp;No&nbsp;rebrokering.<br/>&nbsp;</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="float-left affoffer-detail-category"><em class="bg-sm"></em>Category</label>-->
+                <!--<span>Game Download IOS</span>-->
+                <!--<div class="clear"></div>-->
+                <!--<label class="affoffer-allowe-country float-left"><em class="bg-sm"></em>Include</label>-->
+                <!--<span class="affoffer-detail-countries">-->
+                <!--KR(Include:ALL),JP(Include:ALL),HK(Include:ALL),TW(Include:ALL),MO(Include:ALL)                            </span>-->
+                <!--</div>-->
+                <!--</div> &ndash;&gt;-->
+                <!--</li>-->
+                <!--<li class="featured-offer-li">-->
+                <!--&lt;!&ndash; affdash-offer-logo &ndash;&gt;-->
+                <!--<div class="featured-offer-div">-->
+                <!--<div class="affoffer-logo float-left">-->
+                <!--<span class="no-image">No Image</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-offer-detail">-->
+                <!--<label class="affoffer-name"><a href="/affoffer/details/156" class="search-off-link">(156)Apus Launcher-Android DDL-Nonincent-RU</a></label>-->
+                <!--<label class="dash-offer-payout">$0.130</label>-->
+                <!--<div class="clear"></div>-->
+                <!--<span class="float-left affoffer-date">Jan 22, 2016</span>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; 					<div class="affoffer-grid-more-info affoffer-detail-info none">-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label><em class="bg-sm"></em>Description</label>-->
+                <!--<span class="affoffer-description-short htmlFormat" data-linenum="line-3">Conversion&nbsp;User&nbsp;Flow:<br/>1.&nbsp;User&nbsp;is&nbsp;redirected&nbsp;on&nbsp;the&nbsp;landing&nbsp;page&nbsp;to&nbsp;download&nbsp;the&nbsp;Apk<br/>2.&nbsp;User&nbsp;install&nbsp;the&nbsp;application&nbsp;and&nbsp;open&nbsp;<br/><br/>Device:Android<br/>Carriers:All<br/><br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="affoffer-restriction"><em class="bg-sm"></em>Restrictions</label>-->
+                <!--<span class="span-point htmlFormat" data-linenum="line-3">Incentivized&nbsp;Traffic&nbsp;is&nbsp;not&nbsp;allowed.&nbsp;No&nbsp;rebrokering.<br/><br/>All&nbsp;banner&nbsp;need&nbsp;approval&nbsp;by&nbsp;ADV&nbsp;before&nbsp;live.<br/>KPI:&nbsp;2nd&nbsp;day&nbsp;retention&nbsp;rate&nbsp;needs&nbsp;to&nbsp;be&nbsp;above&nbsp;30%,&nbsp;otherwise&nbsp;no&nbsp;payment&nbsp;will&nbsp;be&nbsp;made.<br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="float-left affoffer-detail-category"><em class="bg-sm"></em>Category</label>-->
+                <!--<span>APP Download Android</span>-->
+                <!--<div class="clear"></div>-->
+                <!--<label class="affoffer-allowe-country float-left"><em class="bg-sm"></em>Include</label>-->
+                <!--<span class="affoffer-detail-countries">-->
+                <!--RU(Include:ALL)                            </span>-->
+                <!--</div>-->
+                <!--</div> &ndash;&gt;-->
+                <!--</li>-->
+                <!--<li class="featured-offer-li">-->
+                <!--&lt;!&ndash; affdash-offer-logo &ndash;&gt;-->
+                <!--<div class="featured-offer-div">-->
+                <!--<div class="affoffer-logo float-left">-->
+                <!--<span class="no-image">No Image</span>-->
+                <!--</div>-->
+                <!--<div class="affdash-offer-detail">-->
+                <!--<label class="affoffer-name"><a href="/affoffer/details/308" class="search-off-link">(308)Goibibo-Android-Incent- IN </a></label>-->
+                <!--<label class="dash-offer-payout">$0.100</label>-->
+                <!--<div class="clear"></div>-->
+                <!--<span class="float-left affoffer-date">Mar 09, 2016</span>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; 					<div class="affoffer-grid-more-info affoffer-detail-info none">-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label><em class="bg-sm"></em>Description</label>-->
+                <!--<span class="affoffer-description-short htmlFormat" data-linenum="line-3">Conversion&nbsp;User&nbsp;Flow:<br/>1.&nbsp;User&nbsp;is&nbsp;redirected&nbsp;on&nbsp;Google&nbsp;Play&nbsp;to&nbsp;download&nbsp;the&nbsp;application<br/>2.&nbsp;User&nbsp;install&nbsp;the&nbsp;application&nbsp;and&nbsp;open&nbsp;<br/><br/>Device:Android&nbsp;<br/>Carriers:All<br/><br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="affoffer-restriction"><em class="bg-sm"></em>Restrictions</label>-->
+                <!--<span class="span-point htmlFormat" data-linenum="line-3">Incentivized&nbsp;Traffic&nbsp;is&nbsp;not&nbsp;allowed.&nbsp;No&nbsp;rebrokering.<br/><br/></span>-->
+                <!--</div>-->
+                <!--<div class="affdash-col-3">-->
+                <!--<label class="float-left affoffer-detail-category"><em class="bg-sm"></em>Category</label>-->
+                <!--<span>APP Download Android</span>-->
+                <!--<div class="clear"></div>-->
+                <!--<label class="affoffer-allowe-country float-left"><em class="bg-sm"></em>Include</label>-->
+                <!--<span class="affoffer-detail-countries">-->
+                <!--IN(Include:ALL)                            </span>-->
+                <!--</div>-->
+                <!--</div> &ndash;&gt;-->
+                <!--</li>-->
+                <!--</ul>-->
+            </div>
+        </div>
+        <div class="dashboard-right float-right">
+            <div class="affdash-account-manager">
+                <div class="account-title">Account Manager</div>
+                <div class="affdash-account-info">
+                    <!--<div class="affdash-manager-logo float-left">-->
+                    <!--<span>No Image</span>				</div>-->
+                    <div class="affdash-manager-text float-left">
+                        <label>{{account_manager.account}}</label>
+                        <span class="affdash-manager-Skype"><em class="bg-sm"></em> {{account_manager.skype_id}}</span>
+                        <span class="affdash-manager-email"><em class="bg-sm"></em> {{account_manager.email}}</span>
+                        <span class="affdash-manager-phone"><em class="bg-sm"></em>{{account_manager.phone}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="top-offer-list affdash-high-income">
+                <div class="top-offer-title">Today's High Income Offers</div>
+                <div class="top-offer-th">
+                    <label class="">Offer Name</label>
+                    <label class="float-right">Payment</label>
+                </div>
+                <div class="affdash-per-offer" ms-repeat="high_income_offers">
+                                    <a ms-attr-href="/offers/detail?offer_id={{el._id}}">({{el._id}}) {{el.title}}</a>
+                    <label class="float-right">$ {{el.payment}}</label>
+                </div>
+            </div>
+            <div class="top-offer-list affdash-lastest-offers">
+                <div class="top-offer-title">Latest Offers</div>
+                <div class="top-offer-th">
+                    <label class="">Offer Name</label>
+                    <label class="float-right">Payment</label>
+                </div>
+                <div class="affdash-per-offer" ms-repeat="lastest_offers">
+                    <span class="no-image none">No Image</span>
+                    <a ms-attr-href="/offers/detail?offer_id={{el._id}}">({{el._id}}) {{el.title}}</a>
+                    <label class="float-right">$ {{el.payment}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%block name="script">
+${parent.script()}
+<script src="${js.affiliateleadhug_affliate_leadhug_dashboard}"></script>
+<script>
+    avalon.ready(
+            function(){
+                avalon.vmodels.dashboard.account_manager = ${json_encode(account_manager)|n};
+                avalon.vmodels.dashboard.lastest_offers = ${json_encode(lastest_offers)|n};
+                avalon.vmodels.dashboard.high_income_offers = ${json_encode(high_income_offers)|n};
+            }
+    )
+</script>
+</%block>

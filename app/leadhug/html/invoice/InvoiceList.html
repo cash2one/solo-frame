@@ -1,0 +1,240 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<!-- Custom CSS -->
+<link href="${css.leadhug_bootstrap_datetimepicker_min}" rel="stylesheet">
+</%block>
+<div id="page-wrapper" ms-controller="invoice_list">
+            <div class="row">
+                <div class="col-lg-12">
+                   <!-- <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right">save</button></h1> -->
+                   <div class="main-header">
+                     <form class="form-group">
+                          <div class="col-md-2">
+                            <select class="form-control" ms-duplex="affiliate_id">
+                             <option class="form-control" value="0">All active affiliate</option>
+                             <option class="form-control" ms-repeat="affiliates" ms-attr-value="el._id">{{el.account}}</option>
+                           </select>
+                          </div>
+                          <div class="col-md-2">
+                            <select class="form-control" ms-duplex="status">
+                                <option class="form-control" value="">All</option>
+                               <option class="form-control" value="0">UnPaid</option>
+                               <option class="form-control" value="1">Paid</option>
+                           </select>
+                          </div>
+                          <div class='col-md-2 col-md-offset-3'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker_start'>
+                                        <input type='text' class="form-control dp_start" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-md-2 '>
+                                <div class="form-group">
+                                    <div class='input-group date' id='datetimepicker_end'>
+                                        <input type='text' class="form-control dp_end" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-md-1'>
+                                <div class="form-group">
+                                  <button type="button" class="btn btn-primary" ms-click="filter">Filter</button>
+                                </div>
+                            </div>
+                     </form>
+
+
+
+                   </div>
+                   <!-- <div class="main-header"><button type="button" class="btn btn-primary pull-right">save</button></div> -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Table
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    	<tr>
+                                    		<th>Affiliate</th>
+                                    		<th>StartDate</th>
+                                    		<th>EndDate</th>
+                                    		<th>Currency</th>
+                                    		<!--<th>Payout</th>-->
+                                    		<th>Actions</th>
+                                    		<th>Amount</th>
+                                    		<th>RealPay</th>
+                                            <th>CreatedTime</th>
+                                            <th>PayStatus</th>
+                                    	</tr>
+                                    </thead>
+                                    <tbody>
+                                    	<tr ms-repeat="invoices">
+                                    		<td>{{el.affiliate_name}}</td>
+                                            <td>{{el.time_range.start}}</td>
+                                            <td>{{el.time_range.end}}</td>
+                                            <td>{{el.currency}}</td>
+                                            <!--<td>{{el._invoice.payout}}</td>-->
+                                            <td>{{el._invoice.actions}}</td>
+                                            <td>{{el._invoice.amount}}</td>
+                                            <td>{{el._invoice.real_pay}}</td>
+                                            <td>{{el.createdTime}}</td>
+                                            <td ms-if="el.status" style="color: green">{{el.status}}</td>
+                                            <td ms-if="!el.status" ms-click="up_status(el._id)" style="cursor:pointer; color: red">{{el.status}}</td>
+                                    	</tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+
+            <div ms-controller="inovice_list" style="text-align:center;"  class="page_select hidden">
+                <div id="pages" style="display:inline-block"></div>
+              
+                <div>
+                    <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                        <li style="display:inline-block">
+                            <div id="total">
+                                <a href="#" class="btn btn-default btn-sm disabled" role="button" style="width:98px;">{{totalPage}} Total</a>
+                            </div>
+                        </li>
+                        <li style="display:inline-block">
+                            <div>
+                                <select  id="display" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm" style="width:98px" > 
+                                    <option value="100">100 Items</option>
+                                    <option value="50">50 Items</option>
+                                    <option value="30">30 Items</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li style="display:inline-block;height:19px">
+                            <div class="col-lg-6" style="width:154px;padding:0px">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" id="go-page" class="form-control" placeholder="Jump to">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" ms-on-click="goPage()">Go!</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </li>
+                    </ul>
+                </div>
+           </div>
+
+
+
+
+
+
+
+      </div>
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_pingstart}"></script>
+<script src="${js.leadhug_leadhug_invoice}"></script>
+<!-- <script>
+    avalon.ready(
+            function () {
+                var invoice_list = avalon.vmodels.invoice_list;
+                invoice_list.affiliates = ${json_encode(affiliates)|n};
+                avalon.vmodels.invoice_list.filter();
+                $(function () {
+
+                    $('#datetimepicker_start').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: invoice_list.time_range.start,
+                    });
+
+                    $('#datetimepicker_end').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: invoice_list.time_range.end
+                    });
+
+                    $("#datetimepicker_start").on("dp.change", function (e) {
+                        $('#datetimepicker_end').data("DateTimePicker").minDate(e.date);
+                        invoice_list.time_range.start = $(".dp_start").val();
+                    });
+
+                    $("#datetimepicker_end").on("dp.change", function (e) {
+                        $('#datetimepicker_start').data("DateTimePicker").maxDate(e.date);
+                        invoice_list.time_range.end = $(".dp_end").val();
+                    });
+                });
+            }
+    )
+</script> -->
+
+
+<script>
+    avalon.ready(
+            function () {
+                var invoice_list = avalon.vmodels.invoice_list;
+                invoice_list.affiliates = ${json_encode(affiliates)|n};
+                avalon.vmodels.invoice_list.filter();
+
+
+                $(function () {
+
+                    $('#datetimepicker_start').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: invoice_list.time_range.start,
+                    });
+
+                    $('#datetimepicker_end').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: invoice_list.time_range.end
+                    });
+
+                    $("#datetimepicker_start").on("dp.change", function (e) {
+                        $('#datetimepicker_end').data("DateTimePicker").minDate(e.date);
+                        invoice_list.time_range.start = $(".dp_start").val();
+                    });
+
+                    $("#datetimepicker_end").on("dp.change", function (e) {
+                        $('#datetimepicker_start').data("DateTimePicker").maxDate(e.date);
+                        invoice_list.time_range.end = $(".dp_end").val();
+                    });
+                });
+            }
+    )
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</%block>

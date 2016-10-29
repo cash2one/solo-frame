@@ -1,0 +1,1 @@
+*/5 * * * * python /home/runtime/leadhug/app/leadhug/controller/api/affle.py >> /home/runtime/leadhug/app/leadhug/controller/api/affle.log &

@@ -1,0 +1,858 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/affiliateleadhug/base/base.html"/>
+<%block name="style">
+
+${parent.style()}
+<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">
+<link href="${css.affiliateleadhug_jquery_prompt}" rel="stylesheet"/>
+</%block>
+<div class="content-full affoffer">
+    <ul class="nav-tabs" ms-controller="offer_tab">
+        <li>
+            <a class="active" href="javascript:;" data-target="searchoffers" ms-click="search">
+                Search Offer
+            </a>
+        </li>
+        <li>
+            <a class="" href="javascript:;" data-target="applyoffers" ms-click="apply_search">
+                Applied Offers
+            </a>
+        </li>
+        <li>
+            <a class="" href="javascript:;" data-target="myoffers" ms-click="my_search">
+                My Offers
+            </a>
+        </li>
+    </ul>
+
+    <div class="tabs-content">
+        <div class="tab-pane row active" id="searchoffers" ms-controller="Offer">
+            <form id="searchOfferForm">
+                <div class="affoffer-search-condition">
+
+                    <li class="select-md">
+                        <label>Countries</label>
+                        <select class="chosen-select Country form-control static-control country_1" name="countries"
+                                multiple="multiple">
+                            % for code, country in  countries.items():
+							<option class="" value="${code}">${country}(${code})</option>
+							% endfor
+                        </select>
+                    </li>
+
+
+                    <li class="select-md">
+                        <label>
+                            Price Model
+                        </label>
+                        <select class="form-control static-controlb price_model_1" name="price_model">
+                            <option value="">
+                                All Price Models
+                            </option>
+                            <option value="1">
+                                CPA (Cost Per Action)
+                            </option>
+                            <option value="2">
+                                CPS (Cost Per Sale)
+                            </option>
+                            <option value="3">
+                                CPC (Cost Per Click)
+                            </option>
+                        </select>
+                    </li>
+
+                    <li class="select-md">
+                        <label>
+                            Categories
+                        </label>
+                        <select class="form-control static-control categories_1" name="categories">
+                            <option value="">
+                                All Categories
+                            </option>
+                            % for cotegory in categories:
+                            <option value="${cotegory._id}" class="chosen-select form-control static-control">
+                                ${cotegory.name}
+                            </option>
+                            % endfor
+                        </select>
+                    </li>
+                    <div class="clear">
+                    </div>
+                    <li class="select-md">
+                        <label>
+                            Access Status
+                        </label>
+                        <select id="access_status" class="form-control static-control" name="accessstatus">
+                            <option value="">
+                                All
+                            </option>
+                            <option value="2">
+                                Need Approved
+                            </option>
+                            <option value="1">
+                                Public
+                            </option>
+                        </select>
+                    </li>
+                    <li class="select-md">
+                        <label>
+                            Search
+                        </label>
+                        <input type="text" class="form-control static-control" value="" name="offerSearch"
+                               placeholder="offer id,offer name..." ms-duplex="filter.offerSearch"/>
+                    </li>
+                    <li class="select-md affoffer-search-last-li">
+                        <label>
+                            Payout
+                        </label>
+                        <span class="bef-currency-span">
+                            $
+                        </span>
+                        <input type="text"
+                               class="form-control static-control payout-search-input number positive3 static-input"
+                               value="" name="payoutMin" placeholder="Min" ms-duplex="filter.payoutMin"/>
+                        -
+                        <span class="bef-currency-span">
+                            $
+                        </span>
+                        <input type="text"
+                               class="form-control static-control payout-search-input number positive3 static-input"
+                               value="" name="payoutMax" placeholder="Max" ms-duplex="filter.payoutMax"/>
+                    </li>
+                    <div class="clear">
+                    </div>
+                    <button type="button" class="btn btn-affoffer-refresh SearchOffer"
+                            ms-click="Search('searchoffers')">
+                        Search
+                    </button>
+                </div>
+            </form>
+            <div class="affoffer-result affoffer-result-search-list" data-form="#searchOfferForm">
+                <div class="switch-offer-view">
+                    <div>
+                        <label class="float-left">
+                            Offers
+                        </label>
+                        <span class="float-left totaloffer searchTotalOffer">
+                            {{offers_count}} Results
+                        </span>
+                    </div>
+                    <div style="float: right">
+                        <input type="button" class="btn btn-offer-apply float-right" value="Apply" ms-click="ApplyList">
+                    </div>
+                </div>
+                <div class="affoffer-list-data OfferContent">
+                    <table class="table table-bordered table-hover offer-content search-offer-content">
+                        <thead>
+                        <tr>
+                            <th class="align-right td-choice">
+                                <input type="checkbox" style="width: 10px" class="select_all">
+                            </th>
+                            <th class="align-right td-id">
+                                ID
+                            </th>
+                            <th class="align-left" orderby="name_order">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Name
+                            </th>
+                            <th class="td-money" orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Payout ($)
+                            </th>
+                            <th class="td-money" orderby="access_status">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Access Status
+                            </th>
+                            <th class="td-preview" orderby="preview_link">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Preview link
+                            </th>
+                            <th class="td-apply" orderby="apply">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Operate
+                            </th>
+                        </thead>
+                        <tbody>
+                        <tr ms-repeat="offers">
+                            <td class="">
+                                <input type="checkbox" style="width: 10px" class="apply_select" ms-attr-offer_id="el._id">
+                            </td>
+                            <td class="align-right td-id none-border-right">
+                                {{el._id}}
+                            </td>
+                            <td class="affoffer-look-td breakall align-left none-border-left padding-order">
+                                <a class="search-off-link" data-ellipsis="ellipsis-82"
+                                   ms-attr-href="/offers/detail?offer_id={{el._id}}">
+                                    {{el.title}}
+                                </a>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.payment}}
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.access_status=='2'?'Need Approved': 'Public'}}
+                                </label>
+                            </td>
+
+                            <td class="td-preview">
+                                <label>
+                                    <a class="search-off-link" data-ellipsis="ellipsis-82"
+                                       ms-attr-href="{{el.preview_url}}" target="_blank">
+                                        Preview Link
+                                    </a>
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <input type="button" class="btn btn-offer-apply float-right" value="Apply" ms-click="Apply(el)"  style="float: left">
+                            </td>
+                        </tr>
+                        <tr ms-if="totalPage == 0">
+                            <td colspan="7" align="center" style="height:68px;padding-bottom:0px;padding-top:5px;">No Data</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+         <div ms-controller="Offer" style="text-align:center;"  class="page1_select hidden">
+             <div id="pages_1" style="display:inline-block;height:43px;"></div>
+             <div>
+                 <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                     <li style="display:inline-block">
+                         <div class="page_num">
+                             <a href="#" class="btn btn-sm disabled" role="button">{{totalPage}} Total</a>
+                         </div>
+                     </li>
+                     <li style="display:inline-block">
+                         <div>
+                             <select  id="display1" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm page_limit">
+                                 <option value="50">50 Items</option>
+                                 <option value="30">30 Items</option>
+                                 <option value="10">10 Items</option>
+                             </select>
+                         </div>
+                     </li>
+                     <li style="display:inline-block;height:19px">
+                         <div class="col-lg-6" style="width:154px;padding:0px">
+                             <div class="input-group input-group-sm">
+                                 <input type="text" id="go-page1" class="form-control" placeholder="Jump to">
+                                 <span class="input-group-btn">
+                                     <button class="btn btn_go" type="button" ms-on-click="goPage()">Go!</button>
+                                 </span>
+                             </div><!-- /input-group -->
+                         </div><!-- /.col-lg-6 -->
+                     </li>
+                 </ul>
+             </div>
+        </div><!-- /pager -->
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane row " id="applyoffers" ms-controller="ApplyOffer">
+            <form id="Apply">
+                <div class="affoffer-search-condition">
+
+                    <li class="select-md">
+                        <label>Countries</label>
+                        <select class="chosen-select Country form-control static-control country_1" name="countries"
+                                multiple="multiple">
+                            % for code, country in  countries.items():
+                            <option class="" value="${code}">${country}(${code})</option>
+                            % endfor
+                        </select>
+                    </li>
+
+
+                    <li class="select-md">
+                        <label>
+                            Price Model
+                        </label>
+                        <select  class="form-control static-control price_model_1" name="price_model">
+                            <option value="">
+                                All Price Models
+                            </option>
+                            <option value="1">
+                                CPA (Cost Per Action)
+                            </option>
+                            <option value="2">
+                                CPS (Cost Per Sale)
+                            </option>
+                            <option value="3">
+                                CPC (Cost Per Click)
+                            </option>
+                        </select>
+                    </li>
+
+                    <li class="select-md">
+                        <label>
+                            Categories
+                        </label>
+                        <select  class="form-control static-control categories_1" name="categories">
+                            <option value="">
+                                All Categories
+                            </option>
+                            % for cotegory in categories:
+                            <option value="${cotegory._id}" class="chosen-select form-control static-control">
+                                ${cotegory.name}
+                            </option>
+                            % endfor
+                        </select>
+                    </li>
+                    <div class="clear">
+                    </div>
+                    <li class="select-md">
+                        <label>
+                            Application Status
+                        </label>
+                        <select id="approvalStatus" class="form-control static-control" name="approvalStatus">
+                            <option value="">
+                                All
+                            </option>
+                            <option value="1">
+                                Approved
+                            </option>
+                            <option value="2">
+                                Pending
+                            </option>
+                            <option value="0">
+                                Rejected
+                            </option>
+                        </select>
+                    </li>
+                    <li class="select-md">
+                        <label>
+                            Search
+                        </label>
+                        <input type="text" class="form-control static-control" value="" name="offerSearch"
+                               placeholder="offer id,offer name..." ms-duplex="filter.offerSearch"/>
+                    </li>
+                    <li class="select-md affoffer-search-last-li">
+                        <label>
+                            Payout
+                        </label>
+                        <span class="bef-currency-span">
+                            $
+                        </span>
+                        <input type="text"
+                               class="form-control static-control payout-search-input number positive3 static-input"
+                               value="" name="payoutMin" placeholder="Min" ms-duplex="filter.payoutMin"/>
+                        -
+                        <span class="bef-currency-span">
+                            $
+                        </span>
+                        <input type="text"
+                               class="form-control static-control payout-search-input number positive3 static-input"
+                               value="" name="payoutMax" placeholder="Max" ms-duplex="filter.payoutMax"/>
+                    </li>
+                    <div class="clear">
+                    </div>
+                    <button type="button" class="btn btn-affoffer-refresh SearchOffer"
+                            ms-click="Search('applyoffers')">
+                        Search
+                    </button>
+                </div>
+            </form>
+            <div class="affoffer-result affoffer-result-search-list" data-form="#searchOfferForm">
+                <div class="switch-offer-view">
+                    <div>
+                        <label class="float-left">
+                        Offers
+                        </label>
+                        <span class="float-left totaloffer searchTotalOffer">
+                            {{offers_count}} Results
+                        </span>
+                    </div>
+                </div>
+                <div class="affoffer-list-data OfferContent">
+                    <table class="table table-bordered table-hover offer-content search-offer-content">
+                        <thead>
+                        <tr>
+                            <th class="align-right td-id">
+                                ID
+                            </th>
+                            <th class="align-left" orderby="name_order">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Name
+                            </th>
+                            <th class="td-money" orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Payout ($)
+                            </th>
+                            <th class="td-preview" orderby="preview_link">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Preview link
+                            </th><!--<td class="">-->
+                                <!--<input type="checkbox" style="width: 10px">-->
+                            <!--</td>-->
+                            <th class="td-tracking" orderby="tracking_link">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Tracking link
+                            </th>
+                            <th class="td-apply" orderby="apply">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Apply status
+                            </th>
+                        </thead>
+                        <tbody>
+                        <tr ms-repeat="offers">
+                            <td class="align-right td-id none-border-right">
+                                {{el._id}}
+                            </td>
+                            <td class="affoffer-look-td breakall align-left none-border-left padding-order">
+                                <a class="search-off-link" data-ellipsis="ellipsis-82"
+                                   ms-attr-href="/offers/detail?offer_id={{el._id}}">
+                                    {{el.title}}
+                                </a>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.payment}}
+                                </label>
+                            </td>
+
+                            <td class="td-preview">
+                                <label>
+                                    <a class="search-off-link" data-ellipsis="ellipsis-82"
+                                       ms-attr-href="{{el.preview_url}}" target="_blank">
+                                        Preview Link
+                                    </a>
+                                </label>
+                            </td>
+                            <td class="td-preview">
+                                <label>
+                                        {{el.tracking_link}}
+
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <input ms-if="el.apply_status=='0'" type="button" class="btn btn-offer-apply float-right" value="Rejected" disabled="disabled">
+                                <input ms-if="el.apply_status=='1'" type="button" class="btn btn-offer-apply float-right" value="Approved" disabled="disabled">
+                                <input ms-if="el.apply_status=='2'" type="button" class="btn btn-offer-apply float-right" value="Pending" disabled="disabled">
+                            </td>
+                        </tr>
+                        <tr ms-if="totalPage == 0">
+                                    <td colspan="7" align="center" style="height:68px;padding-bottom:0px;padding-top:5px;">No Data</td>
+                                </tr>
+                        </tbody>
+                    </table>
+
+
+         <div ms-controller="ApplyOffer" style="text-align:center;"  class="page2_select hidden">
+             <div id="pages_applied" style="display:inline-block;height:43px;"></div>
+             <div>
+                 <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                     <li style="display:inline-block">
+                         <div class="page_num">
+                             <a href="#" class="btn btn-sm disabled" role="button">{{totalPage}} Total</a>
+                         </div>
+                     </li>
+                     <li style="display:inline-block">
+                         <div>
+                             <select  id="display2" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm" style="width:96px" >
+                                 <option value="50">50 Items</option>
+                                 <option value="30">30 Items</option>
+                                 <option value="10">10 Items</option>
+                             </select>
+                         </div>
+                     </li>
+                     <li style="display:inline-block;height:19px">
+                         <div class="col-lg-6" style="width:154px;padding:0px">
+                             <div class="input-group input-group-sm">
+                                 <input type="text" id="go-page2" class="form-control" placeholder="Jump to">
+                                 <span class="input-group-btn">
+                                     <button class="btn btn_go" type="button" ms-on-click="goPage()">Go!</button>
+                                 </span>
+                             </div><!-- /input-group -->
+                         </div><!-- /.col-lg-6 -->
+                     </li>
+                 </ul>
+             </div>
+        </div><!-- /pager -->
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane row" id="myoffers" ms-controller="my_offer">
+            <div class="tab-pane-center">
+                <div class="affoffer-alert">
+                    <div class="alert alert-info static-info" role="alert">
+                        <label class="float-left static-icon">
+                            <i class="glyphicon glyphicon-info-sign">
+                            </i>
+                        </label>
+                        <span>
+                            Offers listed in "My offers" include:
+                            <br>
+                            Offers your AM manually set access permission for you. Offers you applied
+                            by yourself and already get approved including private offers and offers
+                            that need approval when you apply. Also public offers that minimum unique
+                            clicks is 2 will be displayed.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <form id="myOfferForm">
+                <div class="affoffer-search-condition">
+                    <li class="select-md">
+                        <label>Countries</label>
+                        <select id="country_2" class="chosen-select Country form-control static-control" name="countries"
+                                multiple="multiple">
+                            % for code, country in countries.items():
+                            <option value="${code}">${code}(${country})</option>
+                            % endfor
+                        </select>
+                    </li>
+
+                    <li class="select-md">
+                        <label>
+                            Price Model
+                        </label>
+                        <select id="price_model_2" class="chosen-select form-control static-control " name="price_model">
+                            <option value="">
+                                All Price Models
+                            </option>
+                            <option value="1">
+                                CPA (Cost Per Action)
+                            </option>
+                            <option value="2">
+                                CPS (Cost Per Sale)
+                            </option>
+                            <option value="3">
+                                CPC (Cost Per Click)
+                            </option>
+                        </select>
+                    </li>
+                    <li class="select-md">
+                        <label>
+                            Display Api Offer
+                        </label>
+                        <select id="is_api" class="chosen-select form-control static-control" name="is_api">
+                            <option value="0">
+                                No
+                            </option>
+                            <option value="1">
+                                Yes
+                            </option>
+                        </select>
+                    </li>
+                    <div class="clear">
+                    </div>
+                    <li class="select-md">
+                        <label>
+                            Categories
+                        </label>
+                        <select id="categories_2" class="chosen-select form-control static-control" name="categories">
+                            <option value="">
+                                All Categories
+                            </option>
+                            % for cotegory in categories:
+                            <option value="${cotegory._id}" class="chosen-select form-control static-control">
+                                ${cotegory.name}
+                            </option>
+                            % endfor
+                        </select>
+                    </li>
+
+                    <li class="select-md affoffer-search-last-li">
+                        <label>
+                            Payout
+                        </label>
+                        <span class="bef-currency-span">
+                            $
+                        </span>
+                        <input type="text"
+                               class="payout-search-input number positive3 form-control static-control static-input"
+                               value="" name="payoutMin" placeholder="Min" ms-duplex="filter.payoutMin">
+                        -
+                        <span class="bef-currency-span">
+                            $
+                        </span>
+                        <input type="text"
+                               class="payout-search-input number positive3 form-control static-control static-input"
+                               value="" name="payoutMax" placeholder="Max" ms-duplex="filter.payoutMax">
+                    </li>
+                    <div class="clear">
+                    </div>
+                    <input type="hidden" value="" name="offerSearch"/>
+                    <button type="button" class="btn btn-affoffer-refresh SearchOffer" searchType='my'
+                            data-form="#myOfferForm" ms-click="Search()">
+                        Search
+                    </button>
+                </div>
+            </form>
+            <div class="affoffer-result affoffer-result-search-list" data-form="#searchOfferForm">
+                <div class="switch-offer-view">
+                    <label class="float-left">
+                        Offers
+                    </label>
+                    <span class="float-left totaloffer searchTotalOffer">
+                        {{offers_count}} Results
+                    </span>
+
+                    <div class="affoffer-data-list">
+                    </div>
+                    <div class="switch-offer-view-btn float-right">
+                        <div class="float-right grid-view-clone none">
+                            <label orderby="name_order">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Name
+                            </label>
+                            <label orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Payout
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="affoffer-list-data OfferContent">
+                    <table class="table table-bordered table-hover offer-content search-offer-content">
+                        <thead>
+                        <tr>
+                            <th class="align-right td-id">
+                                ID
+                            </th>
+                            <th class="align-left" orderby="name_order">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Name
+                            </th>
+                            <th class="td-money" orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Payout ($)
+                            </th>
+                            <th class="td-money" orderby="clicks">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Click
+                            </th>
+                            <th class="td-money" orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                EPC
+                            </th>
+                            <th class="td-money" orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                CR
+                            </th>
+                            <th class="td-money" orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Conversions
+                            </th>
+                            <th class="td-money" orderby="payout">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Total
+                            </th>
+                            <th class="td-preview" orderby="preview">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Preview link
+                            </th>
+                            <th class="td-tracking" orderby="tracking_link">
+                                <i class="icon-caret-down">
+                                </i>
+                                <i class="icon-caret-up">
+                                </i>
+                                Tracking link
+                            </th>
+                        </thead>
+                        <tbody>
+                        <tr ms-repeat="my_offers">
+                            <td class="align-right td-id none-border-right">
+                                {{el._id}}
+                            </td>
+                            <td class="affoffer-look-td breakall align-left none-border-left padding-order">
+                                <a class="search-off-link" data-ellipsis="ellipsis-82"
+                                   ms-attr-href="/offers/detail?offer_id={{el._id}}">
+                                    {{el.title}}
+                                </a>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.payment}}
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.clicks}}
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.EPC}}
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.CR}}
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.conversions}}
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.total}}
+                                </label>
+                            </td>
+                            <td class="td-preview">
+                                <label>
+                                    <a class="search-off-link" data-ellipsis="ellipsis-82"
+                                       ms-attr-href="{{el.preview_url}}">
+                                        Preview Link
+                                    </a>
+                                </label>
+                            </td>
+                            <td class="td-money">
+                                <label>
+                                    {{el.tracking_link}}
+                                </label>
+                            </td>
+                        </tr>
+                        <tr ms-if="totalPage == 0">
+                            <td colspan="10" align="center" style="height:68px;padding-bottom:0px;padding-top:5px;">No Data</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                     <div ms-controller="my_offer" style="text-align:center;"  class="page3_select hidden">
+                         <div id="pages_2" style="display:inline-block;height:43px;"></div>
+                         <div>
+                             <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                                 <li style="display:inline-block">
+                                     <div class="page_num">
+                                         <a href="#" class="btn btn-sm disabled" role="button">{{totalPage}} Total</a>
+                                     </div>
+                                 </li>
+                                 <li style="display:inline-block">
+                                     <div>
+                                         <select  id="display3" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm page_limit" >
+                                             <option value="50">50 Items</option>
+                                             <option value="30">30 Items</option>
+                                             <option value="10">10 Items</option>
+                                         </select>
+                                     </div>
+                                 </li>
+                                 <li style="display:inline-block;height:19px">
+                                     <div class="col-lg-6" style="width:154px;padding:0px">
+                                         <div class="input-group input-group-sm">
+                                             <input type="text" id="go-page3" class="form-control" placeholder="Jump to">
+                                             <span class="input-group-btn">
+                                                 <button class="btn btn_go" type="button" ms-on-click="goPage()">Go!</button>
+                                             </span>
+                                         </div><!-- /input-group -->
+                                     </div><!-- /.col-lg-6 -->
+                                 </li>
+                             </ul>
+                         </div>
+                    </div><!-- /pager -->
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.affiliateleadhug_jquery_blockUI}"></script>
+<script src="${js.leadhug_fm_selectator_jquery}"></script>
+<script src="${js.affiliateleadhug_jquery_prompt}"></script>
+<script src="${js.leadhug_extendPagination}"></script>
+<script src="${js.affiliateleadhug_affliate_leadhug_offer}"></script>
+<script>
+    $("#offer").addClass('active');
+    $(".select_all").removeAttr('checked');
+    $(".select_all").change(function(){
+        if($(this).attr('checked') == 'checked'){
+            $(".apply_select").attr('checked', 'checked');
+        }else{
+            $(".apply_select").removeAttr('checked');
+        }
+    })
+    avalon.ready(
+        function(){
+            $(".country_1, #country_2, .country_2").selectator({
+                    showAllOptionsOnFocus: true,
+                    keepOpen: true,
+            });
+            avalon.vmodels.Offer.Search('searchoffers');
+        }
+    );
+
+</script>
+</%block>

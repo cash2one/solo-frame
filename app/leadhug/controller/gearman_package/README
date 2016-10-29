@@ -1,0 +1,4 @@
+'''
+    apt-get install gearman-job-server
+    pip install gearman
+'''

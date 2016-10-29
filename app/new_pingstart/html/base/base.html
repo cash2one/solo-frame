@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PingStart</title>
+    <%block name="style">
+		<!--<link rel="icon" href=""/>-->
+        <link href="${css.new_pingstart_bootstrap_min}" rel="stylesheet">
+        <link href="${css.new_pingstart_pingstart}" rel="stylesheet">
+    </%block>
+</head>
+<body>
+<div id="base_top">
+    <div class="container">
+        <a href="/report">
+            <span class="logo"><img id="logo_photo" src="https://s3-us-west-2.amazonaws.com/adplatformstatis/pingstart/img/pingstart.com/_img/pingstart_logo.png" alt=""></span>
+        </a>
+        <div id="my-collapse">
+            <ul>
+                <li class="" id="report_page"><a href="/report">Report</a></li>
+                <li class="" id="slot_page"><a href="/slot">Slot</a></li>
+                <li class="" id="network_page"><a href="/network">Network</a></li>
+                <li class="" id="help_page"><a href="https://github.com/PingStart/PingStart_SDK_Example/wiki" target="_blank">Help</a></li>
+            </ul>
+        </div>
+        <div id="p_div">
+                <div id="email_login"style="font-size: 14px;vertical-align: middle">
+                    ${this.current_user.email}
+                    <br>
+                    <a id="login_out">Publisher ID : ${int(this.current_user._id)}</a>
+                    <div id="login_box">
+                        <p></p>
+                        <dl style="z-index: 1000;position: relative">
+                            <dt class="glyphicon glyphicon-user"></dt>
+                            <dd><a href="/logout">Sign out</a></dd>
+                            <dd data-toggle="modal" data-target=".modify_password" style="cursor: pointer"><a>Modify Password</a></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="modal fade modify_password" tabindex="-1" role="dialog" ms-controller="modify_password">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" id="password_modify">
+            <div class="modal-header">
+               <div class="modal-title">
+                   <h3>Modify Password</h3>
+               </div>
+            </div>
+            <div class="modal-body" >
+                <form action="">
+                    <div class="form-group no-bottom">
+                        <ul class="row name modify_password_ul">
+                            <li class="col-xs-8 font-two">
+                                <lable for="old_password" class="height_line">Old PassWord:</lable>
+                                <input id="old_password" type="password" ms-duplex="old_password" placeholder="Old Password"  ms-on-change="old_password_verify">
+                            </li>
+                            <li class="col-xs-8 font-two">
+                                <lable for="new_password" class="height_line">New PassWord:</lable>
+                                <input id="new_password" type="password" ms-duplex="new_password" placeholder="New Password" ms-on-change="verify_password">
+                            </li>
+                            <li class="col-xs-8 font-two">
+                                <lable for="confirm_password" class="height_line">Confirm PassWord:</lable>
+                                <input id="confirm_password" type="password" ms-duplex="confirm_password" placeholder="Confirm Password" ms-on-change="verify_confirm">
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" >
+                <button type="button" class="btn pop_s" ms-click="modify_password" id="modify_save">Save</button>
+                <button type="button" class="btn pop_c modify_password_cancel" style="color: #216fc8" data-dismiss="modal" ms-click="cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+${next.body()}
+<!--begin:主体内容-->
+
+<!--begin:页脚-->
+<div class="navbar navbar-inverse navbar-fixed-bottom footer">
+    <div class="container">
+        <p style="vertical-align: middle;margin: 0;font-size: 12px;color: #999">
+        ©2016.PingStart.All rights reserved Contact Us;support @ pingstart.com
+        </p>
+    </div>
+</div>
+<%block name="script">
+<script src="${js.new_pingstart_jquery_min}"></script>
+<script src="${js.new_pingstart_bootstrap_min}"></script>
+<script src="${js.new_pingstart_moment_min}"></script>
+<script src="${js.new_pingstart_bootstrap_datetimepicker_min}"></script>
+<script src="${js.new_pingstart_daterangepicker}"></script>
+<script src="${js.new_pingstart_jq_ext}"></script>
+<script src="${js.new_pingstart_avalon}"></script>
+<script src="${js.new_pingstart_pingstart_user}"></script>
+<!--[if lt IE 9]>
+<script src="${js.new_pingstart_html5shiv_min}"></script>
+<script src="${js.new_pingstart_respond_min}"></script>
+
+<![endif]-->
+
+<script>
+   $(function(){
+        $("#email_login").click(function(){
+            $("#login_box").toggle();
+        });
+
+        $(".modify_password_cancel").click(function(){
+
+        })
+    });
+</script>
+</%block>
+</body>
+</html>

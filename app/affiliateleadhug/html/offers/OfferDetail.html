@@ -1,0 +1,216 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/affiliateleadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<div class="content-full aff-dashboard" ms-controller="offer_detail">
+    <div class="affoffer-referral">
+        <div class="text-info float-left">
+            <div class="text-info-core">
+                <label class="affoffer-name affoffer-name-lg" data-toggle="tooltip" data-placement="bottom" title="">({{offer._id}}){{offer.title}}</label>
+
+                <div class="float-left"></div>
+                <div class="clear"></div>
+                <div class="">
+                    <div class="affoffer-date-div float-left">
+                        <label>Creation Date</label> <span>{{offer.create_time}}</span>
+
+                        <div class="clear"></div>
+                        <label class="affoffer-money float-left">$ {{offer.payment}}</label> <a
+                            class="btn btn-affoffer-preview float-left" ms-attr-href="{{offer.preview_url}}"
+                            target="_blank">Preview</a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="affoffer-detail-info static">
+                <label class="">Affiliate Caps</label>
+
+                <div class="float-left" style="padding: 5px 0 0 20px;">
+                    <label>Caps:</label> <span>{{offer.total_cap}}</span> <label style="margin-left: 10px;">Daily
+                    Caps:</label> <span>{{offer.day_cap}}</span>
+                </div>
+                <div class="clear"></div>
+                <label class="affoffer-allowe-country">Allowed Countries</label>
+                <div class="include-countries float-left">
+                    Include
+                </div>
+                <br />
+                 <div class="geo-info">
+                    <div class="sreenshot-info-apply">
+                        {{offer.geo_targeting}}
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+                <label class="affoffer-restriction">Restrictions</label>
+                                <span class="span-point htmlFormat">
+                                    {{offer.restrictions}}
+                                </span>
+                <label class="affoffer-description">Description</label>
+                                <span class="affoffer-description-short htmlFormat">
+                                    {{offer.desciption}}
+                                </span>
+                <label class="float-left affoffer-detail-category">Category</label>
+                <span>{{offer.category}}</span>
+
+                <div class="clear"></div>
+                <label class="float-left affoffer-detail-category">Price Model</label>
+                <span ms-if="offer.price_model=='1'">CPA</span>
+                <span ms-if="offer.price_model=='2'">CPS</span>
+                <span ms-if="offer.price_model=='3'">CPC</span>
+
+                <div class="clear"></div>
+
+                <label class="float-left affoffer-detail-category">Platform</label>
+                <span>{{offer.platform}}</span>
+
+                <div class="clear"></div>
+                <label class="float-left affoffer-detail-category">Package_name</label>
+                <span>{{offer.package_name}}</span>
+
+                <div class="clear"></div>
+                <label class="float-left affoffer-detail-category">Mini_version</label>
+                <span>{{offer.mini_version}}</span>
+
+                <div class="clear"></div>
+
+                <label class="float-left affoffer-detail-category">Tag</label>
+                <span>{{offer.tag}}</span>
+
+                <div class="clear"></div>
+
+                <label class="float-left affoffer-detail-category">Rating</label>
+                <span>{{offer.rating}}</span>
+
+                <div class="clear"></div>
+                <div class="static affoffer-detail-info" ms-if="offer.application_status==1" style="padding:0px 0px 0px 0px">
+                    <label class="float-left affoffer-detail-category" style="margin:20px 20px 0px 0px">Tracking Link</label>
+                            <span>
+                            <input style="width:500px" id="tracking" type="text" ms-attr-value="tracks.leadhug.com/lh/click?offer_id={{offer._id}}&affiliate_id={{aff_id}}{{click_id}}{{sub_id_1}}{{sub_id_2}}{{sub_id_3}}{{sub_id_4}}{{sub_id_5}}">
+                            <button class="copy" data-clipboard-target="#tracking" style="margin:0px 0px 0px 10px">
+                            copy
+                            </button>
+                            </span>
+                    <div class="clear"></div>
+
+                    <label class="float-left affoffer-detail-category" style="margin:20px 25px 0px 0px">Click ID</label>
+                                <span class="affoffer-description-short htmlFormat">
+                                    <input id="click" type="text">
+                                </span>
+
+                    <div class="clear"></div>
+
+                    <label class="float-left affoffer-detail-category" style="margin:20px 20px 0px 0px">Sub ID 1</label>
+                                <span class="affoffer-description-short htmlFormat">
+                                    <input id="sub1" type="text">
+                                </span>
+
+                    <div class="clear"></div>
+                    <label class="float-left affoffer-detail-category" style="margin:20px 20px 0px 0px">Sub ID 2</label>
+                                <span class="affoffer-description-short htmlFormat">
+                                    <input id="sub2" type="text">
+                                </span>
+
+                    <div class="clear"></div>
+                    <label class="float-left affoffer-detail-category" style="margin:20px 20px 0px 0px">Sub ID 3</label>
+                                <span class="affoffer-description-short htmlFormat">
+                                    <input id="sub3" type="text">
+                                </span>
+
+                    <div class="clear"></div>
+                    <label class="float-left affoffer-detail-category" style="margin:20px 20px 0px 0px">Sub ID 4</label>
+                                <span class="affoffer-description-short htmlFormat">
+                                    <input id="sub4" type="text">
+                                </span>
+
+                    <div class="clear"></div>
+                    <label class="float-left affoffer-detail-category" style="margin:20px 20px 0px 0px">Sub ID 5</label>
+                                <span class="affoffer-description-short htmlFormat">
+                                    <input id="sub5" type="text">
+                                </span>
+
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="sreenshot-info float-left">
+            <div class="sreenshot-info-apply" ms-if="offer.application_status == '3'">
+                <span>This offer requires approval before you can promote it.</span>
+                <input type="button" class="btn btn-offer-apply float-right" id="" value="Apply"
+                       ms-click="Apply(offer)">
+            </div>
+            <div class="sreenshot-info-apply" ms-if="offer.application_status == '2'">
+                <span>Thanks for your application.You will receive notification when it's approved.</span>
+            </div>
+            <div class="sreenshot-info-apply" ms-if="offer.application_status == '0'">
+                <span>Thanks for your application.It's rejected.</span>
+                <input type="button" class="btn btn-offer-apply float-right" id="" value="Apply"
+                       ms-click="Apply(offer)">
+            </div>
+            <div class="sreenshot-info-apply" ms-if="offer.application_status == '1'">
+                <span>Thanks for your application.It's Approved.</span>
+            </div>
+        </div>
+    </div>
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.affiliateleadhug_affliate_leadhug_offer}"></script>
+<script>
+    avalon.ready(
+        function(){
+            avalon.vmodels.offer_detail.offer = ${json_encode(offer)|n};
+            avalon.vmodels.offer_detail.aff_id = ${json_encode(aff_id)|n};
+        }
+    )
+    $('#click').change(function (){
+        if ($(this).val()) {
+            avalon.vmodels.offer_detail.click_id = '&click_id=' + $(this).val()
+        } else {
+            avalon.vmodels.offer_detail.click_id = ''
+        }
+    });
+    $('#sub1').change(function (){
+        if ($(this).val()) {
+            avalon.vmodels.offer_detail.sub_id_1 = '&aff_sub1=' + $(this).val()
+        } else {
+            avalon.vmodels.offer_detail.sub_id_1 = ''
+        }
+
+    });
+    $('#sub2').change(function (){
+        if ($(this).val()) {
+            avalon.vmodels.offer_detail.sub_id_2 = '&aff_sub2=' + $(this).val()
+        } else {
+            avalon.vmodels.offer_detail.sub_id_2 = ''
+        }
+
+    });
+    $('#sub3').change(function (){
+        if ($(this).val()) {
+            avalon.vmodels.offer_detail.sub_id_3 = '&aff_sub3=' + $(this).val()
+        } else {
+            avalon.vmodels.offer_detail.sub_id_3 = ''
+        }
+
+    });
+    $('#sub4').change(function (){
+        if ($(this).val()) {
+            avalon.vmodels.offer_detail.sub_id_4 = '&aff_sub4=' + $(this).val()
+        } else {
+            avalon.vmodels.offer_detail.sub_id_4 = ''
+        }
+    });
+    $('#sub5').change(function (){
+        if ($(this).val()) {
+            avalon.vmodels.offer_detail.sub_id_5 = '&aff_sub5=' + $(this).val()
+        } else {
+            avalon.vmodels.offer_detail.sub_id_5 = ''
+        }
+    });
+</script>
+</%block>

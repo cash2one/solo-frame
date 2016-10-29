@@ -1,0 +1,244 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/new_pingstart/base/base.html"/>
+<%block name="style">
+${parent.style()}
+
+</%block>
+<!--begin:主体内容-->
+<div id="net_api"  ms-controller="network">
+    <div class="container report_nav">
+        <div id="netWork_bar">
+            <div id="network_btn1">
+                <h4 class="network_active"> NetWork List</h4>
+            </div>
+            <div id="network_btn2">
+                <h4>API Manage</h4>
+            </div>
+        </div>
+        <!--<div class="row text-center" id="netWork_bar">-->
+            <!--<div class="col-xs-2 ">-->
+           <!--&lt;!&ndash;<input type="button" value="+ Add" id="button_add" data-toggle="modal" data-target=".bs-example-modal-lg"/>&ndash;&gt;-->
+                 <!--&lt;!&ndash;模态框&ndash;&gt;-->
+                <!--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="model_compent">-->
+                    <!--<div class="modal-dialog">-->
+                        <!--<div class="modal-content">-->
+                            <!--<div class="modal-header">-->
+                               <!--<div class="modal-title">-->
+                                   <!--Add NetWork-->
+                               <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="modal-body">-->
+                                <!--<div class="row text-right add_model" id="name">-->
+                                    <!--<div class="col-xs-3">-->
+                                        <!--Name :-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-8">-->
+                                        <!--<input type="text" class="form-control" id="network_name">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row text-right add_model">-->
+                                    <!--<div class="col-xs-3">-->
+                                        <!--Adapter :-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-8">-->
+                                        <!--<input type="text" class="form-control" id="network_adapter">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row text-right add_model">-->
+                                    <!--<div class="col-xs-3">-->
+                                        <!--Auth Name :-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-8">-->
+                                        <!--<input type="text" class="form-control" id="network_auth_name">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row text-right add_model">-->
+                                    <!--<div class="col-xs-3">-->
+                                        <!--Auth Code :-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-8">-->
+                                        <!--<input type="text" class="form-control" id="network_auth_code">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row text-right add_model">-->
+                                    <!--<div class="col-xs-3">-->
+                                        <!--Auth Token :-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-8">-->
+                                        <!--<input type="text" class="form-control" id="network_auth_token">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<hr />-->
+                            <!--<div class="modal-body">-->
+                                <!--<div class="row add_model">-->
+                                    <!--<div class="col-xs-5 add_con">-->
+                                       <!--<button class="btn pop_s" style="width: 200px;color: #ffffff" id="add_con">Add</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div id="add_info">-->
+
+
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="modal-footer" id="net_add">-->
+                                <!--<button type="button" class="btn pop_s" ms-click="save">Save</button>-->
+                                <!--<button type="button" class="btn pop_c" data-dismiss="modal" ms-click="cancel_network">Cancel</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-2 col-xs-push-3" id="network_btn1">-->
+                <!--<h4 class="network_active"> NetWork List</h4>-->
+            <!--</div>-->
+            <!--<div class="col-xs-3 col-xs-push-2" id="network_btn2">-->
+                <!--<h4>API Manage</h4>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+    <!--标签页1-->
+<div id="netWork_page1" ms-controller="network">
+     <div class="container">
+         <table class="table table-hover table-striped text-center table-bordered">
+            <thead>
+                <tr>
+                    <td>NetWork</td>
+                    <td>AD</td>
+                    <td>SDK</td>
+                    <td>Adapter</td>
+                </tr>
+            </thead>
+            <tbody ms-repeat="networks">
+                <tr class="odd">
+                    <td>{{el.name}}</td>
+                    <td  class="dropdown" id="extent">
+                        <p id="dropdownMenu2" ms-click="pull_push(el.name)" style="cursor: pointer">
+                            {{el.ad_count}}
+                            &nbsp;<span class="pull_push glyphicon glyphicon-triangle-right" ></span>
+                        </p>
+                    </td>
+                    <td>
+                        <div ms-repeat-link="el.sdk">
+                            <a ms-attr-href="link.doc_link" target="_blank">{{link.platform}}</a>
+                            &nbsp;|&nbsp;
+                            <a ms-attr-href="link.sdk_link" target="_blank">Download</a>
+                        </div>
+                    </td>
+                    <td>
+                        <a ms-attr-href="el.adapter" target="_blank">Details</a>
+                    </td>
+                </tr>
+                <tr class="ads_tr" style="display: none;border-bottom: 1px solid #d6d6d6;border-top: 1px solid #d6d6d6">
+                    <td>AD Units</td>
+                    <td>AD Format</td>
+                    <td>Solt ID</td>
+                    <td>Placement</td>
+                </tr>
+                <tr class="ads_tr" style="display: none;background: #F4F4F4" ms-repeat-ad="el.ads">
+                    <td>{{ad.units}}</td>
+                    <td>{{ad.format}}</td>
+                    <td>{{ad.slot_id}}</td>
+                    <td>{{ad.placement}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+     </div>
+</div>
+<!--标签页2-->
+<div id="netWork_page2" ms-controller="network">
+    <div  class="container">
+        <table class="table table-hover">
+                <thead>
+                    <td class="w_55">NetWork</td>
+                    <td class="w_55">Auth Info</td>
+                    <td class="w_15">Operated</td>
+                </thead>
+                <tbody>
+                    <tr ms-repeat="networks">
+                        <td >{{el.name}}</td>
+                        <td >{{el.auth_manager}}</td>
+                        <td>
+                            <a id="button_a" data-toggle="modal" data-target=".bs-example-modal-lg1" ms-click="edit_network(el)">Edit</a>
+                             <!--模态框-->
+                        </td>
+                        <!--<td ms-if="el.is_auth">-->
+                            <!--<a href="#">Delete</a>-->
+                        <!--</td>-->
+                        <td class="text-hide">1</td>
+                    </tr>
+                </tbody>
+        </table>
+        <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" id="model_compent1" ms-controller="AuthCode">
+            <div class="modal-dialog">
+                <div class="modal-content" id="model_edit_position">
+                    <div class="modal-header">
+                       <div class="modal-title">
+                           <h3>Edit</h3>
+                       </div>
+                    </div>
+                    <div class="modal-body" >
+                        <div class="row text-right add_model name">
+                            <div class="col-xs-3" style="width: 30%" id="add_name">
+                                Name :
+                            </div>
+                            <div class="col-xs-8">
+                                <input id="disable" type="text"class="form-control PingStart" disabled='true' ms-duplex="network.name">
+                            </div>
+                        </div>
+                        <div class="row text-right add_model" ms-repeat="network.auth_manager">
+                            <div class="col-xs-3" style="width: 30%">
+                                {{el[0]}} :
+                            </div>
+                            <div class="col-xs-8">
+                                <input type="text" ms-attr-id="el[0]" style="border-radius: 0px" class="form-control" ms-attr-value="el[1]" ms-attr-placeholder="el[0]">
+                            </div>
+                        </div>
+                        <!--<div class="row text-right add_model auth_code">-->
+                            <!--<div class="col-xs-3">-->
+                                <!--Auth Code :-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-8">-->
+                                <!--<input type="text" style="border-radius: 0px" class="form-control" ms-duplex="network.auth_code">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row text-right add_model auth_token">-->
+                            <!--<div class="col-xs-3">-->
+                                <!--Auth Token :-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-8">-->
+                                <!--<input type="text" style="border-radius: 0px" class="form-control" ms-duplex="network.auth_token">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="modal-footer"  id="network_footer">
+                        <button type="button" class="btn pop_s" ms-click="edit_network">Save</button>
+                        <button type="button" class="btn pop_c" style="color: #216fc8" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.new_pingstart_pingstart_network}"></script>
+<script>
+    avalon.ready(
+            function(){
+                $("#network_page").addClass('action');
+                avalon.vmodels.network.networks =${json_encode(networks)|n};
+            }
+    )
+</script>
+</%block>
+
+
+
+
+
+

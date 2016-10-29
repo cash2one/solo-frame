@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Publisher LeadHug</title>
+<%block name="style">
+<link rel="stylesheet" href="${css.affiliateleadhug_bootstrap_min}">
+<link rel="stylesheet" href="${css.affiliateleadhug_style}">
+	<link id="favicon"  href="https://s3-us-west-2.amazonaws.com/adplatformstatis/leadhug/img/affiliateleadhug.com/_img/logo_title.png" type="image/x-icon" rel="icon"/>
+<style>
+    [ms-controller],[ms-important]{display:none}
+</style>
+</%block>
+</head>
+<div id="wrapper">
+    <div id="header">
+        <div class="sidebar-header">
+	    		<img id="logo" src="https://s3-us-west-2.amazonaws.com/adplatformstatis/leadhug/img/affiliateleadhug.com/_img/logo.png" alt="">
+        </div>
+
+        <div class="dropdown dropdownSupport">
+            <!--<div class="float-right">-->
+            <!--<div class="dropMenu">-->
+            <!--<a id="sup" class="header-info" href="javascript:;">Support <i class="caret"></i></a>-->
+            <!--<ul class="none">-->
+            <!--<li><a href="#">Terms & Conditions</a></li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="float-right">
+                <div class="dropMenu">
+                    <a id="aff" class="header-info" href="javascript:;"><i class="glyphicon glyphicon-user"></i>${this.current_user.account}<i
+                            class="caret"></i></a>
+                    <ul class="none">
+                        <a href="/account">
+                            <li>Account</li>
+                        </a>
+                        <a href="/logout">
+                            <li>Logout</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <!--<div class="float-right">-->
+            <!--<input class="aff-global-input" value="" type="text">-->
+            <!--<a href="javascript:;" id="search-btn" class="glyphicon glyphicon-search"></a>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div id="sidebar">
+        <ul class="nav">
+            <li id="dashboard" class="nav-li locate-menu" id="location-/affaccount/dashboard"><a href="/dashboard"
+                                                                                                 class="nav-a Dashboard">Dashboard<em></em></a>
+            </li>
+            <li id="offer" class="nav-li locate-menu" id="location-/affoffer/search"><a href="/offers"
+                                                                                        class="nav-a Offers">Offers<em></em></a>
+            </li>
+            <li id="report" class="nav-li locate-menu" id="location-/affreport/campaign"><a href="/report"
+                                                                                            class="nav-a Reports">Reports<em></em></a>
+            </li>
+            <li id="payments" class="nav-li locate-menu" id="location-/affreport/payment"><a href="/payments"
+                                                                                             class="nav-a Payments">Payments<em></em></a>
+            </li>
+            <li id="postback" class="nav-li locate-menu" id="location-/affaccount/globalSetting"><a href="/postback"
+                                                                                                    class="nav-a Global Postback">Global
+                Postback<em></em></a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <div class="content-full aff-dashboard">
+            ${next.body()}
+        </div>
+    </div>
+</div>
+<%block name="script">
+<script src="${js.affiliateleadhug_jquery1_7}"></script>
+<script src="${js.affiliateleadhug_clipboard_min}"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<script src="${js.affiliateleadhug_highcharts}"></script>
+<script src="${js.affiliateleadhug_exporting}"></script>
+<script src="${js.affiliateleadhug_avalon}"></script>
+<script src="${js.affiliateleadhug_jq_ext}"></script>
+<script src="${js.affiliateleadhug_affliate_leadhug_index_min}"></script>
+<script src="${js.affiliateleadhug_Blob}"></script>
+<script src="${js.affiliateleadhug_FileSaver}"></script>
+<script src="${js.affiliateleadhug_tableExport}"></script>
+<script src="${js.affiliateleadhug_copy}"></script>
+</%block>
+</body>
+</html>

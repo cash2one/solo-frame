@@ -1,0 +1,124 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+
+ <!-- /#page-wrapper -->
+     <div id="page-wrapper" ms-controller="affiliate_modify">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right" ms-click="save">save</button></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            form
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <form class="form-horizontal" id="formId">
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Account</label>
+                                    <div class="col-lg-6 account">
+                                      <input class="form-control" type="text" ms-duplex="affiliate.account" placeholder="Account" name="account">
+                                    </div>
+                                  </div>
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Email</label>
+                                    <div class="col-lg-6 email">
+                                      <input class="form-control" type="text" ms-duplex="affiliate.email" placeholder="Please input split by ','" name="email">
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Password</label>
+                                    <div class="col-lg-6 password">
+                                      <input class="form-control" type="password" ms-duplex="affiliate.password" placeholder="Password" name="password">
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Status</label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" ms-duplex="affiliate.status">
+                                          <option class="form-control" value="1">Active</option>
+                                          <option class="form-control" value="2">Pending</option>
+                                            <option class="form-control" value="0">Deleted</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Country</label>
+                                    <div class="col-lg-6 country">
+                                      <input class="form-control" type="text" ms-duplex="affiliate.country" placeholder="Country" name="country">
+                                    </div>
+                                  </div>
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">AM</label>
+                                    <div class="col-lg-6 account_manager">
+                                      <select class="form-control" name="account_manager" ms-duplex="affiliate.account_manager">
+                                          <option class="form-control" ms-repeat="account_managers" ms-attr-value="el._id" >{{el.account}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group form-area">
+                                   <label class="col-lg-2 control-label">skype id</label>
+                                   <div class="col-lg-6 skype_id">
+                                  <input class="form-control" type="text" ms-duplex="affiliate.skype_id" placeholder="skype id" name="skype_id">
+                                  </div>
+                                  </div>
+
+                                    <div class="form-group form-area">
+                                   <label class="col-lg-2 control-label">company</label>
+                                   <div class="col-lg-6 company">
+                                  <input class="form-control" type="text" ms-duplex="affiliate.company" placeholder="company" name="company">
+                                  </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                       <label class="col-lg-2 control-label">invoice frequency</label>
+                                        <div class="col-lg-6 invoice_frequency">
+                                            <select class="form-control" name="invoice_frequency" ms-duplex="affiliate.payment.invoice_frequency">
+                                                <option class="form-control" value="${invoice_frequency.day.value}">${invoice_frequency.day.name}</option>
+                                                <option class="form-control" value="${invoice_frequency.week.value}">${invoice_frequency.week.name}</option>
+                                                <option class="form-control" value="${invoice_frequency.month.value}">${invoice_frequency.month.name}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-area">
+                                       <label class="col-lg-2 control-label">threshold</label>
+                                        <div class="col-lg-6 threshold">
+                                          <input class="form-control" type="text" ms-duplex="affiliate.payment.threshold" placeholder="threshold" name="threshold">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+      </div>
+    <!-- /#wrapper -->
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_leadhug_affiliate}"></script>
+<script type="text/javascript">
+    avalon.ready(
+            function(){
+                avalon.vmodels.affiliate_modify.account_managers = ${json_encode(account_managers)|n};
+                avalon.vmodels.affiliate_modify.affiliate = ${json_encode(affiliate)|n};
+            }
+    )
+</script>
+</%block>

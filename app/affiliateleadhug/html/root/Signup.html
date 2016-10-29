@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Register
+    </title>
+    <link rel="stylesheet" href="${css.affiliateleadhug_bootstrap_min}">
+    <link rel="stylesheet" href="${css.affiliateleadhug_style}">
+</head>
+
+<body>
+<div id="signUpwrapper">
+    <div id="signUpLogo">
+        <a href="/index/login">
+            <img src="http://resource.fuseclick.com/resource/leadhug/images/1451473448_120x40.png"
+                 id="logo">
+        </a>
+    </div>
+    <div id="signUpRight" ms-controller="account">
+        <div class="affsignup-header">
+            <label>
+                Affiliate Sign Up
+            </label>
+          <span>
+            Apply to our network by submitting your information below.
+          </span>
+        </div>
+        <div class="affsignup-content">
+            <div class="signUpsubscribing">
+                <label class="infoTitle">
+                    Account Information
+                </label>
+            </div>
+            <div class="signUpAccountInfo">
+                <div class="writeAccountInfo">
+                    <ul class="sign-info-ul">
+                        <li>
+                            <label>
+                                Name*
+                            </label>
+                            <input type="text" id="account" class="firstName required nospecialchar"
+                                   name="firstName" ms-duplex="account.account">
+                        </li>
+                        <!--<li>-->
+                        <!--<label>Last Name</label>-->
+                        <!--<input type="text" class="lastName nospecialchar" name="lastName">-->
+                        <!--</li>-->
+                        <li>
+                            <label>
+                                Email Address*
+                            </label>
+                            <input type="text" class="required email" name="email" id="email"
+                                   placeholder="emails split by ';'"
+                                   ms-duplex="account.email">
+                        </li>
+                        <div class="clear">
+                        </div>
+                        <li>
+                            <label>
+                                Password*
+                            </label>
+                            <input type="password" class="password required passWdFormat" name="password"
+                                   id="password" ms-duplex="account.password">
+                        </li>
+                        <li>
+                            <label>
+                                Confirm Password*
+                            </label>
+                            <input type="password" class="repassword required" id="confirmPassword"
+                                   name="confirmPassword" ms-duplex="account.confirmPassword">
+                        </li>
+                        <li>
+                            <label>
+                                Skype*
+                            </label>
+                            <input type="text" class="required skype" id="skype" name="skype"
+                                   ms-duplex="account.skype_id">
+                        </li>
+                        <li>
+                            <label>
+                                Phone*
+                            </label>
+                            <input type="text" class="required phone" id="phone" name="phone" ms-duplex="account.phone">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="signUpsubscribing">
+                <label class="infoTitle">
+                    Company Information
+                </label>
+            </div>
+            <div class="signUpAccountInfo">
+                <div class="writeAccountInfo">
+                    <ul class="sign-info-ul">
+                        <li>
+                            <label>
+                                Company*
+                            </label>
+                            <input type="text" class="company required" id="company" name="company"
+                                   ms-duplex="account.company">
+                        </li>
+                        <!--<li>-->
+                        <!--<label>Job Title</label>-->
+                        <!--<input type="text" class="jobTitle" name="title">-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<label>Address*</label>-->
+                        <!--<input type="text" class="address1 required address" name="address">-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<label>Address 2</label>-->
+                        <!--<input type="text" class="address2 address" name="address2">-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<label>City*</label>-->
+                        <!--<input type="text" class="city required address" name="city">-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<label>Country*</label>-->
+                        <!--<select name="" id="" class="form-control country-select">-->
+                        <!--<option value="">Afghanistan</option>-->
+                        <!--<option value="">Algeria</option>-->
+                        <!--<option value="">American Samoa</option>-->
+                        <!--<option value="">Anguilla</option>-->
+                        <!--<option value="">Belize</option>-->
+                        <!--</select>-->
+                        <!--</li>-->
+                        <li>
+                            <label>
+                                Country*
+                            </label>
+                            <input type="text" class="" id="country" name="country" ms-duplex="account.country">
+                        </li>
+                        <!--<div class="clear"></div>	   -->
+                        <!--<li class="float-left pasc-country-div">-->
+                        <!--<label>Region/State*</label>-->
+                        <!--<div class="select-default float-left pasc-country">-->
+                        <!--<input type="text" class="state required address" name="state">-->
+                        <!--</div>-->
+                        <!--<div class="signup-country" style="display: none;"><label for="country" class="error" style="display: inline;">Information is required.</label></div>		-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<label>Zip Code*</label>-->
+                        <!--<input type="text" class="zipcode required zipCode" name="zipcode">-->
+                        <!--</li>-->
+                        <li>
+                            <label>
+                                Captcha
+                            </label>
+
+                            <div class="clear">
+                            </div>
+                            <div class="error-div-right captcha-div">
+                                <input id="captcha_code" type="text" class="" value="" name="captcha"
+                                       ms-duplex="account.captcha_code" placeholder="captcha" style="width: 126px">
+                                <img ms-attr-src="captcha_img" ms-click="get_captcha()" href="javascript:;">
+                            </div>
+                  <span style="display: block;">
+                    Click the image to recaptcha
+                  </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--<div class="signUpsubscribing">-->
+            <!--<label class="infoTitle">-->
+            <!--Payment Information-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--<div class="payment_info">-->
+            <!--<div class="payment-item">-->
+            <!--<input type="hidden" value="" name="questions">-->
+            <!--<label class="question-deatil">-->
+            <!--From who or where did you hear about us? *-->
+            <!--</label>-->
+            <!--<textarea name="answers0" class="answersArray required">-->
+            <!--</textarea>-->
+            <!--</div>-->
+            <!--<div class="question-item">-->
+            <!--<input type="hidden" value="What is your traffic source?" name="questions">-->
+            <!--<label class="question-deatil">-->
+            <!--What is your traffic source? *-->
+            <!--</label>-->
+            <!--<textarea name="answers1" class="answersArray required">-->
+            <!--</textarea>-->
+            <!--</div>-->
+            <!--<div class="question-item">-->
+            <!--<input type="hidden" value="What is your offer experience?" name="questions">-->
+            <!--<label class="question-deatil">-->
+            <!--What is your offer experience? *-->
+            <!--</label>-->
+            <!--<textarea name="answers2" class="answersArray required">-->
+            <!--</textarea>-->
+            <!--</div>-->
+            <!--<div class="question-item">-->
+            <!--<input type="hidden" value="What is your Skype ID?" name="questions">-->
+            <!--<label class="question-deatil">-->
+            <!--What is your Skype ID? *-->
+            <!--</label>-->
+            <!--<textarea name="answers3" class="answersArray required">-->
+            <!--</textarea>-->
+            <!--</div>-->
+            <!--</div>-->
+            <button class="btn btn-signup" ms-click="sign" style="display: block;">
+                Sign Up Now
+            </button>
+            <p id="sign_success" style="display: none">
+                Registration is successful, awaiting administrator approval...
+            </p>
+        </div>
+    </div>
+</div>
+<script src="${js.affiliateleadhug_jquery_min}">
+</script>
+<script src="${js.affiliateleadhug_avalon}">
+</script>
+<script src="${js.affiliateleadhug_jq_ext}">
+</script>
+<script src="${js.affiliateleadhug_affliate_leadhug_account}">
+</script>
+</body>
+
+</html>

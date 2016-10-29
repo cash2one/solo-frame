@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>leadhug admin</title>
+    <%block name="style">
+        <link href="${css.leadhug_jquery_fileupload}" type="text/css" rel="stylesheet" />
+		<link href="${css.leadhug_bootstrap_min}" rel="stylesheet">
+
+        <link rel="stylesheet" href="${css.leadhug_bootstrap_datetimepicker_min}">
+
+		<!-- MetisMenu CSS -->
+		<link href="${css.leadhug_metisMenu_min}" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="${css.leadhug_sb_admin_2}" rel="stylesheet">
+
+		<!-- Custom Fonts -->
+		<link href="${css.leadhug_font_awesome_min}" rel="stylesheet" type="text/css">
+
+		<link rel="stylesheet" href="${css.leadhug_style}">
+    </%block>
+</head>
+	<div class="wrap" ms-controller="base">
+		      <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="https://s3-us-west-2.amazonaws.com/adplatformstatis/leadhug/img/leadhug.com/_img/logo.png" alt=""></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                  <span class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="" style="color: cornflowerblue; cursor: pointer;">Welcome：${this.current_user.account}</i>
+                  </span>
+                  <ul class="dropdown-menu">
+                    <li><i data-toggle="modal" data-target=".passwd-modal-lg" style="cursor: pointer">Modify PassWord</i></li>
+                  </ul>
+                </li>
+                <li><a href="/logout"><i class="" style="color: cornflowerblue">Logout</i></a></li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                      <ul class="nav" id="side-menu">
+                          % if this.current_user.is_admin or this.current_user._role == 'PM' or this.current_user._role == 'BD' or this.current_user._role == 'AM':
+                              <li>
+                                <a href="/report"><i class=""></i>Report</a>
+                              </li>
+                          % endif
+                          % if this.current_user.is_admin or this.current_user._role == 'PM':
+                              <li>
+                                <a href="/users">
+                                    <i class=""></i>Manager
+                                </a>
+                              </li>
+                          % endif
+                          % if this.current_user.is_admin or this.current_user._role == 'PM' or this.current_user._role == 'AM':
+                            <li>
+                                <a href="#"><i class=""></i> Affiliates<span class=""></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/affiliate/create">CreateAffiliate</a>
+                                    </li>
+                                    <li>
+                                        <a href="/affiliates/manage">ManageAffiliate</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                          % endif
+                          % if this.current_user.is_admin or this.current_user._role == 'PM':
+                            <li>
+                                <a href="#"><i class=""></i>Advertiser<span class=""></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/advertisers/create">CreateAdvertiser</a>
+                                    </li>
+                                    <li>
+                                        <a href="/advertisers/manage">ManageAdvertiser</a>
+                                    </li>
+                                </ul>
+                            </li>
+                          <li>
+                                <a href="#"><i class=""></i> Offers<span class=""></span></a>
+                                <ul class="nav nav-second-level">
+                                     <li>
+                                        <a href="/category/create">CreateCategory</a>
+                                    </li>
+                                    <li>
+                                        <a href="/category/manage">ManageCategory</a>
+                                    </li>
+                                    <li>
+                                        <a href="/offers/create">CreateOffer</a>
+                                    </li>
+                                    <li>
+                                        <a href="/offers/manage">ManageOffers</a>
+                                    </li>
+                                </ul>
+                                <!-- import j_mail # noqa/.nav-second-level -->
+                          </li>
+                          % endif
+                          % if this.current_user.is_admin or this.current_user._role == 'PM' or this.current_user._role == 'Finance':
+                            <li>
+                                <a href="#"><i class=""></i>Invioce<span class=""></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/invoice">CreateInvoice</a>
+                                    </li>
+                                    <li>
+                                        <a href="/invoices">ManageInvoice</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                          % endif
+                          % if this.current_user.is_admin or this.current_user._role == 'PM':
+                            <li>
+                                <a href="#"><i class=""></i>Email<span class=""></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/email/new">CreateEmail</a>
+                                    </li>
+                                    <li>
+                                        <a href="/email">History</a>
+                                    </li>
+                                    <li>
+                                        <a href="/e_model"><i class=""></i>EmailModel<span class=""></span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                          % endif
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+		${next.body()}
+		<div class="footer">©2016, LeadHug. All rights reserved.</div>
+        <div class="modal fade passwd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+               <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modify PassWord</h4>
+              </div>
+              <div class="modal-body">
+                  <form class="form-horizontal user_table">
+                              <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Old Password</label>
+                                <div class="col-sm-6">
+                                  <input type="password" class="form-control" ms-duplex="old_password" ms-change="verify_old_password"  placeholder="Old Password">
+                                </div>
+                                  <span style="color: red">{{verify}}</span>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-sm-2 control-label">New Password</label>
+                                <div class="col-sm-6">
+                                  <input type="password" class="form-control" ms-duplex="new_password" ms-change="verify_new_password" placeholder="New Password">
+                                </div>
+                                  <span style="color: red">{{new_password_verify}}</span>
+                              </div>
+                               <div class="form-group">
+                                   <label class="col-sm-2 control-label">Confirm Password</label>
+                                    <div class="col-sm-6">
+                                      <input type="password" class="form-control" ms-duplex="confirm_password" ms-change="verify_confirm_password" placeholder="Confirm">
+                                    </div>
+                                   <span style="color: red">{{confirm_verify}}</span>
+                              </div>
+                            </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ms-click="save_password">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+	</div>
+    <%block name="script">
+	<script src="${js.leadhug_jquery_min}"></script>
+	<script src="${js.leadhug_jq_ext}"></script>
+    <script src="${js.leadhug_moment_min}"></script>
+	<script src="${js.leadhug_bootstrap_min}"></script>
+	<script src="${js.leadhug_bootstrap_datetimepicker_min}"></script>
+    <script src="${js.leadhug_upload_jquery_ui_widget}"></script>
+    <script src="${js.leadhug_upload_jquery_iframe_transport}"></script>
+    <script src="${js.leadhug_upload_jquery_fileupload}"></script>
+	<script src="${js.lib_avalon}"></script>
+	<script src="${js.leadhug_html5shiv}"></script>
+	<script src="${js.leadhug_respond_min}"></script>
+    <script src="${js.leadhug_metisMenu_min}"></script>
+    <script src="${js.leadhug_sb_admin_2}"></script>
+    <script src="${js.leadhug_extendPagination}"></script>
+    </%block>
+</body>
+</html>

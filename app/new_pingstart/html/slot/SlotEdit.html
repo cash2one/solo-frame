@@ -1,0 +1,177 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/new_pingstart/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<!--begin:主体内容-->
+<div class="container" ms-controller="slot_edit">
+    <div class="row inside">
+        <div class="col-xs-12"><a href="/slot" id="l_slot">Slot list</a> &gt; Edit</div>
+    </div>
+    <div id="solt_edit">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row inside inside_border outside">
+                    <div class="col-xs-1 text-right"><u>1</u></div>
+                    <div class="col-xs-11 text-vertical font-seven">Ad Unit Style</div>
+                </div>
+                <div class="row inside">
+                    <div class="col-xs-3 text-right font-four">Format :</div>
+                    <div class="col-xs-5 font-two">{{slot.slot_type}}</div>
+                    <div class="col-xs-4 hidden">1</div>
+                </div>
+                <div class="row inside name">
+                    <div class="col-xs-3 text-right font-four" ><b>*</b> Name :</div>
+                    <div class="col-xs-5"><input class="font-two" ms-duplex="slot.name" type="text" placeholder="Rewarded Video Ad"></div>
+                </div>
+                <div class="row inside">
+                    <div class="col-xs-3 text-right font-four">Slot ID :</div>
+                    <div class="col-xs-5 font-two">{{slot._id}}</div>
+                    <div class="col-xs-4 hidden">2</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row inside inside_border outside">
+                    <div class="col-xs-1 text-right"><u>2</u></div>
+                    <div class="col-xs-11 text-vertical font-seven">Add Source</div>
+                </div>
+                <div class="row inside solt_edit_second" id="network">
+                    <div class="col-xs-3 text-right font-four">Add Network :</div>
+                    <div class="col-xs-5 font-two">
+                        <select name="" id="select_network" ms-change="select_network">
+                            <option value=""></option>
+                            <option ms-repeat="slot.network_select"
+                                    ms-attr-value="{{el._id}}*{{el.name}}*{{el.auth_manager}}*{{el.args}}*{{el.login_auth_args}}">
+                                {{el.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-4 hidden">1</div>
+                </div>
+                <div class="row inside" ms-repeat="placement_id">
+                    <div class="col-xs-3 text-right font-four" >{{el}} :</div>
+                         <div class="col-xs-5 font-two">
+                              <input type="text" ms-attr-id="el"  ms-attr-placeholder="el=='all_zone_ids'?'Please input array, ex: [a, b, c]':el" ms-change="placement_change">
+                         </div>
+                    <div class="col-xs-4 hidden">1</div>
+                </div>
+                <div class="row inside" id="placement"></div>
+                <div class="row inside">
+                    <div class="col-xs-3 hidden">Slot ID :</div>
+                    <div class="col-xs-9 col-xs-push-3 font-two">
+                        <input disabled id="is_auth" ms-duplex-checked="network_add.is_auth" ms-click="is_auth_fun" style="vertical-align:middle;width: 2%;margin: -2px 0 0 10px;height: 15px;" type="checkbox" class="select_auth">
+                        <label for="is_auth" style="color: #9b9a9a">Extract this ad network of effective CPM cost values</label>
+                    </div>
+                </div>
+                <div class="row inside auth_info" ms-repeat="auth_manager_args" style="display: none">
+                    <div class="col-xs-3 text-right font-four" >{{el[0]}} :</div>
+                         <div class="col-xs-5 font-two">
+                              <input type="text" ms-duplex="el[1]" ms-attr-placeholder="el[0]">
+                         </div>
+                    <div class="col-xs-4 hidden">1</div>
+                </div>
+                 <div class="row inside">
+                    <div class="col-xs-12 text-center col-xs-pull-1" >
+                        <button type="button" class="btn pop_s" id="add_color_black" ms-click="add_network">Add</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gray" id="glf">
+            <div class="col-xs-12">
+                <div class="row inside inside_border outside">
+                    <div class="col-xs-1 text-right "><u>3</u></div>
+                    <div class="col-xs-11 text-vertical font-seven">Queue</div>
+                </div>
+                <div class="row inside inside_border outside" ms-repeat="slot.bind_networks">
+                    <div class="col-xs-6 text-vertical col-xs-push-2">
+                        <h4 class="gray font-four">{{el.network_name}}</h4>
+                        <span class="gray font-two">Placement ID {{el.placement_id}}</span>
+                    </div>
+                    <div class="col-xs-6 text-vertical col-xs-push-2">
+                        <a ms-click="priority_asc(el)" href="javascript:"><i class="glyphicon glyphicon-arrow-up gray" style="color: #7b7b7b"></i></a>
+                        <a ms-if="el.network_name!='PingStart'" href="javascript:" ms-click="delete_network(el)">
+                            <s class="glyphicon glyphicon-trash gray" style="color: #7b7b7b"></s>
+                        </a>
+                        <b ms-click="paused_or_open(el)" id="open_pause">
+                            <a href="javascript:"><s ms-if="el.is_paused" id="on_off" title="pause" class="glyphicon glyphicon-pause gray"></s></a>
+                            <a href="javascript:"><s ms-if="!el.is_paused" id="on_off" title="open" class="glyphicon glyphicon-open gray"></s></a>
+                        </b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row inside inside_border outside">
+                    <div class="col-xs-1 text-right"><u>4</u></div>
+                    <div class="col-xs-11 text-vertical font-seven">Filters</div>
+                </div>
+                <div class="row inside solt_edit_second">
+                    <div class="col-xs-3 text-right font-four">Ad Categories :</div>
+                    <div class="col-xs-5 font-two">
+                        <div class="row slotedit4_line">
+                            <div class="col-xs-5">
+                                <input type="checkbox" id="slotedit41" ms-duplex-checked="slot.model.app">App install
+                            </div>
+                            <div class="col-xs-7">
+                                <input type="checkbox" id="slotedit42" ms-duplex-checked="slot.model.other">Others
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                               Select the Categories of ads that should appear in your app.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 hidden">1</div>
+                </div>
+            </div>
+        </div>
+        <!--5&#45;&#45;Block Ads section-->
+        <div class="row gray">
+            <div class="col-xs-12">
+                <div class="row inside inside_border outside">
+                    <div class="col-xs-1 text-right "><u>5</u></div>
+                    <div class="col-xs-11 text-vertical font-seven">Block Ads</div>
+                </div>
+                <div class="row inside inside_border outside" id="slotedit_5">
+                    <div class="col-xs-1 text-right"></div>
+                    <div class="col-xs-11 text-vertical font-seven">
+                        <button id="btn_apps" class="color_bg">Apps</button>
+                        <button id="btn_keywords" class="disappear">Keywords</button>
+                        <div id="apps" >
+                            <textarea name="" id="apps_txt" cols="30" rows="10" ms-duplex="slot.appBlackList">
+                            </textarea>
+                        </div>
+                        <div id="keywords" class="disappear">
+                            <textarea name="" id="keywords_txt" cols="30" rows="10">
+                                Keywords
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row inside inside_border outside end" id="edit_dialog">
+                    <div class="col-xs-5 col-xs-push-4">
+                        <a href="javascript:" class="btn pop_s" ms-click="save">Save</a>
+                    </div>
+                    <div class="col-xs-7 col-xs-push-2">
+                        <a class="btn pop_c" style="color: #216fc8" href="/slot">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.new_pingstart_pingstart_slot}"></script>
+<script>
+    avalon.vmodels.slot_edit.slot = ${json_encode(slot)|n};
+    $("#is_auth").attr('disabled', true);
+</script>
+</%block>

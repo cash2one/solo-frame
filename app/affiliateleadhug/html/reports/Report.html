@@ -1,0 +1,560 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/affiliateleadhug/base/base.html"/>
+<%block name="style">
+<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">
+${parent.style()}
+<link href="${css.affiliateleadhug_multiple_select}" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="${css.affiliateleadhug_daterangepicker}"/>
+</%block>
+<div class="content-full affoffer reports" ms-controller="report">
+    <ul class="nav-tabs">
+        <li><a class="active" href="javascript:;" data-target="searchreport">Offer Report</a></li>
+    </ul>
+    <div class="tabs-content" style="width: 1170px;">
+        <div class="tab-pane row active" id="searchreport">
+            <form id="searchOfferForm">
+                <div class="affoffer-search-condition">
+                    <li class="select-md">
+                        <label>Offers</label>
+                        <select id="offer_1" class="chosen-select Offers form-control static-control"
+                                name="offers" multiple="multiple">
+                            % for offer in offers:
+                            <option value="${offer._id}">${offer._id} ${offer.title}</option>
+                            % endfor
+                        </select>
+                    </li>
+
+                    <li class="select-md">
+                        <label>Countries</label>
+                        <select id="country_1" class="chosen-select Country form-control static-control"
+                                name="countries" multiple="multiple">
+                            % for code, country in  countries.items():
+							<option class="" value="${code.lower()}">${country}(${code.lower()})</option>
+							% endfor
+                        </select>
+                    </li>
+                    <!--<li class="select-md">-->
+                        <!--<label>Price Model</label>-->
+                        <!--<select class="reports-select" multiple="multiple" id="price_model_1">-->
+                            <!--<option value="1">CPA (Cost Per Action)</option>-->
+                            <!--<option value="2">CPS (Cost Per Sale)</option>-->
+                            <!--<option value="3">CPC (Cost Per Click)</option>-->
+                        <!--</select>-->
+                    <!--</li>-->
+                    <div class="clear"></div>
+                    <!--清除浮动-->
+                    <li class="select-md affoffer-search-last-li">
+                        <label>Payout</label>
+                        <span class="bef-currency-span">$</span>
+                        <input type="text"
+                               class="payout-search-input number positive3 form-control static-control static-input"
+                               ms-duplex="payout_range.min" name="payoutMin" placeholder="Min">
+                        -
+                        <span class="bef-currency-span">$</span>
+                        <input type="text"
+                               class="payout-search-input number positive3 form-control static-control static-input"
+                               ms-duplex="payout_range.mix" name="payoutMax" placeholder="Max">
+                    </li>
+
+                    <li class="select-md">
+                        <label>Date Range</label>
+
+                        <div id="reportrange" class="pull-right"
+                             style="background: #fff; cursor: pointer; padding: 5px; border: 1px solid #ccc; width: 100%">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                            <span></span> <b class="caret"></b>
+                            <!--<input  />-->
+                        </div>
+                    </li>
+                    <div class="clear"></div>
+                    <li class="select-md"><input ms-duplex-checked="payout_is_zero" type="checkbox" name="">Enable
+                        Non-zero Revenue
+                    </li>
+                    <button type="button" class="btn btn-affoffer-refresh SearchOffer" id="run-btn"
+                            ms-click="get_report">Run Report
+                    </button>
+                </div>
+            </form>
+            <div class="aff-report-table">
+                <div class="import-export report-import-export">
+                    <div class="float-left export-div">
+                        <a ms-attr-href="{{report_url}}" data-report="getCampaign" id="download_report"
+                           class="btn file-link" type="button"><em class="green-export-import"></em>Export</a>
+                    </div>
+                    <div class="float-right edit-column">
+                        <span class="black-export-import"></span>
+                        <a class="pop-link" href="javascript:;">Edit Column</a>
+
+                        <div class="edit-column-panel" style="right: 18%; z-index: 1000;">
+                            <div class="longen-left"><span></span> <em></em></div>
+                            <div class="dataItem-div">
+                                <ul>
+                                    <li class="first-li">
+                                        <label>Data</label>
+
+                                        <div class="column-dataItem">
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.offer_name"
+                                                       name="ck_offer_name" checked="checked">
+                                                <span><i></i></span> Offer Name
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.offer_id"
+                                                       name="ck_offer_url">
+                                                <span><i></i></span> Offer ID
+                                            </label>
+
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.country"
+                                                       name="ck_click_country">
+                                                <span><i></i></span> Country
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.affiliate_sub_id_1"
+                                                       name="ck_sub1">
+                                                <span><i></i></span> SubID1
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.affiliate_sub_id_2"
+                                                       name="ck_sub2">
+                                                <span><i></i></span> SubID2
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.affiliate_sub_id_3"
+                                                       name="ck_sub3">
+                                                <span><i></i></span> SubID3
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.affiliate_sub_id_4"
+                                                       name="ck_sub4">
+                                                <span><i></i></span> SubID4
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.affiliate_sub_id_5"
+                                                       name="ck_sub5">
+                                                <span><i></i></span> SubID5
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <label>Statistics</label>
+
+                                        <div class="column-dataItem">
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.impressions"
+                                                       name="impressions" checked="checked">
+                                                <span class="active"><i></i></span> Impressions
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.clicks" name="clicks"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> Clicks
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.gross_clicks"
+                                                       name="ck_gross" checked="checked">
+                                                <span class="active"><i></i></span> Gross Clicks
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.unique_clicks"
+                                                       name="ck_unique">
+                                                <span><i></i></span> Unique Clicks
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.conversions"
+                                                       name="ck_conversion" checked="checked">
+                                                <span class="active"><i></i></span> Conversions
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.cost" name="ck_cost"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> Payout
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.CTR" name="ctr"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> CTR
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.CR" name="ck_cr"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> CR
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.CPC" name="cpc"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> CPC
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.CPM" name="cpm"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> CPM
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.CPA" name="cpa"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> CPA
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.EPC" name="ck_cpc"
+                                                       checked="checked">
+                                                <span class="active"><i></i></span> EPC
+                                            </label>
+                                        </div>
+                                    </li>
+
+                                    <li class="displayBy">
+                                        <label>Display By</label>
+
+                                        <div class="column-dataItem">
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.year" name="ck_year">
+                                                <span><i></i></span> Year
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.month" name="ck_month">
+                                                <span><i></i></span> Month
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.week" name="ck_week">
+                                                <span><i></i></span> Week
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.day" name="ck_day">
+                                                <span><i></i></span> Date
+                                            </label>
+                                            <label class="chbox chbox-lg-green">
+                                                <input type="checkbox" ms-duplex-checked="fields.hour" name="ck_hour">
+                                                <span><i></i></span> Hour
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="dataItem-footer">
+                                <button id="field-button" type="button" class="btn close_option btn-modal-save float-right campaign-report-field" ms-click="get_report">Close</button>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="report_div">
+                    <table id="reportTable" class="table table-bordered table-hover">
+                        <tbody>
+                        <tr>
+                            <th class="whitespace" ms-if="fields.year">
+                                Year
+                            </th>
+                            <th class="whitespace" ms-if="fields.month">
+                                Month
+                            </th>
+                            <th class="whitespace" ms-if="fields.week">
+                                Week
+                            </th>
+                            <th class="whitespace" ms-if="fields.day">
+                                Day
+                            </th>
+                            <th class="whitespace" ms-if="fields.hour">
+                                Hour
+                            </th>
+                            <th class="whitespace" ms-if="fields.offer_name">
+                                Offer Name
+                            </th>
+                            <th class="whitespace" ms-if="fields.offer_id">
+                                Offer ID
+                            </th>
+                            <th class="whitespace" ms-if="fields.country">
+                                Country
+                            </th>
+                            <th class="whitespace" ms-if="fields.affiliate_sub_id_1">
+                                SubID1
+                            </th>
+                            <th class="whitespace" ms-if="fields.affiliate_sub_id_2">
+                                SubID2
+                            </th>
+                            <th class="whitespace" ms-if="fields.affiliate_sub_id_3">
+                                SubID3
+                            </th>
+                            <th class="whitespace" ms-if="fields.affiliate_sub_id_4">
+                                SubID4
+                            </th>
+                            <th class="whitespace" ms-if="fields.affiliate_sub_id_5">
+                                SubID5
+                            </th>
+                            <th class="whitespace" ms-if="fields.impressions">
+                                Impressions
+                            </th>
+                            <th class="whitespace" ms-if="fields.clicks">
+                                Clicks
+                            </th>
+                            <th class="whitespace" ms-if="fields.unique_clicks">
+                                Unique Clicks
+                            </th>
+                            <th class="whitespace" ms-if="fields.gross_clicks">
+                                Gross Clicks
+                            </th>
+                            <th class="whitespace" ms-if="fields.conversions">
+                                Conversions
+                            </th>
+                            <th class="whitespace" ms-if="fields.cost">
+                                Payout
+                            </th>
+                            <th class="whitespace" ms-if="fields.CR">
+                                CR(%)
+                            </th>
+                            <th class="whitespace" ms-if="fields.CTR">
+                                CTR
+                            </th>
+                            <th class="whitespace" ms-if="fields.CPA">
+                                CPA
+                            </th>
+                            <th class="whitespace" ms-if="fields.CPC">
+                                CPC
+                            </th>
+                            <th class="whitespace" ms-if="fields.CPM">
+                                CPM
+                            </th>
+                            <th class="whitespace" ms-if="fields.EPC">
+                                EPC
+                            </th>
+                        </tr>
+                        <tr ms-repeat="docs">
+                            <td class="whitespace" ms-if="fields.year">
+                                {{el.year}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.month">
+                                {{el.month}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.week">
+                                {{el.week}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.day">
+                                {{el.day}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.hour">
+                                {{el.hour}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.offer_name">
+                                {{el.offer_name}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.offer_id">
+                                {{el.offer_id}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.country">
+                                {{el.country}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_1">
+                                {{el.affiliate_sub_id_1}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_2">
+                                {{el.affiliate_sub_id_2}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_3">
+                                {{el.affiliate_sub_id_3}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_4">
+                                {{el.affiliate_sub_id_4}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_5">
+                                {{el.affiliate_sub_id_5}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.impressions">
+                                {{el.impressions}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.clicks">
+                                {{el.clicks}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.unique_clicks">
+                                {{el.unique_clicks}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.gross_clicks">
+                                {{el.gross_clicks}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.conversions">
+                                {{el.conversions}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.cost">
+                                {{el.cost}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CR">
+                                {{el.CR}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CTR">
+                                {{el.CTR}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CPA">
+                                {{el.CPA}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CPC">
+                                {{el.CPC}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CPM">
+                                {{el.CPM}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.EPC">
+                                {{el.EPC}}
+                            </td>
+                        </tr>
+                        <tr ms-if="doc_count">
+                            <td class="whitespace" ms-if="fields.year">
+                            </td>
+                            <td class="whitespace" ms-if="fields.month">
+                            </td>
+                            <td class="whitespace" ms-if="fields.week">
+                            </td>
+                            <td class="whitespace" ms-if="fields.day">
+                                Total
+                            </td>
+                            <td class="whitespace" ms-if="fields.hour">
+                            </td>
+                            <td class="whitespace" ms-if="fields.offer_name">
+                            </td>
+                            <td class="whitespace" ms-if="fields.offer_id">
+                            </td>
+                            <td class="whitespace" ms-if="fields.country">
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_1">
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_2">
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_3">
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_4">
+                            </td>
+                            <td class="whitespace" ms-if="fields.affiliate_sub_id_5">
+                            </td>
+                            <td class="whitespace" ms-if="fields.impressions">
+                                {{total.impressions}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.clicks">
+                                {{total.clicks}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.unique_clicks">
+                                {{total.unique_clicks}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.gross_clicks">
+                                {{total.gross_clicks}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.conversions">
+                                {{total.conversions}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.cost">
+                                {{total.cost}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CR">
+                                {{total.CR}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CTR">
+                                {{total.CTR}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CPA">
+                                {{total.CPA}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CPC">
+                                {{total.CPC}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.CPM">
+                                {{total.CPM}}
+                            </td>
+                            <td class="whitespace" ms-if="fields.EPC">
+                                {{total.EPC}}
+                            </td>
+                        </tr>
+                        <tr ms-if="totalPage == 0">
+                                    <td colspan="8" align="center" style="height:68px;padding-bottom:0px;padding-top:5px;">No Data</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                    <div ms-controller="report" style="text-align:center;"  class="page_select hidden">
+                       <div id="pages" style="display:inline-block;height:43px;"></div>
+                       <div>
+                           <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                               <li style="display:inline-block">
+                                   <div id="total" class="page_num">
+                                       <a href="#" class="btn btn-sm disabled" role="button">{{totalPage}} Total</a>
+                                   </div>
+                               </li>
+                               <li style="display:inline-block">
+                                   <div>
+                                       <select  id="display" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm page_limit">
+                                           <option value="100">100 Items</option>
+                                           <option value="50">50 Items</option>
+                                           <option value="30">30 Items</option>
+                                           <option value="10">10 Items</option>
+                                       </select>
+                                   </div>
+                               </li>
+                               <li style="display:inline-block;height:19px">
+                                   <div class="col-lg-6" style="width:154px;padding:0px">
+                                       <div class="input-group input-group-sm">
+                                           <input type="text" id="go-page" class="form-control" placeholder="Jump to">
+                                           <span class="input-group-btn">
+                                               <button class="btn btn-default btn_go" type="button" ms-on-click="goPage()">Go!</button>
+                                           </span>
+                                       </div><!-- /input-group -->
+                                   </div><!-- /.col-lg-6 -->
+                               </li>
+                           </ul>
+                       </div>
+                  </div><!-- /pager -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.affiliateleadhug_jquery_blockUI}"></script>
+<script src="${js.leadhug_fm_selectator_jquery}"></script>
+<script src="${js.affiliateleadhug_multiple_select}"></script>
+<script src="${js.affiliateleadhug_bootstrap_datetimepicker_min}"></script>
+<script src="${js.leadhug_extendPagination}"></script>
+<script src="${js.affiliateleadhug_affliate_leadhug_report}"></script>
+<script>
+    avalon.ready(
+            function(){
+                $("#price_model_1, #offer_1, #country_1").val('');
+                $(".close_option").click(function(){
+                    $(".edit-column-panel").css('display', 'none');
+                });
+
+
+                $("[name=countries]").selectator({
+                    showAllOptionsOnFocus: true,
+                    keepOpen: true,
+                });
+                $("[name=offers]").selectator({
+                    showAllOptionsOnFocus: true,
+                    keepOpen: true,
+                });
+
+                $("#price_model_1").change(function(){
+                    avalon.vmodels.report.filter.payout_types = $(this).val();
+                });
+                $("#offer_1").change(function(){
+                    avalon.vmodels.report.filter.offers_id = $(this).val();
+                });
+
+                $("#country_1").change(function(){
+                    avalon.vmodels.report.filter.countries = $(this).val();
+                });
+
+                var time_range = $('span', '#reportrange').text().split('--');
+                avalon.vmodels.report.filter.time_range = {'start': time_range[0], 'end': time_range[1]}
+
+                $('#reportrange').on('apply.daterangepicker', function(ev, picke){
+                    var time_range = $('span', this).text().split('--');
+                    avalon.vmodels.report.filter.time_range = {'start': time_range[0], 'end': time_range[1]};
+                    avalon.vmodels.report.get_report();
+                })
+
+            }
+    )
+
+</script>
+</%block>

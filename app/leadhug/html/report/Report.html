@@ -1,0 +1,542 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<link href="${css.leadhug_bootstrap_datetimepicker_min}" rel="stylesheet">
+<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">
+</%block>
+<div id="page-wrapper" ms-controller="report">
+            <div class="row">
+                <div class="col-lg-12">
+                   <!-- <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right">save</button></h1> -->
+                   <div class="main-header"> <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target=".bs-example-modal-lg">Options</button></div>
+
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span>Report</span>
+                            <a ms-attr-href="{{report_url}}"><span style="float: right;">Export</span></a>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" style="overflow: auto;">
+                            <div class="dataTable_wrapper">
+                               <table class="table table-bordered table-striped">
+                                    <thead>
+                                    	<tr>
+                                    		<th ms-if="query_fields.year">Year</th>
+                                    		<th ms-if="query_fields.month">Month</th>
+                                    		<th ms-if="query_fields.week">Week</th>
+                                    		<th ms-if="query_fields.day">Day</th>
+                                    		<th ms-if="query_fields.hour">Hour</th>
+                                    		<th ms-if="query_fields.affiliate_name">Affiliate</th>
+                                    		<th ms-if="query_fields.affiliate_id">Affiliate ID</th>
+                                            <th ms-if="query_fields.affiliate_name">AM</th>
+                                    		<th ms-if="query_fields.affiliate_sub_id_1">Affiliate Sub ID</th>
+                                    		<th ms-if="query_fields.affiliate_sub_id_2">Affiliate Sub ID</th>
+                                    		<th ms-if="query_fields.affiliate_sub_id_3">Affiliate Sub ID</th>
+                                    		<th ms-if="query_fields.affiliate_sub_id_4">Affiliate Sub ID</th>
+                                    		<th ms-if="query_fields.affiliate_sub_id_5">Affiliate Sub ID</th>
+                                    		<th ms-if="query_fields.offer_name || query_fields.api_offer_name">Offer</th>
+                                            <th ms-if="query_fields.offer_id">Offer ID</th>
+                                            <th ms-if="query_fields.advertiser_name">Advertiser</th>
+                                            <th ms-if="query_fields.advertiser_name">BD</th>
+                                    		<th ms-if="query_fields.category_name">Category</th>
+                                    		<th ms-if="query_fields.country">Country</th>
+                                    		<th ms-if="query_fields.impressions">Impressions</th>
+                                            <th ms-if="query_fields.conversions">Conversions</th>
+                                            <th ms-if="query_fields.clicks">Clicks</th>
+                                            <th ms-if="query_fields.unique_clicks">Unique Clicks</th>
+                                            <th ms-if="query_fields.gross_clicks">Gross Clicks</th>
+                                            <th ms-if="query_fields.revenue">Revenue</th>
+                                            <th ms-if="query_fields.sales">Sales</th>
+                                    		<th ms-if="query_fields.cost">Cost</th>
+                                            <th ms-if="query_fields.profit">Profit</th>
+                                            <th ms-if="query_fields.CTR">CTR(%)</th>
+                                            <th ms-if="query_fields.CPM">CPM</th>
+                                            <th ms-if="query_fields.CPC">CPC</th>
+                                            <th ms-if="query_fields.CPA">CPA</th>
+                                            <th ms-if="query_fields.CR">CR(%)</th>
+                                    		<th ms-if="query_fields.RPM">RPM</th>
+                                            <th ms-if="query_fields.RPC">RPC(%)</th>
+                                            <th ms-if="query_fields.RPA">RPA</th>
+                                    	</tr>
+                                    </thead>
+                                    <tbody>
+                                    	<tr ms-repeat="docs">
+                                            <td ms-if="query_fields.year">{{el.year}}</td>
+                                            <td ms-if="query_fields.month">{{el.month}}</td>
+                                            <td ms-if="query_fields.week">{{el.week}}</td>
+                                            <td ms-if="query_fields.day">{{el.day}}</td>
+                                            <td ms-if="query_fields.hour">{{el.hour}}</td>
+                                            <td ms-if="query_fields.affiliate_name"><a ms-attr-href="/affiliate_offer?affiliate_id={{el.affiliate_id}}">{{el.affiliate_name}}</a></td>
+                                            <td ms-if="query_fields.affiliate_id">{{el.affiliate_id}}</td>
+                                            <td ms-if="query_fields.affiliate_name">{{el.AM}}</td>
+                                            <td ms-if="query_fields.affiliate_sub_id_1">{{el.affiliate_sub_id_1}}</td>
+                                            <td ms-if="query_fields.affiliate_sub_id_2">{{el.affiliate_sub_id_2}}</td>
+                                            <td ms-if="query_fields.affiliate_sub_id_3">{{el.affiliate_sub_id_3}}</td>
+                                            <td ms-if="query_fields.affiliate_sub_id_4">{{el.affiliate_sub_id_4}}</td>
+                                            <td ms-if="query_fields.affiliate_sub_id_5">{{el.affiliate_sub_id_5}}</td>
+                                            <td ms-if="query_fields.offer_name || query_fields.api_offer_name"><a ms-attr-href="/offer_affiliate?offer_id={{el.offer_id}}">{{el.offer_name}}</a></td>
+                                            <td ms-if="query_fields.offer_id">{{el.offer_id}}</td>
+                                            <td ms-if="query_fields.advertiser_name"><a ms-attr-href="/advertiser/detail/{{el.advertiser_id}}">{{el.advertiser_name}}</a></td>
+                                            <td ms-if="query_fields.advertiser_name">{{el.BD}}</td>
+                                            <td ms-if="query_fields.category_name">{{el.category_name}}</td>
+                                            <td ms-if="query_fields.country">{{el.country}}</td>
+                                            <td class="impressions" ms-if="query_fields.impressions">{{el.impressions}}</td>
+                                            <td class="conversions" ms-if="query_fields.conversions">{{el.conversions}}</td>
+                                            <td class="clicks" ms-if="query_fields.clicks">{{el.clicks}}</td>
+                                            <td class="unique_clicks" ms-if="query_fields.unique_clicks">{{el.unique_clicks}}</td>
+                                            <td class="gross_clicks" ms-if="query_fields.gross_clicks">{{el.gross_clicks}}</td>
+                                            <td class="revenue" ms-if="query_fields.revenue">{{el.revenue}}</td>
+                                            <td class="sales" ms-if="query_fields.sales">{{el.sales}}</td>
+                                            <td class="cost" ms-if="query_fields.cost">{{el.cost}}</td>
+                                            <td class="profit" ms-if="query_fields.profit">{{el.profit}}</td>
+                                            <td class="CRT" ms-if="query_fields.CTR">{{el.CTR}}</td>
+                                            <td class="CPM" ms-if="query_fields.CPM">{{el.CPM}}</td>
+                                            <td class="CPC" ms-if="query_fields.CPC">{{el.CPC}}</td>
+                                            <td class="CPA" ms-if="query_fields.CPA">{{el.CPA}}</td>
+                                            <td class="CR" ms-if="query_fields.CR">{{el.CR}}</td>
+                                            <td class="CRM" ms-if="query_fields.RPM">{{el.RPM}}</td>
+                                            <td class="RPC" ms-if="query_fields.RPC">{{el.RPC}}</td>
+                                            <td class="RPA" ms-if="query_fields.RPA">{{el.RPA}}</td>
+                                    	</tr>
+                                        <tr ms-if="doc_count">
+                                            <td ms-if="query_fields.year"></td>
+                                            <td ms-if="query_fields.month"></td>
+                                            <td ms-if="query_fields.week"></td>
+                                            <td ms-if="query_fields.day">Total</td>
+                                            <td ms-if="query_fields.hour"></td>
+                                            <td ms-if="query_fields.affiliate_name"></td>
+                                            <td ms-if="query_fields.affiliate_id"></td>
+                                            <td ms-if="query_fields.affiliate_name"></td>
+                                            <td ms-if="query_fields.affiliate_sub_id_1"></td>
+                                            <td ms-if="query_fields.affiliate_sub_id_2"></td>
+                                            <td ms-if="query_fields.affiliate_sub_id_3"></td>
+                                            <td ms-if="query_fields.affiliate_sub_id_4"></td>
+                                            <td ms-if="query_fields.affiliate_sub_id_5"></td>
+                                            <td ms-if="query_fields.offer_name || query_fields.api_offer_name"></td>
+                                            <td ms-if="query_fields.offer_id"></td>
+                                            <td ms-if="query_fields.advertiser_name"></td>
+                                            <td ms-if="query_fields.advertiser_name"></td>
+                                            <td ms-if="query_fields.category_name"></td>
+                                            <td ms-if="query_fields.country"></td>
+                                            <td ms-if="query_fields.impressions">{{total.impression}}</td>
+                                            <td ms-if="query_fields.conversions">{{total.conversions}}</td>
+                                            <td ms-if="query_fields.clicks">{{total.clicks}}</td>
+                                            <td ms-if="query_fields.unique_clicks">{{total.unique_clicks}}</td>
+                                            <td ms-if="query_fields.gross_clicks">{{total.gross_clicks}}</td>
+                                            <td ms-if="query_fields.revenue">{{total.revenue}}</td>
+                                            <td ms-if="query_fields.sales">{{total.sales}}</td>
+                                            <td ms-if="query_fields.cost">{{total.cost}}</td>
+                                            <td ms-if="query_fields.profit">{{total.profit}}</td>
+                                            <td ms-if="query_fields.CTR">{{total.CTR}}</td>
+                                            <td ms-if="query_fields.CPM">{{total.CPM}}</td>
+                                            <td ms-if="query_fields.CPC">{{total.CPC}}</td>
+                                            <td ms-if="query_fields.CPA">{{total.CPA}}</td>
+                                            <td ms-if="query_fields.CR">{{total.CR}}</td>
+                                            <td ms-if="query_fields.RPM">{{total.RPM}}</td>
+                                            <td ms-if="query_fields.RPC">{{total.RPC}}</td>
+                                            <td ms-if="query_fields.RPA">{{total.RPA}}</td>
+                                        </tr>
+                                        <tr ms-if="doc_count == 0">
+                                            <td colspan="7" align="center" style="height:68px;padding-bottom:0px;padding-top:25px;">No Data</td>
+                                        </tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                   <div ms-controller="report" style="text-align:center;"  class="page_select hidden">
+                        <div id="pages" style="display:inline-block"></div>
+
+                        <div>
+                            <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                                <li style="display:inline-block">
+                                    <div id="total">
+                                        <a href="#" class="btn btn-default btn-sm disabled" role="button" style="width:98px;">{{totalPage}} Total</a>
+                                    </div>
+                                </li>
+                                <li style="display:inline-block">
+                                    <div>
+                                        <select  id="display" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm" style="width:98px" >
+                                            <option value="100">100 Items</option>
+                                            <option value="50">50 Items</option>
+                                            <option value="30">30 Items</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li style="display:inline-block;height:19px">
+                                    <div class="col-lg-6" style="width:154px;padding:0px">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" id="go-page" class="form-control" placeholder="Jump to">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" ms-on-click="goPage()">Go!</button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div><!-- /.col-lg-6 -->
+                                </li>
+                            </ul>
+                        </div>
+                   </div>
+
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+    <!-- /#wrapper -->
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Report Filter</h4>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                     <div class="row indent-left">
+                                     <div class="col-md-2">
+                                         <label>Affiliate</label>
+                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.affiliate_name" type="checkbox" value="">Affiliate</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.affiliate_id" type="checkbox" value="">Affiliate ID</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.affiliate_sub_id_1" type="checkbox" value="">Affiliate Sub ID 1</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.affiliate_sub_id_2" type="checkbox" value="">Affiliate Sub ID 2</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.affiliate_sub_id_3" type="checkbox" value="">Affiliate Sub ID 3</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.affiliate_sub_id_4" type="checkbox" value="">Affiliate Sub ID 4</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.affiliate_sub_id_5" type="checkbox" value="">Affiliate Sub ID 5</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.offer_name" type="checkbox" value="">Offer</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.api_offer_name" type="checkbox" value="">Api Offer</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.offer_id" type="checkbox" value="">Offer ID</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row indent-left">
+                                    <div class="col-md-3 col-md-offset-2">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.advertiser_name" type="checkbox" value="">Advertiser</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.category_name" type="checkbox" value="">Category</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.country" type="checkbox" value="">Country</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row indent-left">
+                                     <div class="col-md-2">
+                                         <label>Statistics</label>
+                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.impressions" type="checkbox" value="">Impressions</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.clicks" type="checkbox" value="">Clicks</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.revenue" type="checkbox" value="">Revenue</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.gross_clicks" type="checkbox" value="">Gross Clicks</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.conversions" type="checkbox" value="">Conversions</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.sales" type="checkbox" value="">Sales</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.unique_clicks" type="checkbox" value="">Unique Clicks</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.cost" type="checkbox" value="">Cost</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.profit" type="checkbox" value="">Profit</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row indent-left">
+                                     <div class="col-md-2">
+                                         <label>Calculations</label>
+                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.CTR" type="checkbox" value="">CTR</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.CPC" type="checkbox" value="">CPC</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.RPC" type="checkbox" value="">RPC</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.CR" type="checkbox" value="">CR</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.CPA" type="checkbox" value="">CPA</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.RPA" type="checkbox" value="">RPA</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.CPM" type="checkbox" value="">CPM</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.RPM" type="checkbox" value="">RPM</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row indent-left">
+                                     <div class="col-md-2">
+                                         <label>Interval</label>
+                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.year" type="checkbox" value="">Year</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.day" type="checkbox" value="">Day</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.month" type="checkbox" value="">Month</label>
+                                        </div>
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.hour" type="checkbox" value="">Hour</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-duplex-checked="query_fields.week" type="checkbox" value="">Week</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row indent-left">
+                                     <div class="col-md-2">
+                                         <label>Filter</label>
+                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox" >
+                                          <label><input ms-click="select_affiliate_multiple" ms-duplex-checked="filter.affiliate" type="checkbox" value="">Affiliates</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-click="select_advertiser_multiple" ms-duplex-checked="filter.advertiser" type="checkbox" value="">Advertisers</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="checkbox">
+                                          <label><input ms-click="select_category_multiple" ms-duplex-checked="filter.category" type="checkbox" value="">Categories</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3" style="margin-left: 105px;">
+                                        <div class="checkbox">
+                                          <label><input ms-click="select_offer_multiple" ms-duplex-checked="filter.offers" type="checkbox" value="">Offers</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-left: 105px;">
+                                        <div class="checkbox">
+                                          <label><input ms-click="select_am_multiple" ms-duplex-checked="filter.ams" type="checkbox" value="">AM</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-left: 105px;">
+                                        <div class="checkbox">
+                                          <label><input ms-click="select_bd_multiple" ms-duplex-checked="filter.bds" type="checkbox" value="">BD</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="form-horizontal model-static indent-left">
+
+                                      <div class="form-group form-area indent-left">
+                                        <label class="col-lg-3 control-label">Start and end date</label>
+                                        <div class="col-lg-8">
+                                          <!--   -->
+                                          <div class='col-md-6'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker_start'>
+                                                        <input type='text' class="form-control dp_start" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-md-6'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker_end'>
+                                                        <input type='text' class="form-control dp_end" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 indent-both">
+
+                                      <div class="form-group"  ms-if="filter.affiliate">
+                                          <label>Affiliates Filter</label>
+                                            <div class="radio">
+                                                <!--<label class="radio-inline">-->
+                                                  <!--<input type="radio" ms-duplex-string="filter.affiliate_show" name="inlineRadioOptions" id="inlineRadio1" value="all"> Show All-->
+                                                <!--</label>-->
+                                                <!--<label class="radio-inline">-->
+                                                  <!--<input type="radio" ms-duplex-string="filter.affiliate_show" name="inlineRadioOptions" id="inlineRadio2" value="active"> Show Active Only-->
+                                                <!--</label>-->
+                                            </div>
+                                              <select ms-if="filter.affiliate_show == 'all'" class="form-control affiliate select_affiliate" name="select" multiple >
+                                                <option class="" ms-repeat="affiliates" ms-attr-value="el._id">{{el._id}} {{el.name}}</option>
+                                              </select>
+                                              <select ms-if="filter.affiliate_show == 'active'" class="form-control affiliate select_affiliate" name="select" multiple >
+                                                <option ms-if="el.status" class="" ms-repeat="affiliates" ms-attr-value="el._id">{{el._id}} {{el.name}}</option>
+                                              </select>
+                                      </div>
+                                      <div class="form-group" ms-if="filter.advertiser">
+                                        <label>Advertisers Filter</label>
+                                            <select class="form-control advertiser" id="select_advertiser" name="select" multiple >
+                                                <option class="" ms-repeat="advertisers" ms-attr-value="el._id">{{el._id}} {{el.name}}</option>
+                                              </select>
+                                      </div>
+                                      <div class="form-group" ms-if="filter.category">
+                                        <label>Categories Filter</label>
+                                          <select class="form-control category" id="select_category" name="select" multiple >
+                                                <option class="" ms-repeat="categories" ms-attr-value="el._id">{{el._id}} {{el.name}}</option>
+                                          </select>
+                                      </div>
+                                    <div class="form-group" ms-if="filter.offers">
+                                        <label>Offers Filter</label>
+                                          <select class="form-control offers" id="select_offers" name="select" multiple >
+                                                <option class="" ms-repeat="offers" ms-attr-value="el._id">{{el._id}} {{el.title}}</option>
+                                          </select>
+                                      </div>
+                                    <div class="form-group" ms-if="filter.ams">
+                                        <label>AM Filter</label>
+                                          <select class="form-control ams" id="select_ams" name="select" multiple >
+                                                <option class="" ms-repeat="ams" ms-attr-value="el._id">{{el._id}} {{el.account}}</option>
+                                          </select>
+                                      </div>
+                                    <div class="form-group" ms-if="filter.bds">
+                                        <label>BD Filter</label>
+                                          <select class="form-control bds" id="select_bds" name="select" multiple >
+                                                <option class="" ms-repeat="bds" ms-attr-value="el._id">{{el._id}} {{el.account}}</option>
+                                          </select>
+                                    </div>
+                                </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default cancel" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" ms-click="get_report">Filter</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+        </div>
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_jquery_blockUI}"></script>
+<script src="${js.leadhug_pingstart}"></script>
+<script src="${js.leadhug_fm_selectator_jquery}"></script>
+<script src="${js.leadhug_leadhug_report}"></script>
+<script>
+    avalon.ready(
+            function () {
+                avalon.vmodels.report.get_report();
+                avalon.vmodels.report.get_filters();
+                $('#datetimepicker_start > input').val('');
+                $('#datetimepicker_end > input').val('');
+                $('#datetimepicker_start').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: avalon.vmodels.report.time_range.start,
+                    });
+
+                    $('#datetimepicker_end').datetimepicker({
+                        format: 'YYYY-MM-DD',
+                        defaultDate: avalon.vmodels.report.time_range.end
+                    });
+
+                    $("#datetimepicker_start").on("dp.change", function (e) {
+                        $('#datetimepicker_end').data("DateTimePicker").minDate(e.date);
+                        avalon.vmodels.report.time_range.start = $(".dp_start").val();
+                    });
+
+                    $("#datetimepicker_end").on("dp.change", function (e) {
+                        $('#datetimepicker_start').data("DateTimePicker").maxDate(e.date);
+                        avalon.vmodels.report.time_range.end = $(".dp_end").val();
+                    });
+
+
+                $("[name=select]").change(function(val){
+                    if($(this).hasClass('affiliate')){
+                        avalon.vmodels.report.selected_filter.affiliates_name=$(this).val();
+                    }else if($(this).hasClass('advertiser')){
+                        avalon.vmodels.report.selected_filter.advertisers_name=$(this).val();
+                    }else if($(this).hasClass('category')){
+                        avalon.vmodels.report.selected_filter.categories_name=$(this).val();
+                    }else if($(this).hasClass('offers')){
+                        avalon.vmodels.report.selected_filter.offers_id=$(this).val();
+                    }else if($(this).hasClass('ams')){
+                        avalon.vmodels.report.selected_filter.ams_id=$(this).val();
+                    }else if($(this).hasClass('bds')){
+                        avalon.vmodels.report.selected_filter.bds_id=$(this).val();
+                    }
+				});
+            }
+    )
+</script>
+</%block>

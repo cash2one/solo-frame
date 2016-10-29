@@ -1,0 +1,1691 @@
+[ms-controller],[ms-important]{display:none}
+body {
+    background: url(https://s3-us-west-2.amazonaws.com/adplatformstatis/leadhug/img/affiliateleadhug.com/_img/bg.png) repeat;
+}
+* {
+    padding: 0;
+    outline: 0;
+    list-style: none;
+    font-size: 12px;
+}
+label {
+    color: #666;
+    font-weight: 700;
+}
+#wrapper {
+    width: 1400px;
+    margin: 43px auto;
+    overflow: hidden;
+    border-radius: 5px;
+    min-height: 900px;
+    background-color: #fff;
+}
+#header {
+	width: 100%;
+	height: 60px;
+	box-shadow: 200px 3px 3px #cfcfd3;
+}
+#header .dropdown {
+    float: right;
+    font-weight: 700;
+    padding: 15px 50px 0 0;
+}
+.dropdown {
+    position: relative;
+}
+.dropMenu {
+	position: relative;
+}
+.dropMenu ul {
+	z-index: 999;
+	border: 1px solid #000;
+	padding: 0;
+	list-style: none;
+	position: absolute;
+	right: 0;
+	top: 30px;	
+	background-color: #fff;
+	width: 138px;
+	cursor: pointer;
+}
+.dropMenu ul li {
+	padding: 4px 10px;
+	font-size: 12px;
+}
+.dropMenu ul li:hover {
+    background-color: #f6f6f6;
+}
+.dropMenu li a {
+	color: #6b6b6b;	
+	text-decoration: none;
+}
+.header-info {
+	color: #5b707e;
+	font-size: 12px;
+	text-decoration: none !important;
+	line-height: 34px;
+	padding-left: 10px;
+}
+.dropdown .aff-global-input {
+    height: 36px;
+    width: 282px;
+    border: 3px solid #DDD;
+    border-radius: 18px;
+    position: relative;
+    padding-left: 15px;
+/*    margin-right: -12px;*/
+}
+.aff-global-input ~ span {
+    margin: 0;
+    font-size: 19px;
+    position: relative;
+    right: 24px;
+    top: 14px;
+}
+#search-btn {
+	position: relative;
+	left: -30px;
+	text-decoration: none;
+	color: #222;
+	cursor: pointer;
+	font-weight: 800;
+}
+.icon-search:before {
+    content: "\f002";
+}
+.dropdown .aff-global-input:focus {
+    outline: none;
+}
+.sidebar-header {
+	float: left;
+	width: 200px;
+	height: 100%;
+}
+#logo {
+    margin-top: 10px;
+    height: 40px;
+    width: 120px;
+    margin-left: 30px;
+}
+#sidebar {
+    background: #334253;
+    width: 200px;
+    float: left;
+    border-radius: 0 0 0 5px;
+    margin-bottom: -3000px;
+    margin-bottom: -3000px;
+    padding-bottom: 3000px;
+}
+#sidebar>ul {
+    margin: 10px 0;
+}
+.nav {
+    list-style: none;
+    font-size: 12px;
+    color: #7c94a4;
+    font-weight: 700;
+}
+#sidebar>.nav>li {
+    width: 200px;
+    position: relative;
+    transition: height 5s;
+    -moz-transition: height 5s;
+    -webkit-transition: height 5s;
+    -o-transition: height 5s;
+}
+.nav-li:hover, .nav-li.active {
+    background: #f4f5f9;
+}
+.nav-li:hover > a {
+	color: #516c9a !important;
+}
+.nav-li.active>a {
+    border-bottom: 5px solid #516c9a;
+    color: #516c9a;
+}
+.nav .nav-li>a {
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    padding: 0 17px;
+    line-height: 40px;
+    color: #FFF;
+    text-decoration: none;
+    outline: 0;
+}
+.nav-li a>em {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin: 12px 6px 0 -6px;
+}
+.nav-li.active>a {
+    border-bottom: 5px solid #516c9a;
+    color: #516c9a;
+}
+.nav-li .Dashboard em {
+	background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -400px -199px;
+}
+.nav-li .Dashboard:hover em, .nav .active .Dashboard em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -199px;
+}
+.nav-li .Offers em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -372px -228px;
+}
+.nav-li .Offers:hover em , .nav .active .Offers em {
+	background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -228px;
+}
+.nav-li .Reports em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -372px -282px;
+}
+.nav-li .Reports:hover em, .nav .active .Reports em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -258px;
+}
+.nav-li .Payments em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -372px -338px;
+}
+.nav-li .Payments:hover em, .nav .active .Payments em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -315px;
+}
+.nav-li .Global em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -372px -310px;
+}
+.nav-li .Global:hover em, .nav .active .Global em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -285px;
+}
+#content {
+    border-radius: 0 0 5px 0;
+    width: 1200px;
+    float: right;
+    background: #f4f5f9;
+    margin-top: 4px;
+    min-height: 900px;
+}
+.aff-dashboard {
+    background-color: #f4f5f9;
+    content: "";
+    display: table;
+    width: 100%;
+    padding: 21px;
+
+}
+.postback .aff-dashboard {
+    padding-right: 0;
+}
+div.dashboard-left {
+    width: 790px;
+    min-height: 600px;
+}
+div.affdash-budget {
+    content: "";
+    display: table;
+    padding: 0 0 14px 0;
+    text-align: right;
+}
+.float-left {
+	float: left;
+}
+.float-right {
+	float: right;
+}
+div.dashboard-right {
+	width: 350px;
+	min-height: 400px;
+}
+div.affdash-budget>div {
+    height: 85px;
+    width: 256px;
+    margin-right: 5px;
+    border-radius: 5px;
+    padding-right: 14px;
+    opacity: .9;
+}
+div.affdash-budget>div.today-budget {
+    background: url("http://static1.fuseclick.com/public/images/aff-today-budget-background.png") repeat;
+}
+div.affdash-budget>div.today-budget>div {
+    background: url("http://static1.fuseclick.com/public/images/aff-today-budget.png") no-repeat 5px 4px;
+    height: 100%;
+}
+div.affdash-budget span {
+    color: #FFF;
+    font-weight: 700;
+    font-size: 15px;
+    display: block;
+}
+div.affdash-budget span.affdash-budget-first {
+    font-size: 28px;
+    margin-bottom: -5px;
+    padding-top: 12px;
+}
+div.affdash-budget>div.balance-budget {
+    background: url("http://static1.fuseclick.com/public/images/aff-balance-budget-background.png") repeat;
+}
+div.affdash-budget>div.balance-budget>div {
+    background: url("http://static1.fuseclick.com/public/images/aff-balance-budget.png") no-repeat 5px 4px;
+    height: 100%;
+}
+div.total-budget {
+    background: url("http://static1.fuseclick.com/public/images/aff-total-budget-background.png") repeat;
+}
+div.total-budget>div {
+    background: url("http://static1.fuseclick.com/public/images/aff-total-budget.png") no-repeat 5px 4px;
+    height: 100%;
+}
+div.affdash-caption {
+    height: 404px;
+    background-color: #FFF;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 3px 4px #e7e7e7;
+    width: 782px;
+}
+div.affdash-top-offer {
+    padding-top: 15px;
+    padding-right: 12px;
+}
+.nav-tabs {
+    border-bottom: 1px solid #6E8385;
+    margin: 0 0 -1px;
+    padding: 0;
+}
+div.affdash-top-offer {
+    padding-top: 15px;
+    padding-right: 12px;
+}
+.nav-tabs>li {
+    display: block;
+    float: left;
+}
+.nav-tabs:before, .nav-tabs:after {
+    display: table;
+    content: " ";
+}
+.nav-tabs>li>a {
+    background-color: #516c9a;
+    border-radius: 3px 3px 0 0;
+    color: #fff;
+    display: block;
+    font-weight: 700;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+    outline: medium none;
+    padding: 0 30px;
+    position: relative;
+    text-decoration: none;
+    top: 0;
+}
+.aff-dashboard .nav-tabs a.active {
+    background: #f4f5f9;
+    border-color: #6e8385 #6e8385 #f4f5f9;
+    color: #516c9a;
+}
+.nav-tabs a.active {
+    background: #FFF;
+    border: 1px solid #6e8385;
+    border-bottom: 1px solid #FFF;
+    color: #000;
+    color: #4a5753;
+    outline: 0;
+    -moz-outline: 0;
+}
+.nav-tabs a.active:hover {
+    border-color: #6e8385 #6e8385 #f4f5f9;
+}
+.nav-tabs:after {
+    clear: both;
+}
+.aff-dashboard .tabs-content .tab-pane {
+    border-style: solid none none solid;
+    background-color: #f4f5f9; 
+    padding: 24px 0 0 0;
+}
+
+.tabs-content .tab-pane {
+    margin-top: 0;
+    border: 1px solid #6e8385;
+    padding: 35px 0;
+    display: none;
+    z-index: 1000;
+    margin: 0 auto;
+    width: 100%;
+    border-right: 0;
+    border-bottom: 0;
+    background: #FFF;
+}
+.tabs-content .tab-pane.active {
+    display: block;
+}
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.featured-offer {
+    padding-left: 5px;
+    font-size: 19px;
+    margin: 0;
+}
+label {
+    color: #666;
+    font-weight: 700;
+}
+
+
+.affdash-featured-offer.affoffer-grid-data>ul {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+.affoffer-grid-data>ul {
+    content: "";
+    display: table;
+    width: 100%;
+}
+.affdash-featured-offer.affoffer-grid-data>ul>li{
+/*.affdash-featured-offer.affoffer-grid-data>ul>li, .affdash-featured-offer.affoffer-grid-data .affoffer-grid-more-info {*/
+    margin-left: 0;
+    position: relative;
+    border-radius: 5px;
+    background-color: #FFF;
+    width: 100%;
+    height: 100px;
+    max-width: 790px;
+}
+.affoffer-grid-data>ul>li {
+/*.affoffer-grid-data>ul>li, .affoffer-grid-more-info {*/
+    width: 270px;
+    height: 330px;
+    border: 1px solid #ddd;
+    box-shadow: 2px 3px 4px #e7e7e7;
+    border-radius: 5px;
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+.affdash-featured-offer.affoffer-grid-data>ul>li .featured-offer-div {
+    content: "";
+    display: table;
+    padding: 19px 15px;
+}
+.affoffer-logo {
+    border: 1px solid #ddd;
+    height: 60px;
+    line-height: 57px;
+    text-align: center;
+    width: 125px;
+}
+.affdash-offer-detail {
+    float: left;
+    height: 100%;
+    max-width: 630px;
+    padding-left: 10px;
+    white-space: nowrap;
+}
+.featured-offer-div label.affoffer-name {
+    margin-top: -3px;
+}
+.dash-offer-payout {
+    color: #333;
+    display: block;
+    margin: -10px 0 -2px;
+    padding: 7px 0;
+}
+.clear {
+    height: 0;
+    line-height: 0;
+    clear: both;
+    font-size: 0;
+    overflow: hidden;
+}
+.affoffer-date {
+    color: #888;
+    position: relative;
+    top: -3px;
+    font-size: 12px;
+}
+.search-off-link {
+    font-weight: 700;
+    color: #333;
+    font-size: 14px;
+
+}
+.featured-offer-li:hover  .affoffer-detail-info{
+	z-index: 9;
+}
+.affoffer-detail-info {
+	top: 0;
+	left: 0;
+    padding: 5px 10px 3px 15px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	cursor: pointer;
+	background-color: #d9e8f7;
+	-webkit-transition-delay: .6s;
+	-moz-transition-delay: .6s;
+	-ms-transition-delay: .6s;
+	transition-delay: .6s;
+}
+.affdash-col-3 {
+    float: left;
+    width: 33.333%;
+}
+.category-right {
+	line-height: 24px;
+}
+label>em.bg-sm, span>em.bg-sm {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 5px;
+}
+.affoffer-detail-info>label em, .affdash-col-3>label em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -402px;
+}
+.affdash-col-3 span {
+	display: block;
+	color: #6b6b6b;
+	font-size: 12px;
+}
+.affoffer-detail-info>label.affoffer-restriction em, .affdash-col-3>label.affoffer-restriction em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -427px -460px;
+}
+.affoffer-detail-info>label.affoffer-allowe-country em, .affdash-col-3>label.affoffer-allowe-country em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -426px -431px;
+}
+.affoffer-detail-info>label.affoffer-detail-category em, .affdash-col-3>label.affoffer-detail-category em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -490px;
+}
+div.affdash-account-manager {
+    min-height: 206px;
+    background-color: #FFF;
+    box-shadow: 2px 3px 4px #e7e7e7;
+    margin-bottom: 13px;
+    border-radius: 5px;
+    border: 1px solid #DDD;
+}
+div.account-title {
+    height: 42px;
+    border-bottom: 2px solid #f4f5f9;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 42px;
+    padding-left: 15px;
+}
+div.affdash-account-info {
+    content: "";
+    display: table;
+    padding: 15px;
+}
+.affdash-manager-logo>span {
+    color: #ddd;
+    font-size: 12px;
+}
+.affdash-manager-logo {
+    width: 130px;
+    height: 130px;
+    line-height: 130px;
+    text-align: center;
+}
+div.affdash-account-manager {
+    min-height: 206px;
+    background-color: #FFF;
+    box-shadow: 2px 3px 4px #e7e7e7;
+    margin-bottom: 13px;
+    border-radius: 5px;
+    border: 1px solid #DDD;
+}
+.affdash-manager-text {
+    max-width: 196px;
+    padding-left: 15px;
+}
+.affdash-manager-text span {
+    display: block;
+    padding-left: 30px;
+    color: #666;
+    padding: 5px 0 5px 0;
+    min-height: 20px;
+}
+.affdash-manager-text span.affdash-manager-Skype em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -719px;
+}
+.affdash-manager-text span.affdash-manager-email em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -922px;
+}
+.affdash-manager-text span.affdash-manager-phone em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -893px;
+}
+div.top-offer-list {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 3px 4px #e7e7e7;
+    content: "";
+    display: table;
+    margin-bottom: 18px;
+    padding-bottom: 3px;
+    width: 100%;
+}
+div.top-offer-list .top-offer-title {
+    height: 60px;
+    border-bottom: 2px solid #f4f5f9;
+    line-height: 60px;
+    padding-left: 15px;
+    font-weight: 700;
+    font-size: 15px;
+}
+div.top-offer-th {
+    border-bottom: 1px solid #ddd;
+    height: 45px;
+    padding: 15px;
+}
+.affdash-per-offer.no-offer {
+    background-color: #fff;
+    color: #888;
+    font-weight: 700;
+    font-size: 13px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+div.top-offer-th {
+    border-bottom: 1px solid #ddd;
+    height: 45px;
+    padding: 15px;
+}
+.affdash-per-offer {
+    padding: 0 15px 0 0;
+    height: 48px;
+    line-height: 48px;
+    clear: both;
+}
+.none {
+    display: none;
+}
+.no-image {
+    color: #ddd;
+}
+.affdash-per-offer>a {
+    display: block;
+    float: left;
+    color: #666;
+    width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 20px;
+    text-decoration: none;
+    outline: 0;
+    font-size: 12px;
+}
+.affoffer {
+    background: #f4f5f9;
+    padding: 10px 0 0 10px;
+}
+.affoffer .tabs-content .tab-pane {
+    padding-top: 12px;
+}
+.affoffer-search-condition {
+    background-color: #f5f5f5;
+    content: "";
+    display: table;
+    height: 265px;
+    padding-left: 176px;
+    padding-top: 30px;
+    width: 100%;
+}
+.affoffer-search-condition>li {
+    float: left;
+    width: 242px;
+    padding-bottom: 25px;
+}
+.affoffer-search-condition>li>label {
+    display: block;
+    margin-bottom: 2px;
+    margin-left: 3px;
+}
+.affoffer-search-condition>.select-md .chosen-container {
+    width: 210px;
+}
+.chosen-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 10pt;
+    zoom: 1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+#searchoffers .btn-affoffer-refresh {
+    margin: 0;
+    margin-bottom: 20px;
+}
+.btn-affoffer-refresh {
+    background-color: #516c9a;
+    width: 120px;
+    height: 30px;
+    color: #fff;
+    /*margin-top: 20px;*/
+    margin: 20px 0;
+}
+.static-control {
+    width: 195px !important;
+    height: 30px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 2px !important;
+    color: #9b9b9b !important;
+    font-size: 12px !important;
+    box-shadow: none !important;
+}
+.affoffer-search-condition label {
+    font-size: 13px;
+}
+.affoffer-search-last-li .static-input {
+    display: inline !important;
+    width: 82px !important;
+}
+.affoffer-alert {
+    padding: 0 20px;
+}
+.static-icon {
+    position: relative;
+    margin-left: -15px;
+    color: #516C9a;
+}
+.static-info {
+    padding-left: 30px;
+    background-color: #e0edfd;
+    border-color: #c5d9f3;
+    color: #6b6b6b;
+    font-size: 12px;
+    font-weight: 700;
+}
+.switch-offer-view {
+    padding: 25px 30px 10px 25px;
+    content: "";
+    display: table;
+    width: 100%;
+}
+.affoffer-list-data {
+    padding: 0 16px;
+    min-height: 330px;
+}
+.table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 6px 10px;
+    height: 36px;
+    vertical-align: middle;
+    color: #666;
+    background-color: #fff;
+}
+.td-id {
+    width: 50px!important;
+    font-size: 13px!important;
+}
+.pagination {
+    display: block;
+    text-align: right;
+    margin: 0;
+    padding: 5px 0 140px;
+    text-align: center;
+}
+.pagination-left {
+    padding-left: 5px;
+    padding-top: 12px;
+}
+.pagination .all-select-result {
+    color: #888;
+    margin-right: 3px;
+    font-weight: 700;
+    line-height: 26px;
+}
+.pagination-center {
+    padding: 3px 200px 0 5px;
+}
+.pagination .frist em, .pagination .last em {
+    display: inline-block;
+    border-left: 1px solid #666;
+    height: 8px;
+    position: absolute;
+    right: 15px;
+    top: 8px;
+}
+.pagination-center a > i {
+    /*transform: scale(.);*/
+    font-size: 12px;
+    -webkit-transform: scale(.8);
+    -moz-transform: scale(.8);
+    -ms-transform: scale(.8);
+    -o-transform: scale(.8);
+    transform: scale(.8);
+    color: #666;
+}
+.pagination-center a.btn {
+    padding: 3px 8px;
+}
+.pagination-center input.form-control {
+    height:27px;
+    display: inline;
+    width: 28px;
+    text-align: center;
+    padding: 0;
+    line-height: 1em;
+}
+.pagination-center a.btn-default:hover {
+    background-color: #f6f6f6 !important;
+    border-color: #ccc;
+}
+.affoffer-needapproval {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -601px;
+    display: block;
+    padding-right: 20px;
+}
+span.affoffer-desktop, span.affoffer-mobile, span.affoffer-tablet, span.affoffer-approved, span.affoffer-needapproval, span.affoffer-private {
+    display: block;
+    float: right;
+    height: 20px;
+    margin-left: 5px;
+    margin-top: 2px;
+    width: 20px;
+}
+.switch-offer-view-btn > a {
+    padding-left: 10px;
+    font-size: 18px;
+    color: #ccc;
+}
+.switch-offer-view-btn > a.active {
+    color: #34495e;
+}
+.aff-payment-budget>div {
+    border-radius: 3px;
+    height: 120px;
+    padding-right: 30px;
+    padding-top: 13px;
+    width: 380px;
+}
+div.total-budget {
+    background: url("http://static1.fuseclick.com/public/images/aff-total-budget-background.png") repeat;
+}
+.referral-income .first-label, .aff-payment-budget .first-label {
+    font-size: 45px;
+    font-weight: 400;
+}
+.referral-income label, .aff-payment-budget label {
+    color: #FFF;
+    display: block;
+    text-align: right;
+    font-size: 18px;
+}
+.no-date-tr {
+    height: 200px;
+}
+.table-bordered>thead>.no-date-tr>th, .table-bordered>tbody>.no-date-tr>th, .table-bordered>tfoot>.no-date-tr>th, .table-bordered>thead>.no-date-tr>td, .table-bordered>tbody>.no-date-tr>td, .table-bordered>tfoot>.no-date-tr>td {
+    color: #ccc;
+    font-size: 20px;
+    line-height: 200px;
+    text-align: center;
+    font-weight: 700;
+}
+.affToolVariable {
+    width: 580px;
+    margin-right: 20px;
+    float: left;
+}
+#Pixel {
+    padding: 30px 20px;
+}
+.affToolPixel {
+    float: right;
+    width: 470px;
+}
+.affToolPixePanel>.affToolPixeTitle {
+    display: block;
+    font-size: 15px;
+    border-bottom: 1px solid #DDD;
+}
+.affToolPixePanel>.affToolPixeIntro {
+    color: #888;
+    font-size: 12px;
+}
+.btn-rule-add {
+    background-color: #516c9a;
+    width: 80px;
+    padding: 0;
+    color: #fff;
+}
+.btn-rule-add:hover {
+    color: #fff;
+}
+.aff-btn {
+    font-weight: 700;
+    color: #FFF;
+    border-radius: 3px;
+    height: 30px;
+    font-size: 12px;
+}
+.list-offer-table {
+    background: #FFF;
+    overflow-x: auto;
+    font-size: 12px;
+}
+.table-handle {
+    width: 110px;
+    text-align: center;
+    padding: 0 10px;
+}
+.table-handle a {
+    padding-right: 5px;
+}
+th {
+    background: -webkit-linear-gradient(top,#fefefe,#e1e1e1);
+    background: -mox-linear-gradient(top,#fefefe,#e1e1e1);
+    background: linear-gradient(top,#fefefe,#e1e1e1);
+}
+td {
+    font-size: 12px;
+}
+#loginWrapper>div.login-panel {
+    margin: -270px 0 0 -200px;
+    padding: 30px 70px 40px 70px;
+    width: 400px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+#loginWrapper>div {
+    min-height: 360px;
+    left: 50%;
+    margin: -320px 0 0 -180px;
+    padding-left: 40px;
+    padding-top: 40px;
+    position: absolute;
+    top: 50%;
+    width: 450px;
+}
+#loginWrapper .loginLogo {
+    width: 260px;
+    height: 130px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    text-align: center;
+}
+#loginWrapper .field {
+    position: relative;
+    width: 150%;
+}
+#loginWrapper .field input[type="text"], #loginWrapper .field input[type="password"] {
+    height: 36px;
+    box-shadow: 2px 2px 3px #f5f5f5 inset;
+    font-weight: 700;
+}
+.field {
+    content: "";
+    display: table;
+    margin-bottom: 16px;
+}
+input, textarea {
+    border: 1px solid #DDD;
+    font-size: 12px;
+    color: #666;
+    padding: 6px 9px;
+    padding: 0\9 9px\9;
+    border-radius: 3px;
+    width: 260px;
+    height: 31px\9;
+    line-height: 31px\9;
+    resize: none;
+    position: relative\9;
+}
+.btn-login {
+    width: 260px;
+    height: 32px;
+    background: #7cb9be;
+    line-height: 21px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 600;
+}
+.btn-login:hover {
+    color: #fff;
+}
+.f5-captcha {
+    color: #aaa;
+    display: block;
+    padding: 10px 0 0 2px;
+}
+#loginWrapper .signUpDiv>a {
+    display: block;
+    color: #888;
+    text-decoration: underline;
+    padding-bottom: 6px;
+    padding-left: 3px;
+}
+#loginWrapper .forgot-password {
+    color: #888;
+    margin-left: 8px;
+}
+#signUpwrapper {
+    padding-top: 15px;
+    width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 5px;
+}
+#signUpLogo {
+    padding-bottom: 10px;
+}
+#signUpLogo #logo {
+    margin-left: 0;
+}
+#signUpRight {
+    background: #FFF;
+    width: 900px;
+    border-radius: 5px;
+}
+div.affsignup-header {
+    background-color: #314051;
+    height: 80px;
+    border-radius: 4px 4px 0 0;
+    padding: 21px 90px;
+}
+div.affsignup-header>label {
+    display: block;
+    color: #FFF;
+    font-size: 18px;
+    margin: 0;
+}
+div.affsignup-header>span {
+    color: #d8dadc;
+    font-size: 11px;
+}
+div.affsignup-content {
+    padding: 8px 90px;
+}
+#signUpRight .signUpsubscribing {
+    border-bottom: 1px solid #DDD;
+}
+#signUpRight .signUpAccountInfo {
+    padding-left: 92px;
+    padding-top: 5px;
+    content: "";
+    display: table;
+}
+.infoTitle {
+    font-size: 18px;
+    margin-bottom: 0;
+    padding-top: 15px;
+}
+#signUpRight ul.sign-info-ul>li {
+    width: 278px;
+    float: left;
+    padding-bottom: 20px;
+    position: relative;
+}
+.select-ssm .chosen-container {
+    width: 81px;
+}
+.chosen-container {
+    height: 31px;
+}
+.select-input-fuse .chosen-container-single .chosen-single {
+    border-radius: 3px 0 0 3px;
+    height: 31px;
+    line-height: 26px;
+}
+.chosen-container-single .chosen-single span {
+    font-weight: 400;
+    margin-right: 20px;
+    height: 30px;
+    line-height: 28px;
+}
+#signUpRight .signup-question {
+    padding: 20px 92px;
+}
+#signUpRight .question-item {
+    padding-bottom: 12px;
+    position: relative;
+}
+#signUpRight .signup-question label.question-deatil {
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
+}
+#signUpRight .signup-question textarea {
+    width: 100%;
+}
+.signUpPaymenttInfo {
+    padding: 30px 0 50px 92px;
+}
+.iferoxTerms {
+    padding-bottom: 15px;
+    padding-top: 10px;
+    position: relative;
+}
+#signUpRight .chbox {
+    margin: 0;
+}
+label.chbox {
+    position: relative;
+    display: inline-block;
+    line-height: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 4px;
+    margin-right: 20px;
+    min-width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.list-checkbox {
+    width: auto;
+}
+.signUpSubmit .btn.disabled, .signUpSubmit .btn[disabled], .signUpSubmit fieldset[disabled] .btn {
+    background-color: #68ad85;
+    opacity: 0.6;
+}
+.btn-signup {
+    background: #68ad85;
+    font-size: 17px;
+    height: 48px;
+    line-height: 34px;
+    width: 180px;
+    color: #fff;
+    font-weight: 600;
+}
+.btn-signup:hover {
+    color: #fff;
+}
+.select-input {
+    width: 260px;
+}
+.select-input select {
+    width: 90px;
+    float: left;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-left: 2px;
+    text-align: center;
+    height: 32px;
+    border-color: #ddd;
+}
+.select-input input {
+    width: 170px;
+    float: left;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 32px;
+    border-color: #ddd;
+}
+.country-select {
+    width: 260px;
+    height: 32px;
+    border-color: #ddd;
+}
+.country-select:focus {
+    box-shadow: none;
+    border-color: #ddd;
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ddd;
+}
+.cancel,.submit {
+    float: left;
+}
+.cancel,.no-remove {
+    color:#337ab7 !important;
+}
+.list-offer-table tbody td input {
+    width: 350px;
+}
+.list-offer-table tbody tr {
+    position: relative;
+}
+.affoffer-grid-data>ul {
+    content: "";
+    display: table;
+    width: 100%;
+}
+.affoffer-grid-base-info {
+    padding: 15px 10px;
+    height: 120px;
+}
+.affoffer-grid-base-info .affoffer-logo {
+    border: medium none;
+    text-align: center;
+    width: auto;
+}
+.affoffer-grid-base-info label.affoffer-name {
+    max-height: 42px;
+}
+label.affoffer-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 34px;
+    word-break: break-all;
+    display: block;
+    margin-bottom: 0;
+}
+.affoffer-grid-base-info>label {
+    font-size: 13px;
+}
+.affoffer-grid-detail-info>span {
+    display: block;
+    color: #888;
+    padding-left: 10px;
+}
+.affoffer-grid-detail-info>.affoffer-description-short {
+    height: 70px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    padding-right: 10px;
+    padding-top: 3px;
+}
+.affoffer-grid-detail-info .affoffer-core-info {
+    background-color: #f5f5f5;
+    padding-left: 10px;
+    height: 78px;
+    padding-top: 10px;
+}
+#searchoffers .affoffer-grid-detail-info .affoffer-core-info, #similarOffers .affoffer-grid-detail-info .affoffer-core-info {
+    height: 20px;
+}
+label.affoffer-money {
+    display: block;
+    font-size: 13px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 8px;
+}
+.affoffer-grid-data ul > li {
+    margin-left: 14px;
+}
+.switch-offer-view-btn i {
+    font-size: 16px;
+}
+div.affoffer-referral {
+    content: "";
+    display: table;
+    padding-bottom: 20px;
+}
+div.affoffer-referral>div.text-info {
+    background-color: #FFF;
+    width: 700px;
+    min-height: 416px;
+    margin-right: 14px;
+}
+div.text-info-core {
+    min-height: 120px;
+    border-bottom: 2px solid #f4f5f9;
+    padding: 6px 15px;
+    content: "";
+    display: table;
+    width: 100%;
+}
+label.affoffer-name-lg {
+    display: block;
+    color: #333;
+    font-size: 17px;
+    padding-right: 50px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+.text-info-core label.affoffer-name-lg {
+    display: inline-block;
+    float: left;
+    margin-bottom: 0;
+    max-height: none;
+    max-width: 650px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-right: 0;
+    white-space: nowrap;
+    width: auto;
+}
+.affoffer-mobile {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -631px;
+}
+div.affoffer-date-div>label.affoffer-money {
+    padding: 15px 0 0;
+    font-size: 18px;
+}
+.btn-affoffer-preview {
+    background-color: #516c9a;
+    height: 21px;
+    width: 68px;
+    padding: 0;
+    line-height: 20px;
+    margin-top: -1px;
+}
+.text-info-core .btn-affoffer-preview {
+    margin-left: 10px;
+    margin-top: 17px;
+}
+.btn {
+    color: #fff;
+}
+div.affoffer-date-div {
+    padding-left: 15px;
+}
+.text-info .affoffer-detail-info {
+    padding: 0 10px 22px 20px;
+}
+.text-info .affoffer-detail-info>label {
+    font-size: 14px;
+    margin-top: 13px;
+    color: #333;
+}
+.static {
+    position: static;
+    background-color: transparent;
+}
+.affoffer-detail-info>label, .affdash-col-3>label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 3px;
+}
+.include-countries {
+    background: #68ad85;
+}
+.include-countries, .exclude-countries {
+    height: 20px;
+    width: 54px;
+    border-radius: 10px;
+    color: #FFF;
+    font-weight: 700;
+    padding-left: 6px;
+    padding-top: 2px;
+    margin-left: 16px;
+}
+.affoffer-detail-info>label.affoffer-allowe-traffic em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -333px -735px;
+}
+.affoffer-detail-info>label.affoffer-allowe-traffic+span {
+    padding-left: 20px;
+    display: block;
+}
+.affoffer-restriction+.span-point {
+    display: inline-block;
+    width: auto;
+}
+.affoffer-detail-info .span-point {
+    overflow: hidden;
+    width: auto;
+    line-height: 1.4;
+    height: auto;
+}
+.text-info .span-point {
+    padding-left: 20px;
+}
+.affoffer-detail-info>label.affoffer-description+span {
+    padding-left: 20px;
+}
+.affoffer-description-short {
+    display: block;
+}
+.text-info .affoffer-detail-info label.affoffer-detail-category+span,.text-info .affoffer-detail-info label.affoffer-conversion-point+span {
+    top: 17px;
+    content: "";
+    display: table;
+    margin-bottom: 15px;
+    white-space: normal;
+}
+label.affoffer-detail-category+span,label.affoffer-conversion-point+span {
+    left: 8px;
+    position: relative;
+    top: 13px;
+}
+/*.affoffer-detail-info label.affoffer-conversion-point+span {
+    line-height: 24px;
+}*/
+.affoffer-detail-info>label.affoffer-detail-category em, .affdash-col-3>label.affoffer-detail-category em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -490px;
+}
+.affoffer-detail-info>label.affoffer-conversion-point em {
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -518px;
+}
+div.affoffer-referral>div.sreenshot-info {
+    background-color: #FFF;
+    width: 400px;
+    min-height: 348px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    word-break: break-all;
+}
+div.sreenshot-info-image {
+    border-bottom: 1px solid #DDD;
+    line-height: 300px;
+    text-align: center;
+    min-height: 300px;
+}
+.sreenshot-info-image>span {
+    color: #DDD;
+    line-height: 300px;
+}
+.sreenshot-info-apply {
+    content: "";
+    display: table;
+    min-height: 50px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    width: 100%;
+}
+.sreenshot-info-apply>span {
+    display: block;
+    color: #666;
+    padding: 20px 0 40px 15px;
+    font-size: 14px;
+}
+.btn-offer-apply {
+    background-color: #34495e;
+    height: 30px;
+    width: 100px;
+    font-size: 13px;
+}
+.btn:hover,.btn:focus {
+    color: #fff;
+}
+.data-grid {
+    height: 536px;
+    margin: 0;
+    padding-top: 15px;
+}
+.data-grid li {
+    width: 250px;
+    height: 230px;
+    padding: 0;
+    float: left;
+    border: 1px solid #ddd;
+    margin-left: 37px;
+    margin-bottom: 30px;
+    background: #FFF;
+    border-radius: 5px 5px 0 0;
+}
+.data-grid .data-grid-detail {
+    height: 30px;
+    border-bottom: 1px solid #DDD;
+    padding: 6px 15px;
+}
+.data-grid li .campaign-logo {
+    display: block;
+    height: 200px;
+    padding: 0;
+    text-align: center;
+    line-height: 200px;
+    outline: 0;
+}
+.campaign-logo img {
+    max-height: 100%;
+    max-width: 99%;
+}
+.ms-drop input {
+    width: auto;
+}
+.ms-parent {
+    width: 194px !important;
+}
+.ms-choice {
+    border-color: #ddd !important;
+    border-radius: 0 !important;
+    height: 30px !important;
+}
+.ms-drop {
+    border-color: #ddd !important;
+}
+
+.ranges li.active {
+background: #516c9a !important;
+    border: 1px solid #516c9a !important;
+    color: #fff !important;
+}
+.applyBtn {
+    color: #fff !important;
+    background-color: #516c9a !important;
+    border-color: transparent !important;
+    margin-left: 8px !important;
+}
+
+.daterangepicker .ranges li {
+    color: #666;
+}
+.ranges li:hover {
+    background: #516c9a !important;
+    border: 1px solid #516c9a !important;
+}
+.daterangepicker td.active{
+    background: #516c9a !important;
+    border: 1px solid #516c9a !important;
+}
+.reports .nav-tabs li a {
+    padding-top: 0;
+}
+.select-md > input[type="checkbox"] {
+    width:auto;
+}
+#run-btn {
+    /*line-height: 10px;*/
+    font-size: 12px;
+}
+#run-btn:hover,#run-btn:focus {
+    color: #fff;
+}
+#report-conversion .aff-report-table, #report-campaign .aff-report-table {
+    padding-top: 20px;
+}
+.report-import-export {
+    height: 36px;
+    background: #f5f5f5;
+    border: 1px solid #DDD;
+    border-bottom: 0;
+    padding-top: 1px;
+}
+.export-div {
+    padding-top: 3px;
+}
+.file-link {
+    background: none repeat scroll 0 0 #7e7e7e;
+    color: #fefefe;
+    font-weight: 700;
+    height: 26px !important;
+    padding: 0 12px;
+    line-height: 26px;
+    padding-top: 0 !important;
+    margin-left: 10px;
+}
+.green-export-import {
+    background: url("http://static1.fuseclick.com/public/images/iferox-sprite2.png") no-repeat scroll -335px -423px rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 15px;
+    margin-right: 4px;
+    position: relative;
+    top: 4px;
+    width: 14px;
+}
+.black-export-import {
+    display: inline-block;
+    float: left;
+    height: 15px;
+    margin-right: 3px;
+    width: 16px;
+    background: url('http://static1.fuseclick.com/public/images/iferox-sprite.png') no-repeat -428px -546px;
+}
+.edit-column .pop-link {
+    font-weight: 400;
+    color: #34495e;
+}
+.edit-column {
+    padding-top: 10px;
+}
+.edit-column-panel {
+    background-color: #f5f5f5;
+    border: 1px solid #34495e;
+    border-radius: 3px;
+    content: "";
+    max-width: 720px;
+    min-width: 360px;
+    padding: 30px 30px 10px;
+    position: absolute;
+}
+.longen-left {
+    position: relative;
+    float: right;
+    left: 30px;
+    top: -7px;
+}
+.longen-left span {
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 8px solid #34495e;
+    position: absolute;
+}
+
+.longen-left em {
+    width: 0;
+    height: 0;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 6px solid #f5f5f5;
+    position: absolute;
+    top: 1px;
+}
+.edit-column-panel .dataItem-div {
+    content: "";
+    display: table;
+}
+.edit-column-panel ul>li {
+    float: left;
+    width: 170px;
+    padding-left: 30px;
+}
+.edit-column-panel ul {
+    border-bottom: 1px solid #34495e;
+    content: "";
+    display: table;
+    margin: 0;
+}
+.edit-column-panel ul>li.first-li {
+    width: 140px;
+    padding-left: 0;
+}
+.edit-column-panel ul>li>label {
+    color: #34495e;
+}
+.edit-column-panel .column-dataItem {
+    border-top: 1px solid #34495e;
+    min-height: 300px;
+    padding-top: 10px;
+}
+.edit-column-panel label.chbox {
+    color: #666;
+    font-weight: 400;
+    display: block;
+}
+label.chbox {
+    position: relative;
+    display: inline-block;
+    line-height: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 4px;
+    margin-right: 20px;
+    min-width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.chbox input {
+    visibility: hidden;
+    width: 20px;
+    overflow: hidden;
+    margin: 0;
+}
+.edit-column-panel label.chbox-lg-green span {
+    width: 13px;
+    height: 13px;
+}
+label.chbox-lg-green span {
+    background: none repeat scroll 0 0 #fff;
+    border-radius: 2px;
+    height: 16px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    width: 16px;
+    border: 0;
+    border: 1px solid #DDD;
+}
+label.chbox input[type=checkbox]:checked+span i {
+    -ms-filter: "alpha(opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+label.chbox-lg-green span i {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 transparent;
+    border-color: #27a15b;
+    border-image: none;
+    border-style: none none solid solid;
+    border-width: medium medium 2px 2px;
+    content: "";
+    height: 50%;
+    left: 10%;
+    opacity: 0;
+    position: absolute;
+    top: 18%;
+    transform: rotate(-45deg);
+    width: 80%;
+}
+.btn-modal-save {
+    background: #516c9a;
+    height: 32px;
+    width: 80px;
+    margin-top: 3px;
+}
+.edit-column-panel {
+    display: none;
+}
+.btn-modal-save:hover,.btn-modal-save:focus {
+    color: #fff !important;
+}
+.pop-link {
+    text-decoration: none;
+}
+.pop-link:hover,.pop-link:focus {
+    text-decoration: none;
+}
+.ms-drop.bottom input {
+    margin: 0 10px 0 0 !important;
+}
+
+.geo-info {
+    background-color: #FFF;
+    width: 400px;
+    min-height: 100px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    word-break: break-all;
+}
+
+.report_div {
+    overflow-x: scroll; overflow-y: auto
+}
+
+.btn_go, .page_num {
+    background-color: #337ab7;
+}
+
+.page_num, .page_limit{
+    width:100px;
+}

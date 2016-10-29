@@ -1,0 +1,162 @@
+<%!
+from tornado.escape import json_encode
+%>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据统计平台</title>
+    <link rel="stylesheet" href="/css/soloanalysis/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/soloanalysis/daterangepicker.css">
+    <link id="favicon" href="/css/soloanalysis/_img/favicon.png" type="image/x-icon" rel="icon"/>
+    <style>
+    body {
+        background-color: #ffffff;
+    }
+    .four > button {
+        border-radius: 0%;
+        border: 1px solid transparent;
+        padding-left: 25px;
+    }
+    table{
+        border: transparent;
+    }
+    .time {
+        color:#333;
+        background-color:#fff;
+        border-radius: 4px;
+        padding:6px 12px;
+    }
+</style>
+</head>
+<body>
+<div class="container" style="margin-top: 25px" ms-controller="dashboard">
+    <!--二级联动-->
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            所有开发者
+            <span> > </span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li ms-repeat="publisher"><a ms-click="get_slot(el.publisher_id)">{{el.publisher_id}}</a></li>
+        </ul>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                所有广告位
+                <span> > </span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ms-repeat="slot"><a ms-click="get_data(el)">{{el}}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default" ms-click="status_time" id="time">日期</button>
+        <button type="button" class="btn btn-default" ms-click="status_country" id="country">国家</button>
+    </div>
+    <!--准确日期-->
+    <div class="pull-right" >
+        <span style="margin:0px 5px">时间段</span>
+        <input class="time" type="text" name="daterange" value="" readonly="readonly"/>
+    </div>
+    <!--四data-->
+    <div style="margin-top: 10px;margin-bottom:10px;padding: 0;border: 1px solid #eee">
+        <div class="btn-group four">
+            <button type="button" class="btn btn-default" ms-click="get_new">新增设备</button>
+            <button type="button" class="btn btn-default" ms-click="get_active">活跃设备</button>
+            <button type="button" class="btn btn-default" ms-click="get_total">累积设备</button>
+            <!--<button type="button" class="btn btn-default">初始化次数</button>-->
+        </div>
+    </div>
+    <!--图表-->
+    <div id="container" style="min-width:700px;height:400px"></div>
+    <!--日期报表-->
+    <div ms-if="time">
+    <div style="margin-top: 25px;">
+        <b>日期数据</b>
+        <a ms-attr-href="{{time_url}}" class="btn btn-default pull-right"><b>导出数据</b></a>
+    </div>
+    <hr>
+    <table class="table table-hover text-center" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <td>日期</td>
+            <td>新增设备</td>
+            <!--<td>次日留存</td>-->
+            <td>活跃设备</td>
+            <td>累积设备</td>
+            <!--<td>请求次数</td>-->
+            <!--<td>初始化次数</td>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr ms-repeat="data_group_by_time_slice">
+            <td>{{el._id}}</td>
+            <td>{{el.new}}</td>
+            <td>{{el.active}}</td>
+            <td>{{el.total}}</td>
+        </tr>
+        </tbody>
+    </table>
+        <div id="pages_time" style="text-align: center"></div>
+    </div>
+    <div ms-if="country">
+    <!--国家报表-->
+    <div style="margin-top: 25px;">
+        <b>国家数据</b>
+        <a ms-attr-href="{{country_url}}" class="btn btn-default pull-right"><b>导出数据</b></a>
+    </div>
+    <hr>
+    <table class="table table-hover text-center" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <td>国家</td>
+            <td>新增设备</td>
+            <!--<td>次日留存</td>-->
+            <td>活跃设备</td>
+            <td>累积设备</td>
+            <!--<td>请求次数</td>-->
+            <!--<td>初始化次数</td>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr ms-repeat="data_group_by_country_slice">
+            <td >{{el._id}}</td>
+            <td >{{el.new}}</td>
+            <td >{{el.active}}</td>
+            <td >{{el.total}}</td>
+        </tr>
+        </tbody>
+    </table>
+        <div id="pages_country" style="text-align: center"></div>
+    </div>
+</div>
+<script src="/js/soloanalysis/jquery-1.12.1.min.js"></script>
+<script src="/js/soloanalysis/bootstrap.js"></script>
+<script src="/js/soloanalysis/moment.min.js"></script>
+<script src="/js/soloanalysis/daterangepicker.js"></script>
+<script src="/js/soloanalysis/jq-ext.js"></script>
+<script src="/js/soloanalysis/avalon.js"></script>
+<script src="/js/soloanalysis/highcharts.js"></script>
+<script src="/js/soloanalysis/exporting.js"></script>
+<script src="/js/soloanalysis/line.js"></script>
+<script src="/js/soloanalysis/analysis/dashboard.js"></script>
+<script src="/js/soloanalysis/extendPagination.js"></script>
+<script src="/js/soloanalysis/dateFormat.js"></script>
+<script>
+var today = new Date().Format("yyyy-MM-dd");
+var before = GetLastWeekDate()
+avalon.ready(
+            function(){
+                avalon.vmodels.dashboard.publisher = ${json_encode(publisher)|n};
+                avalon.vmodels.dashboard.filter.time = {
+                    'start':before,
+                    'end':today,
+                };
+                avalon.vmodels.dashboard.get_data();
+
+            }
+    )
+</script>
+</body>
+</html>

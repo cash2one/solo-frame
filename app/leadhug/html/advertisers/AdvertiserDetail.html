@@ -1,0 +1,85 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <div class="row">
+                                	<div class="col-md-6 col-lg-12">
+                                		 <div class="panel panel-default">
+											<div class="panel-heading">
+												Advertiser Detail
+											</div>
+											<!-- /.panel-heading -->
+											<div class="panel-body">
+												<div class="dataTable_wrapper">
+													<table class="table table-bordered table-striped">
+													<tbody>
+														<tr>
+															<td>ID</td>
+															<td>${advertiser.get('_id', '')}</td>
+														</tr>
+														<tr>
+															<td>Name</td>
+															<td>${advertiser.get('name', '')}</td>
+														</tr>
+														<tr>
+															<td>Email</td>
+															<td>${advertiser.get('email', '')}</td>
+														</tr>
+														<tr>
+															<td>BD</td>
+															<td>${advertiser.get('bd', '')}</td>
+														</tr>
+														<tr>
+															<td>PM</td>
+															<td>${advertiser.get('pm', '')}</td>
+														</tr>
+														<tr>
+															<td>Country</td>
+															<td>${advertiser.get('country', '')}</td>
+														</tr>
+                                                        <tr>
+															<td>Offer Count</td>
+															<td>${advertiser.get('offers_count', '')}</td>
+														</tr>
+														<tr>
+															<td>SkypeId</td>
+															<td>${advertiser.get('skype_id', '')}</td>
+														</tr>
+                                                        <tr>
+															<td>Status</td>
+															<td>${advertiser.get('status', '')}</td>
+														</tr>
+                                                        <tr>
+															<td>White List</td>
+															<td>${advertiser.get('white_list', '')}</td>
+														</tr>
+													</tbody>
+											   </table>
+												</div>
+											</div>
+										</div>
+                                	</div>
+                                </div>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+</div>
+<%block name="script">
+${parent.script()}
+</%block>

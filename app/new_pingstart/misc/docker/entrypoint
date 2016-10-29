@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+PREFIX=$(cd "$(dirname "$0")"; pwd)
+BASE=$PREFIX/../..
+
+cd $PREFIX
+echo "import _env;import app.$(basename $PREFIX).misc.config" > $BASE/solo/_app_config_.py
+cd $BASE
+python $BASE/app.py
+
+if [ "$1" = "release" ]; then
+    echo "uploading..."
+    exec python -u $BASE/solo/web/boot/css_js.py
+    return $?
+elif [ "$1" = "serve" ]; then
+    exec python -u $BASE/solo/web/boot/serve.py
+# elif [ "$1" = "worker" ]; then
+#     exec python -u $BASE/app/leadhug/controller/gearman_package/worke.py
+else
+    exec "$@"
+fi
+

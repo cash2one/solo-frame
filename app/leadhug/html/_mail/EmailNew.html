@@ -1,0 +1,101 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">
+</%block>
+<div id="page-wrapper" ms-controller="email_new">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right" ms-click="send">send</button></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            form
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <form class="form-horizontal">
+                                    <div class="form-group form-area">
+                                        <label class="col-lg-2 control-label">EMode</label>
+                                            <div class="col-lg-6">
+                                               <select class="form-control" ms-change="e_model_change" ms-duplex="email.model_id">
+                                                   <option class="form-control" ms-repeat="e_models" ms-attr-value="el._id">
+                                                       {{el.model_name}}
+                                                   </option>
+                                               </select>
+                                            </div>
+                                    </div>
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Subject</label>
+                                    <div class="col-lg-6">
+                                      <input class="form-control" type="text" placeholder="Subject" ms-duplex="email.subject">
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Traffic</label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" ms-change="traffic_change" id="select" name="id" multiple>
+                                            % for off in offers:
+                                                <option class="" value="${off._id}">(${off._id})${off.title}</option>
+                                            % endfor
+                                            <!--<option class="form-control" ms-repeat="offers" ms-attr-value="el._id">{{el.title}}</option>-->
+                                        </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">To</label>
+                                    <div class="col-lg-6 receiver">
+                                      <input class="form-control" type="text" placeholder="Email address must be splited by ','" ms-duplex="email.receiver">
+                                    </div>
+                                  </div>
+                                  <div class="form-group form-area">
+                                   <label class="col-lg-2 control-label">Message</label>
+                                    <div class="col-lg-6 message">
+                                      <textarea class="form-control" rows="10" ms-duplex="email.message">{{email.message}}</textarea>
+                                    </div>
+                                  </div>
+                                </form>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+      </div>
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_fm_selectator_jquery}"></script>
+<script src="${js.leadhug_leadhug__mail}"></script>
+<script>
+    $("#select").selectator({
+        showAllOptionsOnFocus: true,
+        keepOpen: true
+    });
+    avalon.ready(
+            function () {
+                var e_models = ${json_encode(e_models)|n};
+                if(e_models){
+                    avalon.vmodels.email_new.e_models = e_models;
+                };
+
+                $("#select").change(function(val){
+                    avalon.vmodels.email_new.get_affiliate_emails($(this).val());
+                });
+            }
+    )
+</script>
+</%block>

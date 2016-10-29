@@ -1,0 +1,120 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<!-- /#page-wrapper -->
+     <div id="page-wrapper" ms-controller="advertiser_account">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right" id="click" ms-click="save('new')">save</button></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            form
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <form class="form-horizontal">
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Name</label>
+                                    <div class="col-lg-6" id="name">
+                                      <input class="form-control" type="text" placeholder="Name" name="name" ms-duplex="advertiser.name">
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Email</label>
+                                    <div class="col-lg-6" id="email">
+                                      <input class="form-control" type="text" placeholder="Please input split by ','" name="email" ms-duplex="advertiser.email">
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Password</label>
+                                    <div class="col-lg-6" id="password">
+                                      <input class="form-control" type="text" placeholder="Password" name="password" ms-duplex="advertiser.password">
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Country</label>
+                                    <div class="col-lg-6" id="country">
+                                      <input class="form-control" type="text" placeholder="Country" name="country" ms-duplex="advertiser.country">
+                                    </div>
+                                  </div>
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">BD</label>
+                                    <div class="col-lg-6" id="account_manager">
+                                      <select class="form-control" name="account_manager" ms-duplex="advertiser.account_manager">
+                                          <option class="form-control"  ms-repeat="account_managers" ms-attr-value="{{el._id}}">{{el.account}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">PM</label>
+                                    <div class="col-lg-6" id="pm">
+                                      <select class="form-control" name="pm" ms-duplex="advertiser.pm">
+                                          <option class="form-control"  ms-repeat="pms" ms-attr-value="{{el._id}}">{{el.account}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">Skype id</label>
+                                    <div class="col-lg-6">
+                                      <input class="form-control" type="text" placeholder="Skype id" name="skype_id" ms-duplex="advertiser.skype_id">
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">status</label>
+                                    <div class="col-lg-6">
+                                      <select class="form-control" name="status" ms-duplex="advertiser.status">
+                                          <option class="form-control" value="1" selected="selected">active</option>
+                                          <option class="form-control" value="2">pending</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                    <div class="form-group form-area">
+                                    <label class="col-lg-2 control-label">white list</label>
+                                    <div class="col-lg-6" id="white_list">
+                                        <textarea class="form-control" placeholder="Input must be split by ' , '; must! must! Important things are to be repeated for 3 times!" name="white_list" ms-duplex="advertiser.white_list"></textarea>
+                                    </div>
+                                  </div>
+                                </form>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+      </div>
+
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_metisMenu_min}"></script>
+<script src="${js.leadhug_sb_admin_2}"></script>
+<script src="${js.leadhug_leadhug_advertiser}"></script>
+<script type="text/javascript">
+//    $(document).ready(function(){
+//        $("#click").click(function(){
+//            $("#formId").submit();
+//        });
+//    })
+    avalon.ready(
+    function(){
+    	avalon.vmodels.advertiser_account.account_managers=${json_encode(account_managers)|n};
+    	avalon.vmodels.advertiser_account.pms=${json_encode(pms)|n};
+    }
+)
+</script>
+</%block>

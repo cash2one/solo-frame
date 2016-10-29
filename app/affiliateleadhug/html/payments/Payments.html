@@ -1,0 +1,111 @@
+<%!
+from tornado.escape import json_encode
+%>
+<%inherit file="/affiliateleadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+</%block>
+<div class="content-full aff-dashboard">
+
+
+    <div class="aff-report-table">
+        <div class="import-export report-import-export version1">
+            <div class="float-left export-div">
+                <a class="file-link" href="#" id="download">
+                    <em class="export">
+                        Export
+                    </em>
+                </a>
+            </div>
+        </div>
+        <table class="table table-bordered payment-content" id="reportTable" ms-controller="payment">
+            <tr>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Invoice Number
+                </th>
+                <th>
+                    Paid
+                </th>
+            </tr>
+            <tr class="no-date-tr" ms-if="!invoices">
+                <td colspan="20">
+                    Oops ! No data.
+                </td>
+            </tr>
+            <tr ms-repeat="invoices">
+                <td>
+                    {{el.time_range.start}}
+                </td>
+                <td>
+                    {{el.time_range.end}}
+                </td>
+                <td>
+                    {{el._invoice_number}}
+                </td>
+                <td>
+                    {{el._invoice.real_pay}}
+                </td>
+            </tr>
+            <tr ms-if="totalPage == 0">
+                <td colspan="4" align="center" style="height:68px;padding-bottom:0px;padding-top:5px;">No Data</td>
+            </tr>
+        </table>
+
+         <div ms-controller="payment" style="text-align:center;"  class="page_select hidden">
+             <div id="pages" style="display:inline-block;height:43px;"></div>
+             <div>
+                 <ul style="display:inline-block;margin:0px;padding:0px;height:36px;">
+                     <li style="display:inline-block">
+                         <div id="total">
+                             <a href="#" class="btn btn-default btn-sm disabled" role="button" style="width:96px;background-color:gainsboro">{{totalPage}} Total</a>
+                         </div>
+                     </li>
+                     <li style="display:inline-block">
+                         <div>
+                             <select  id="display" ms-on-change="changeLimit()" ms-duplex="limit" class="form-control input-sm" style="width:96px" >
+                                 <option value="100">100 Items</option>
+                                 <option value="50">50 Items</option>
+                                 <option value="30">30 Items</option>
+                             </select>
+                         </div>
+                     </li>
+                     <li style="display:inline-block;height:19px">
+                         <div class="col-lg-6" style="width:154px;padding:0px">
+                             <div class="input-group input-group-sm">
+                                 <input type="text" id="go-page" class="form-control" placeholder="Jump to">
+                                 <span class="input-group-btn">
+                                     <button class="btn btn-default" type="button" ms-on-click="goPage()" style="background-color:gainsboro">Go!</button>
+                                 </span>
+                             </div><!-- /input-group -->
+                         </div><!-- /.col-lg-6 -->
+                     </li>
+                 </ul>
+             </div>
+        </div><!-- /pager -->
+
+    </div>
+</div>
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_extendPagination}"></script>
+<script src="${js.affiliateleadhug_affliate_leadhug_payments}"></script>
+<script src="${js.affiliateleadhug_jquery_tablesorter}"></script>
+<script>
+    avalon.ready(
+            function(){
+                avalon.vmodels.payment.get_payments();
+                $("#payments").addClass('active');
+                $(".export").click(function(){
+                    tableExport('reportTable', 'payment', 'csv');
+                })
+            }
+    )
+
+</script>
+</%block>

@@ -1,0 +1,324 @@
+<%!
+from tornado.escape import json_encode
+%>
+
+<%inherit file="/leadhug/base/base.html"/>
+<%block name="style">
+${parent.style()}
+<link href="${css.leadhug_fm_selectator_jquery}" rel="stylesheet">
+</%block>
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                   <!-- <h1 class="page-header">&nbsp;<button type="button" class="btn btn-primary pull-right">save</button></h1> -->
+                   <div class="main-header"><button type="button" class="btn btn-primary pull-right" id="click">save</button></div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            form
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" ms-controller="offer">
+                            <div class="dataTable_wrapper">
+								<form class="form-horizontal" role="form" action="/offers/create" method="post" id="formId">
+                                <div class="row">
+                                	<div class="col-md-5">
+
+                                		 <div class="form-horizontal">
+										  <div class="form-group">
+											<label class="col-sm-2 control-label">Title</label>
+											<div class="col-sm-10">
+											  <input type="text" class="form-control" placeholder="Title" name="title">
+											</div>
+										  </div>
+										  <div class="form-group">
+											<label class="col-sm-2 control-label">Category</label>
+											<div class="col-sm-10">
+											  <select class="form-control" name="category">
+													  <option class="form-control" ms-repeat="cat" ms-attr-value="{{el._id}}">{{el.name}}</option>
+
+											  </select>
+											</div>
+										  </div>
+											 <div class="form-group">
+											<label class="col-sm-2 control-label">advertiser</label>
+											<div class="col-sm-10">
+											  <select class="form-control" name="advertiser">
+													  <option class="form-control" ms-repeat="ads" ms-attr-value="{{el._id}}">{{el.account}}</option>
+											  </select>
+											</div>
+										  </div>
+											 <div class="form-group">
+											<label class="col-sm-2 control-label">Payout model</label>
+											<div class="col-sm-10">
+											  <select class="form-control" name="price_model">
+													  <option class="form-control" value="1">CPA</option>
+													  <option class="form-control" value="2">CPS</option>
+													  <option class="form-control" value="3">CPC</option>
+													</select>
+											</div>
+										  </div>
+										   <div class="form-group">
+											<label class="col-sm-2 control-label">Tag</label>
+											<div class="col-sm-10">
+											  <input type="text" class="form-control" placeholder="Tag" name="tag">
+											</div>
+										  </div>
+										   <div class="form-group">
+											<label class="col-sm-2 control-label">Rating</label>
+											<div class="col-sm-10">
+											  <input type="text" class="form-control" placeholder="Rating" name="rating">
+											</div>
+										  </div>
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Platform</label>
+												<div class="col-sm-10">
+												  <select class="form-control" name="platform">
+														  <option class="form-control" value="0">ALL</option>
+														  <option class="form-control" value="1">IOS</option>
+														  <option class="form-control" value="2">Android</option>
+														</select>
+												</div>
+										  </div>
+										   <div class="form-group">
+											<label class="col-sm-2 control-label">IconUrl</label>
+											<div class="col-sm-10">
+											  <input type="text" class="form-control" placeholder="IconUrl" name="icon_url">
+											</div>
+										  </div>
+										   <div class="form-group">
+											<label class="col-sm-2 control-label">PackageName</label>
+											<div class="col-sm-10">
+											  <input type="text" class="form-control" placeholder="PackageName" name="package_name">
+											</div>
+										  </div>
+										   <div class="form-group">
+											<label class="col-sm-2 control-label">MiniVersion</label>
+											<div class="col-sm-10">
+											  <input type="text" class="form-control" placeholder="MiniVersion" name="mini_version">
+											</div>
+										  </div>
+										   <div class="form-group">
+											<label class="col-sm-2 control-label">Description</label>
+											<div class="col-sm-10">
+											  <textarea class="form-control" rows="6" name="desciption"></textarea>
+											</div>
+										  </div>
+											 <div class="form-group">
+											<label class="col-sm-2 control-label">Restrictions</label>
+											<div class="col-sm-10">
+											  <textarea class="form-control" rows="6" name="restrictions"></textarea>
+											</div>
+										  </div>
+										</div>
+
+
+
+                                	</div>
+                                	<div class="col-md-7">
+                                		 <div class="form-horizontal">
+											  <div class="form-group">
+												<label class="col-sm-2 control-label">Click Url</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Click Url" name="click_url">
+												</div>
+											  </div>
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Preview url</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Preview url" name="preview_url">
+												</div>
+											  </div>
+											  <div class="form-group">
+												<label class="col-sm-2 control-label">Banner Url</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Banner Url" id="b-url" name="banner_url" ms-duplex="url_banner">
+												</div>
+												<div>
+													  <span class="btn btn-success fileinput-button">
+															<i class="glyphicon glyphicon-plus"></i>
+															<span>Select files...</span>
+															<input class="fileupload banner_image" type="file" name="files[]" multiple>
+														</span>
+												  </div>
+											  </div>
+											   <div class="form-group">
+												   <label class="col-sm-2 control-label">ConverImage</label>
+												   <div class="col-sm-8">
+													  <input type="text" class="form-control" placeholder="ConverImage" id="c-url" name="conver_image" ms-duplex="url_cover">
+												   </div>
+                                               <div>
+													  <span class="btn btn-success fileinput-button">
+															<i class="glyphicon glyphicon-plus"></i>
+															<span>Select files...</span>
+															<input class="fileupload conver_image" type="file" name="files[]" multiple>
+														</span>
+												  </div>
+												<br />
+											   <div class="form-group">
+												<label class="col-sm-2 control-label">Total Cap</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Total Cap" name="total_cap">
+												</div>
+											  </div>
+											   <div class="form-group">
+												<label class="col-sm-2 control-label">Daily Cap</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Daily Cap" name="daily_cap">
+												</div>
+											  </div>
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Month Cap</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Month Cap" name="month_cap">
+												</div>
+											  </div>
+											   <div class="form-group">
+												<label class="col-sm-2 control-label">Payout</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Payment" name="payment">
+												</div>
+											   </div>
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Revenue</label>
+												<div class="col-sm-8">
+												  <input type="text" class="form-control" placeholder="Revenue" name="revenue">
+												</div>
+											   </div>
+
+											 <div class="form-group">
+												 <label class="col-sm-2 control-label">GEO Include/Exclude</label>
+												 <div class="col-sm-8">
+													 <select class="form-control" ms-duplex="include_or_exclude">
+														 <option class="form-control" value="1">include</option>
+														 <option class="form-control" value="0">exclude</option>
+													 </select>
+												 </div>
+											 </div>
+											   <div class="form-group" ms-if="include_or_exclude=='0'">
+												<label class="col-sm-2 control-label">Exclude Geotargeting</label>
+												<div class="col-sm-8">
+													<select class="form-control select" id="select" name="exclude_geo_targeting" multiple>
+														% for k, v in countries.items():
+															<option class="" value="${k}">${v}(${k})</option>
+														% endfor
+													</select>
+												</div>
+											  </div>
+											 <div class="form-group" ms-if="include_or_exclude=='1'">
+												<label class="col-sm-2 control-label">Include Geotargeting</label>
+												<div class="col-sm-8">
+													<select class="form-control select" id="select2" name="include_geo_targeting" multiple>
+														% for k, v in countries.items():
+															<option class="" value="${k}">${v}(${k})</option>
+														% endfor
+													</select>
+												</div>
+											  </div>
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Root</label>
+												<div class="col-sm-8">
+												  <select class="form-control" name="root">
+													  		<option class="form-control">No</option>
+														  <option class="form-control">Yes</option>
+														</select>
+												</div>
+											  </div>
+												<div class="form-group">
+												<label class="col-sm-2 control-label">Access Status</label>
+												<div class="col-sm-10">
+												  <select class="form-control" name="access_status">
+													  <option class="form-control" value="2">Need Approve</option>
+													  <option class="form-control" value="1" selected="selected">Public</option>
+													  <option class="form-control" value="0">Private</option>
+												  </select>
+												</div>
+											  </div>
+											 <div class="form-group">
+												<label class="col-sm-2 control-label">Status</label>
+												<div class="col-sm-10">
+												  <select class="form-control" name="status">
+													  <option class="form-control" value="2">Pending</option>
+													  <option class="form-control" value="1" selected="selected">Active</option>
+													  <option class="form-control" value="0">Paused</option>
+												  </select>
+												</div>
+											  </div>
+											</div>
+                                	</div>
+                                </div>
+								</form>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+      </div>
+    <!-- /#wrapper -->
+<%block name="script">
+${parent.script()}
+<script src="${js.leadhug_fm_selectator_jquery}"></script>
+<script src="${js.leadhug_leadhug_offers}"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+        $("#click").click(function(){
+            $("#formId").submit();
+        });
+		$(".select").selectator({
+			showAllOptionsOnFocus: true,
+			keepOpen: true
+		});
+
+		$('.fileupload').click(function(){
+			$(this).fileupload({
+				url: '/offers/banner_img',
+				dataType: 'json',
+				add: function (e, data) {
+					var uploadErrors = [];
+
+
+					if (data.originalFiles[0]['size'] > (1024 * 1024 * 20)) {
+						console.log(data.originalFiles[0]['size'])
+						uploadErrors.push('The file size don\'t more than 20M');
+					}
+					if(uploadErrors.length > 0) {
+						alert(uploadErrors.join("\n"));
+					} else {
+						data.context = $('<p/>').text('Subiendo...').appendTo(document.body);
+						data.submit();
+					}
+
+				},
+				done: function (e, data) {
+					if($(this).hasClass('banner_image')){
+						avalon.vmodels.offer.url_banner = data.result.url;
+					}else{
+						avalon.vmodels.offer.url_cover = data.result.url;
+					}
+				}
+			}).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+		})
+	});
+
+    avalon.ready(
+    function(){
+		$(document).ready(function(){
+			$("#click").click(function(){
+				$("#formId").submit();
+			});
+		})
+    	avalon.vmodels.offer.cat=${json_encode(cat)|n};
+    	avalon.vmodels.offer.ads=${json_encode(ads)|n};
+    }
+)
+</script>
+</%block>
